@@ -647,24 +647,24 @@
         ];
 
     var meleeAugsArray = [
-            { meleeAugId: 0, Name: "Sweep I", cCost: 3},
-            { meleeAugId: 1, Name: "Sweep II", cCost: 5},
-            { meleeAugId: 2, Name: "Extend I", cCost: 3},
-            { meleeAugId: 3, Name: "Extend II", cCost: 5},
-            { meleeAugId: 4, Name: "Scar", cCost: 1},
-            { meleeAugId: 5, Name: "Measure I", cCost: 1},
-            { meleeAugId: 6, Name: "Measure II", cCost: 3},
-            { meleeAugId: 7, Name: "Measure III", cCost: 5},
+            { meleeAugId: 0, Name: "Sweep I", cCost: 3, uCost:0},
+            { meleeAugId: 1, Name: "Sweep II", cCost: 5, uCost:0},
+            { meleeAugId: 2, Name: "Extend I", cCost: 3, uCost:0},
+            { meleeAugId: 3, Name: "Extend II", cCost: 5, uCost:0},
+            { meleeAugId: 4, Name: "Scar", cCost: 1, uCost:0},
+            { meleeAugId: 5, Name: "Measure I", cCost: 1, uCost:0},
+            { meleeAugId: 6, Name: "Measure II", cCost: 3, uCost:0},
+            { meleeAugId: 7, Name: "Measure III", cCost: 5, uCost:0},
         ];
 
     var rangeAugsArray = [
-                { rangeAugId: 0, Name: "Snipe I", cCost: 2},
-                { rangeAugId: 1, Name: "Snipe II", cCost: 4},
-                { rangeAugId: 2, Name: "Rile", cCost: 1},
-                { rangeAugId: 3, Name: "Spray I", cCost: 0},
-                { rangeAugId: 4, Name: "Spray II", cCost: 2},
-                { rangeAugId: 5, Name: "Spray III", cCost: 4},
-                { rangeAugId: 6, Name: "Ambush", cCost: 2},
+                { rangeAugId: 0, Name: "Snipe I", cCost: 2, uCost:0},
+                { rangeAugId: 1, Name: "Snipe II", cCost: 4, uCost:0},
+                { rangeAugId: 2, Name: "Rile", cCost: 1, uCost:0},
+                { rangeAugId: 3, Name: "Spray I", cCost: 0, uCost:0},
+                { rangeAugId: 4, Name: "Spray II", cCost: 2, uCost:0},
+                { rangeAugId: 5, Name: "Spray III", cCost: 4, uCost:0},
+                { rangeAugId: 6, Name: "Ambush", cCost: 2, uCost:0},
             ];
     
     var defAugsArray = [
@@ -718,6 +718,12 @@
                 { utilAugId: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
                 { utilAugId: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
                 { utilAugId: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
+            ];
+
+    var costSelect = [
+                { costSelectId: 0, Name: "Initial", value:"0"},
+                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
+                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
             ];
 
     function handlingPropertyCheck(){
@@ -1017,29 +1023,7 @@
     <script type="text/javascript">
         function AddDropDownList() {
             //Build an array containing Customer records.
-            var enhancements = [
-                { EnhancementId: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-                { EnhancementId: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-                { EnhancementId: 3, Name: "Siege", cCost: 1, uCost: 0},
-                { EnhancementId: 4, Name: "Returning", cCost: 1, uCost: 0},
-                { EnhancementId: 5, Name: "Twinned", cCost: 1, uCost: 0},
-                { EnhancementId: 6, Name: "Suregrip", cCost: 1, uCost: 0},
-                { EnhancementId: 7, Name: "Flow", cCost: 1, uCost: 0},
-                { EnhancementId: 8, Name: "Safeguard", cCost: 1, uCost: 0},
-                { EnhancementId: 9, Name: "Reinforced", cCost: 2, uCost: 0},
-                { EnhancementId: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-                { EnhancementId: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-                { EnhancementId: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-                { EnhancementId: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
-                { EnhancementId: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
-                { EnhancementId: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
-                { EnhancementId: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-                { EnhancementId: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-                { EnhancementId: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-                { EnhancementId: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-                { EnhancementId: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-                { EnhancementId: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
-            ];
+            
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
             ddlEnhancements.attr("name","classenhancement");
@@ -1086,23 +1070,14 @@
     <script type="text/javascript">
         function meleeAugAddDropDownList() {
             //Build an array containing Customer records.
-            var meleeAugs = [
-                { meleeAugId: 0, Name: "Sweep I", cCost: 3},
-                { meleeAugId: 1, Name: "Sweep II", cCost: 5},
-                { meleeAugId: 2, Name: "Extend I", cCost: 3},
-                { meleeAugId: 3, Name: "Extend II", cCost: 5},
-                { meleeAugId: 4, Name: "Scar", cCost: 1},
-                { meleeAugId: 5, Name: "Measure I", cCost: 1},
-                { meleeAugId: 6, Name: "Measure II", cCost: 3},
-                { meleeAugId: 7, Name: "Measure III", cCost: 5},
-            ];
+            
 
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
             ddlEnhancements.attr("name","meleeAugs");
  
             //Add the Options to the DropDownList.
-            $(meleeAugs).each(function () {
+            $(meleeAugsArray).each(function () {
                 var option = $("<option />");
  
                 //Set Customer Name in Text part.
@@ -1115,11 +1090,7 @@
                 ddlEnhancements.append(option);
             });
 
-            var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
+            
 
             var cSelect = $("<select />");
             cSelect.attr("name", "cCostSelect");
@@ -1168,22 +1139,14 @@
     <script type="text/javascript">
         function rangeAugAddDropDownList() {
             //Build an array containing Customer records.
-            var rangeAugs = [
-                { rangeAugId: 0, Name: "Snipe I", cCost: 2},
-                { rangeAugId: 1, Name: "Snipe II", cCost: 4},
-                { rangeAugId: 2, Name: "Rile", cCost: 1},
-                { rangeAugId: 3, Name: "Spray I", cCost: 0},
-                { rangeAugId: 4, Name: "Spray II", cCost: 2},
-                { rangeAugId: 5, Name: "Spray III", cCost: 4},
-                { rangeAugId: 6, Name: "Ambush", cCost: 2},
-            ];
+            
 
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
             ddlEnhancements.attr("name","rangeAugs");
  
             //Add the Options to the DropDownList.
-            $(rangeAugs).each(function () {
+            $(rangeAugsArray).each(function () {
                 var option = $("<option />");
  
                 //Set Customer Name in Text part.
@@ -1195,12 +1158,6 @@
                 //Add the Option element to DropDownList.
                 ddlEnhancements.append(option);
             });
-
-            var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
 
             var cSelect = $("<select />");
             cSelect.attr("name", "cCostSelect");
@@ -1250,26 +1207,14 @@
     <script type="text/javascript">
         function defAugAddDropDownList() {
             //Build an array containing Customer records.
-            var defAugs = [
-                { defAugId: 0, Name: "Parry I", cCost: 2, uCost:0},
-                { defAugId: 1, Name: "Parry II", cCost: 4, uCost:0},
-                { defAugId: 2, Name: "Parry III", cCost: 6, uCost:0},
-                { defAugId: 3, Name: "Resist I", cCost: 2, uCost:0},
-                { defAugId: 4, Name: "Resist II", cCost: 4, uCost:0},
-                { defAugId: 5, Name: "Resist III", cCost: 6, uCost:0},
-                { defAugId: 6, Name: "Sturdy I", cCost: 2, uCost:0},
-                { defAugId: 7, Name: "Sturdy II", cCost: 4, uCost:0},
-                { defAugId: 8, Name: "Sturdy III", cCost: 6, uCost:0},
-                { defAugId: 9, Name: "Guardian (CC)", cCost: 2, uCost:0},
-                { defAugId: 10, Name: "Guardian (UC)", cCost: 0, uCost:2},
-            ];
+            
 
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
             ddlEnhancements.attr("name","defAugs");
  
             //Add the Options to the DropDownList.
-            $(defAugs).each(function () {
+            $(defAugsArray).each(function () {
                 var option = $("<option />");
  
                 //Set Customer Name in Text part.
@@ -1281,12 +1226,6 @@
                 //Add the Option element to DropDownList.
                 ddlEnhancements.append(option);
             });
-
-            var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
 
             var cSelect = $("<select />");
             cSelect.attr("name", "cCostSelect");
@@ -1336,27 +1275,14 @@
     <script type="text/javascript">
         function espAugAddDropDownList() {
             //Build an array containing Customer records.
-            var espAugs = [
-                { espAugId: 0, Name: "Replenish I", cCost: 1, uCost:0},
-                { espAugId: 1, Name: "Replenish II", cCost: 3, uCost:0},
-                { espAugId: 2, Name: "Replenish III", cCost: 5, uCost:0},
-                { espAugId: 3, Name: "Cast I", cCost: 1, uCost:0},
-                { espAugId: 4, Name: "Cast II", cCost: 3, uCost:0},
-                { espAugId: 5, Name: "Cast III", cCost: 5, uCost:0},
-                { espAugId: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
-                { espAugId: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
-                { espAugId: 8, Name: "Proxy I", cCost: 1, uCost:0},
-                { espAugId: 9, Name: "Proxy II", cCost: 2, uCost:0},
-                { espAugId: 10, Name: "Proxy III", cCost: 3, uCost:0},
-                { espAugId: 11, Name: "Link", cCost: 2, uCost:0},
-            ];
+            
 
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
             ddlEnhancements.attr("name","espAugs");
  
             //Add the Options to the DropDownList.
-            $(espAugs).each(function () {
+            $(espAugsArray).each(function () {
                 var option = $("<option />");
  
                 //Set Customer Name in Text part.
@@ -1368,12 +1294,6 @@
                 //Add the Option element to DropDownList.
                 ddlEnhancements.append(option);
             });
-
-            var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
 
             var cSelect = $("<select />");
             cSelect.attr("name", "cCostSelect");
@@ -1422,36 +1342,14 @@
     <script type="text/javascript">
         function utilAugAddDropDownList() {
             //Build an array containing Customer records.
-            var utilAugs = [
-                { utilAugId: 0, Name: "Shroud", cCost: 0, uCost: 1},
-                { utilAugId: 1, Name: "Slog", cCost: 0, uCost: 1},
-                { utilAugId: 2, Name: "Load", cCost: 1, uCost: 0},
-                { utilAugId: 3, Name: "Load", cCost: 0, uCost: 1},
-                { utilAugId: 4, Name: "Scout", cCost: 0, uCost: 1},
-                { utilAugId: 5, Name: "Barrier I", cCost: 0, uCost: 1},
-                { utilAugId: 6, Name: "Barrier II", cCost: 0, uCost: 2},
-                { utilAugId: 7, Name: "Balance", cCost: 0, uCost: 2},
-                { utilAugId: 8, Name: "Maneuver I", cCost: 0, uCost: 3},
-                { utilAugId: 9, Name: "Maneuver II", cCost: 0, uCost: 5},
-                { utilAugId: 10, Name: "Maneuver III", cCost: 0, uCost: 7},
-                { utilAugId: 11, Name: "Hookshot I", cCost: 0, uCost: 2},
-                { utilAugId: 12, Name: "Hookshot II", cCost: 0, uCost: 4},
-                { utilAugId: 13, Name: "Flight", cCost: 0, uCost: 5},
-                { utilAugId: 14, Name: "Polarity", cCost: 0, uCost: 2},
-                { utilAugId: 15, Name: "Vision I", cCost: 0, uCost: 2},
-                { utilAugId: 16, Name: "Vision II", cCost: 0, uCost: 4},
-                { utilAugId: 17, Name: "Manipulate I", cCost: 0, uCost: 1},
-                { utilAugId: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
-                { utilAugId: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
-                { utilAugId: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
-            ];
+            
 
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
             ddlEnhancements.attr("name","utilAugs");
  
             //Add the Options to the DropDownList.
-            $(utilAugs).each(function () {
+            $(utilAugsArray).each(function () {
                 var option = $("<option />");
  
                 //Set Customer Name in Text part.
@@ -1463,12 +1361,6 @@
                 //Add the Option element to DropDownList.
                 ddlEnhancements.append(option);
             });
-
-            var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
  
             //Reference the container Table.
             var tblContainer = $("#utilAugtblContainer");
