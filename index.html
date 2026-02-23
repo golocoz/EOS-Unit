@@ -206,7 +206,7 @@
         </table>
 
         <div style="padding-top: 5px;" >
-            <input type="button" id = "btnAdd" onclick = "AddDropDownList()" value = "Add Enhancement" />
+            <input type="button" id = "btnAdd" onclick = "enhancementsAddDropDownList()" value = "Add Enhancement" />
             <hr />
             <table id = "tblContainer" border="0" cellpadding="5" cellspacing="5"></table>
             <hr/>
@@ -312,7 +312,7 @@
         </table>
 
         <div style="padding-top: 5px;" >
-            <input type="button" id = "meleeAugbtnAdd" onclick = "meleeAugAddDropDownList()" value = "Add Melee Aug" />
+            <input type="button" id = "meleeAugbtnAdd" onclick = "meleeAddDropDownList()" value = "Add Melee Aug" />
             <hr />
             <table id = "meleeAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
             <hr/>
@@ -356,7 +356,7 @@
         </table>
 
         <div style="padding-top: 5px;" >
-            <input type="button" id = "rangeAugbtnAdd" onclick = "rangeAugAddDropDownList()" value = "Add Range Aug" />
+            <input type="button" id = "rangeAugbtnAdd" onclick = "rangeAddDropDownList()" value = "Add Range Aug" />
             <hr />
             <table id = "rangeAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
             <hr/>
@@ -403,7 +403,7 @@
         </table>
 
         <div style="padding-top: 5px;" ></div>
-            <input type="button" id = "defAugbtnAdd" onclick = "defAugAddDropDownList()" value = "Add Defensive Aug" />
+            <input type="button" id = "defAugbtnAdd" onclick = "defAddDropDownList()" value = "Add Defensive Aug" />
             <hr />
             <table id = "defAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
             <hr/>
@@ -459,7 +459,7 @@
         </table>
 
         <div style="padding-top: 5px;" >
-            <input type="button" id = "espAugbtnAdd" onclick = "espAugAddDropDownList()" value = "Add ESP Aug" />
+            <input type="button" id = "espAugbtnAdd" onclick = "espAddDropDownList()" value = "Add ESP Aug" />
             <hr />
             <table id = "espAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
             <hr/>
@@ -575,7 +575,7 @@
         </table>
 
         <div style="padding-top: 5px;" >
-            <input type="button" id = "utilAugbtnAdd" onclick = "utilAugAddDropDownList()" value = "Add Utility Aug" />
+            <input type="button" id = "utilAugbtnAdd" onclick = "utilAddDropDownList()" value = "Add Utility Aug" />
             <hr />
             <table id = "utilAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
             <hr/>
@@ -622,108 +622,132 @@
     const flawNames = ["None", "Dull I", "Dull II", "Dull III", "Complex", "Bulky I", "Bulky II", "Bulky III", "Unwieldy", "Vulnerable"]
 
 
+    var enhancementsTest = [
+            { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
+            { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
+            { Id: 3, Name: "Siege", cCost: 1, uCost: 0},
+            { Id: 4, Name: "Returning", cCost: 1, uCost: 0},
+            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
+            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
+            { Id: 7, Name: "Flow", cCost: 1, uCost: 0},
+            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
+            { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
+            { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
+            { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
+            { Id: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
+            { Id: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
+            { Id: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
+            { Id: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
+            { Id: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
+            { Id: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
+            { Id: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
+            { Id: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
+            { Id: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
+            { Id: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
+        ];
+    
     var enhancements = [
-            { EnhancementId: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-            { EnhancementId: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { EnhancementId: 3, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
-            { EnhancementId: 4, Name: "Returning", cCost: 1, uCost: 0},
-            { EnhancementId: 5, Name: "Twinned", cCost: 1, uCost: 0},
-            { EnhancementId: 6, Name: "Suregrip", cCost: 1, uCost: 0},
-            { EnhancementId: 7, Name: "Flow", cCost: 1, uCost: 0},
-            { EnhancementId: 8, Name: "Safeguard", cCost: 1, uCost: 0},
-            { EnhancementId: 9, Name: "Reinforced", cCost: 2, uCost: 0},
-            { EnhancementId: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-            { EnhancementId: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-            { EnhancementId: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-            { EnhancementId: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
-            { EnhancementId: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
-            { EnhancementId: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
-            { EnhancementId: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-            { EnhancementId: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-            { EnhancementId: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-            { EnhancementId: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-            { EnhancementId: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-            { EnhancementId: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
+            { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
+            { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
+            { Id: 3, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
+            { Id: 4, Name: "Returning", cCost: 1, uCost: 0},
+            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
+            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
+            { Id: 7, Name: "Flow", cCost: 1, uCost: 0},
+            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
+            { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
+            { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
+            { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
+            { Id: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
+            { Id: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
+            { Id: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
+            { Id: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
+            { Id: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
+            { Id: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
+            { Id: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
+            { Id: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
+            { Id: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
+            { Id: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
         ];
 
     var meleeAugsArray = [
-            { meleeAugId: 0, Name: "Sweep I", cCost: 3, uCost:0},
-            { meleeAugId: 1, Name: "Sweep II", cCost: 5, uCost:0},
-            { meleeAugId: 2, Name: "Extend I", cCost: 3, uCost:0},
-            { meleeAugId: 3, Name: "Extend II", cCost: 5, uCost:0},
-            { meleeAugId: 4, Name: "Scar", cCost: 1, uCost:0},
-            { meleeAugId: 5, Name: "Measure I", cCost: 1, uCost:0},
-            { meleeAugId: 6, Name: "Measure II", cCost: 3, uCost:0},
-            { meleeAugId: 7, Name: "Measure III", cCost: 5, uCost:0},
+            { Id: 0, Name: "Sweep I", cCost: 3, uCost:0},
+            { Id: 1, Name: "Sweep II", cCost: 5, uCost:0},
+            { Id: 2, Name: "Extend I", cCost: 3, uCost:0},
+            { Id: 3, Name: "Extend II", cCost: 5, uCost:0},
+            { Id: 4, Name: "Scar", cCost: 1, uCost:0},
+            { Id: 5, Name: "Measure I", cCost: 1, uCost:0},
+            { Id: 6, Name: "Measure II", cCost: 3, uCost:0},
+            { Id: 7, Name: "Measure III", cCost: 5, uCost:0},
         ];
 
     var rangeAugsArray = [
-                { rangeAugId: 0, Name: "Snipe I", cCost: 2, uCost:0},
-                { rangeAugId: 1, Name: "Snipe II", cCost: 4, uCost:0},
-                { rangeAugId: 2, Name: "Rile", cCost: 1, uCost:0},
-                { rangeAugId: 3, Name: "Spray I", cCost: 0, uCost:0},
-                { rangeAugId: 4, Name: "Spray II", cCost: 2, uCost:0},
-                { rangeAugId: 5, Name: "Spray III", cCost: 4, uCost:0},
-                { rangeAugId: 6, Name: "Ambush", cCost: 2, uCost:0},
+                { Id: 0, Name: "Snipe I", cCost: 2, uCost:0},
+                { Id: 1, Name: "Snipe II", cCost: 4, uCost:0},
+                { Id: 2, Name: "Rile", cCost: 1, uCost:0},
+                { Id: 3, Name: "Spray I", cCost: 0, uCost:0},
+                { Id: 4, Name: "Spray II", cCost: 2, uCost:0},
+                { Id: 5, Name: "Spray III", cCost: 4, uCost:0},
+                { Id: 6, Name: "Ambush", cCost: 2, uCost:0},
             ];
     
     var defAugsArray = [
-                { defAugId: 0, Name: "Parry I", cCost: 2, uCost:0},
-                { defAugId: 1, Name: "Parry II", cCost: 4, uCost:0},
-                { defAugId: 2, Name: "Parry III", cCost: 6, uCost:0},
-                { defAugId: 3, Name: "Resist I", cCost: 2, uCost:0},
-                { defAugId: 4, Name: "Resist II", cCost: 4, uCost:0},
-                { defAugId: 5, Name: "Resist III", cCost: 6, uCost:0},
-                { defAugId: 6, Name: "Sturdy I", cCost: 2, uCost:0},
-                { defAugId: 7, Name: "Sturdy II", cCost: 4, uCost:0},
-                { defAugId: 8, Name: "Sturdy III", cCost: 6, uCost:0},
-                { defAugId: 9, Name: "Guardian (CC)", cCost: 2, uCost:0},
-                { defAugId: 10, Name: "Guardian (UC)", cCost: 0, uCost:2},
+                { Id: 0, Name: "Parry I", cCost: 2, uCost:0},
+                { Id: 1, Name: "Parry II", cCost: 4, uCost:0},
+                { Id: 2, Name: "Parry III", cCost: 6, uCost:0},
+                { Id: 3, Name: "Resist I", cCost: 2, uCost:0},
+                { Id: 4, Name: "Resist II", cCost: 4, uCost:0},
+                { Id: 5, Name: "Resist III", cCost: 6, uCost:0},
+                { Id: 6, Name: "Sturdy I", cCost: 2, uCost:0},
+                { Id: 7, Name: "Sturdy II", cCost: 4, uCost:0},
+                { Id: 8, Name: "Sturdy III", cCost: 6, uCost:0},
+                { Id: 9, Name: "Guardian (CC)", cCost: 2, uCost:0},
+                { Id: 10, Name: "Guardian (UC)", cCost: 0, uCost:2},
             ];
 
     var espAugsArray = [
-                { espAugId: 0, Name: "Replenish I", cCost: 1, uCost:0},
-                { espAugId: 1, Name: "Replenish II", cCost: 3, uCost:0},
-                { espAugId: 2, Name: "Replenish III", cCost: 5, uCost:0},
-                { espAugId: 3, Name: "Cast I", cCost: 1, uCost:0},
-                { espAugId: 4, Name: "Cast II", cCost: 3, uCost:0},
-                { espAugId: 5, Name: "Cast III", cCost: 5, uCost:0},
-                { espAugId: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
-                { espAugId: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
-                { espAugId: 8, Name: "Proxy I", cCost: 1, uCost:0},
-                { espAugId: 9, Name: "Proxy II", cCost: 2, uCost:0},
-                { espAugId: 10, Name: "Proxy III", cCost: 3, uCost:0},
-                { espAugId: 11, Name: "Link", cCost: 2, uCost:0},
+                { Id: 0, Name: "Replenish I", cCost: 1, uCost:0},
+                { Id: 1, Name: "Replenish II", cCost: 3, uCost:0},
+                { Id: 2, Name: "Replenish III", cCost: 5, uCost:0},
+                { Id: 3, Name: "Cast I", cCost: 1, uCost:0},
+                { Id: 4, Name: "Cast II", cCost: 3, uCost:0},
+                { Id: 5, Name: "Cast III", cCost: 5, uCost:0},
+                { Id: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
+                { Id: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
+                { Id: 8, Name: "Proxy I", cCost: 1, uCost:0},
+                { Id: 9, Name: "Proxy II", cCost: 2, uCost:0},
+                { Id: 10, Name: "Proxy III", cCost: 3, uCost:0},
+                { Id: 11, Name: "Link", cCost: 2, uCost:0},
             ];
 
     var utilAugsArray = [
-                { utilAugId: 0, Name: "Shroud", cCost: 0, uCost: 1},
-                { utilAugId: 1, Name: "Slog", cCost: 0, uCost: 1},
-                { utilAugId: 2, Name: "Load", cCost: 1, uCost: 0},
-                { utilAugId: 3, Name: "Load", cCost: 0, uCost: 1},
-                { utilAugId: 4, Name: "Scout", cCost: 0, uCost: 1},
-                { utilAugId: 5, Name: "Barrier I", cCost: 0, uCost: 1},
-                { utilAugId: 6, Name: "Barrier II", cCost: 0, uCost: 2},
-                { utilAugId: 7, Name: "Balance", cCost: 0, uCost: 2},
-                { utilAugId: 8, Name: "Maneuver I", cCost: 0, uCost: 3},
-                { utilAugId: 9, Name: "Maneuver II", cCost: 0, uCost: 5},
-                { utilAugId: 10, Name: "Maneuver III", cCost: 0, uCost: 7},
-                { utilAugId: 11, Name: "Hookshot I", cCost: 0, uCost: 2},
-                { utilAugId: 12, Name: "Hookshot II", cCost: 0, uCost: 4},
-                { utilAugId: 13, Name: "Flight", cCost: 0, uCost: 5},
-                { utilAugId: 14, Name: "Polarity", cCost: 0, uCost: 2},
-                { utilAugId: 15, Name: "Vision I", cCost: 0, uCost: 2},
-                { utilAugId: 16, Name: "Vision II", cCost: 0, uCost: 4},
-                { utilAugId: 17, Name: "Manipulate I", cCost: 0, uCost: 1},
-                { utilAugId: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
-                { utilAugId: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
-                { utilAugId: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
+                { Id: 0, Name: "Shroud", cCost: 0, uCost: 1},
+                { Id: 1, Name: "Slog", cCost: 0, uCost: 1},
+                { Id: 2, Name: "Load", cCost: 1, uCost: 0},
+                { Id: 3, Name: "Load", cCost: 0, uCost: 1},
+                { Id: 4, Name: "Scout", cCost: 0, uCost: 1},
+                { Id: 5, Name: "Barrier I", cCost: 0, uCost: 1},
+                { Id: 6, Name: "Barrier II", cCost: 0, uCost: 2},
+                { Id: 7, Name: "Balance", cCost: 0, uCost: 2},
+                { Id: 8, Name: "Maneuver I", cCost: 0, uCost: 3},
+                { Id: 9, Name: "Maneuver II", cCost: 0, uCost: 5},
+                { Id: 10, Name: "Maneuver III", cCost: 0, uCost: 7},
+                { Id: 11, Name: "Hookshot I", cCost: 0, uCost: 2},
+                { Id: 12, Name: "Hookshot II", cCost: 0, uCost: 4},
+                { Id: 13, Name: "Flight", cCost: 0, uCost: 5},
+                { Id: 14, Name: "Polarity", cCost: 0, uCost: 2},
+                { Id: 15, Name: "Vision I", cCost: 0, uCost: 2},
+                { Id: 16, Name: "Vision II", cCost: 0, uCost: 4},
+                { Id: 17, Name: "Manipulate I", cCost: 0, uCost: 1},
+                { Id: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
+                { Id: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
+                { Id: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
             ];
 
     var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
+                { Id: 0, Name: "Initial", value:"0"},
+                { Id: 1, Name: "+1 Extra CC", value:"CC"},
+                { Id: 2, Name: "+1 Extra UC", value:"UC"},
             ];
 
     function handlingPropertyCheck(){
@@ -873,85 +897,37 @@
                 console.log("Reinforced!");
                 enhaReinforced = true;
             }
-            document.getElementById('currentEnha').innerHTML += enhancements[p].Name + (", ");
+            document.getElementById('currentEnha').innerHTML += enhancements[p].Name;
+            if (i<enha.length -1){
+                document.getElementById('currentEnha').innerHTML +=  (", ")
+            };
         }
 
         var mAugs = document.getElementsByName("meleeAugs")
-        
-        
-
-        // for (i=0, document.getElementById('currentMeleeAugs').innerHTML =""; i<mAugs.length; i++){
-        //     q = mAugs[i].value;
-        //     console.log(mAugs);
-        //     console.log(meleeAugsArray[q].cCost);
-        //     currentCosts.CC += meleeAugsArray[q].cCost;
-        //     document.getElementById('currentMeleeAugs').innerHTML += meleeAugsArray[q].Name + (", ");
-        // }
 
         currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
 
         var rAugs = document.getElementsByName("rangeAugs")
-        
-        
-
-        // for (i=0, document.getElementById('currentRangeAugs').innerHTML = ""; i<rAugs.length; i++){
-        //     q = rAugs[i].value;
-        //     currentCosts.CC += rangeAugsArray[q].cCost;
-        //     document.getElementById('currentRangeAugs').innerHTML += rangeAugsArray[q].Name + (", ");
-        // }
 
         currentCosts = enhaAugList(rangeAugsArray, 'currentRangeAugs', rAugs, currentCosts);
 
         var dAugs = document.getElementsByName("defAugs");
-        
-        
-
-        // for (i=0, document.getElementById('currentDefAugs').innerHTML = ""; i<dAugs.length; i++){
-        //     q = dAugs[i].value;
-        //     console.log(q);
-        //     currentCosts.CC += defAugsArray[q].cCost;
-        //     currentCosts.UC += defAugsArray[q].uCost;
-        //     document.getElementById('currentDefAugs').innerHTML += defAugsArray[q].Name + (", ");
-        // }
 
         currentCosts = enhaAugList(defAugsArray, 'currentDefAugs', dAugs, currentCosts);
 
         var eAugs = document.getElementsByName("espAugs")
-        
-        
-
-        // for (i=0, document.getElementById('currentEspAugs').innerHTML = ""; i<eAugs.length; i++){
-        //     q = eAugs[i].value;
-        //     currentCosts.CC += espAugsArray[q].cCost;
-        //     currentCosts.UC += espAugsArray[q].uCost;
-        //     document.getElementById('currentEspAugs').innerHTML += espAugsArray[q].Name;
-        //     if (i != eAugs.length - 1){
-        //         document.getElementById('currentEspAugs').innerHTML += (", ");
-        //     }
-        // }
 
         currentCosts = enhaAugList(espAugsArray, 'currentEspAugs', eAugs, currentCosts);
 
         var uAugs = document.getElementsByName("utilAugs")
-        
-        
-
-        // for (i=0, document.getElementById('currentUtilAugs').innerHTML = ""; i<uAugs.length; i++){
-        //     q = uAugs[i].value;
-        //     currentCosts.CC += utilAugsArray[q].cCost;
-        //     currentCosts.UC += utilAugsArray[q].uCost;
-        //     document.getElementById('currentUtilAugs').innerHTML += utilAugsArray[q].Name + (", ");
-        // }
 
         currentCosts = enhaAugList(utilAugsArray, 'currentUtilAugs', uAugs, currentCosts);
 
-        
-
         var augCost = document.getElementsByName("cCostSelect");
         var costSelect = [
-                { costSelectId: 0, Name: "Initial", value:"0"},
-                { costSelectId: 1, Name: "+1 Extra CC", value:"CC"},
-                { costSelectId: 2, Name: "+1 Extra UC", value:"UC"},
+                { Id: 0, Name: "Initial", value:"0"},
+                { Id: 1, Name: "+1 Extra CC", value:"CC"},
+                { Id: 2, Name: "+1 Extra UC", value:"UC"},
             ];
 
         for(i=0; i<augCost.length; i++){
@@ -1018,104 +994,75 @@
         return currentCosts;
     }
 
+    function enhancementsAddDropDownList(){
+        testAddDropDownList(enhancementsTest, "classenhancement", "#tblContainer", AugList = false);
+    }
+
+    function meleeAddDropDownList(){
+        testAddDropDownList(meleeAugsArray, "meleeAugs", "#meleeAugtblContainer", AugList = true);
+    }
+
+    function rangeAddDropDownList(){
+        testAddDropDownList(rangeAugsArray, "rangeAugs", "#rangeAugtblContainer", AugList = true);
+    }
+
+    function defAddDropDownList(){
+        testAddDropDownList(defAugsArray, "defAugs", "#defAugtblContainer", AugList = true);
+    }
+
+    function espAddDropDownList(){
+        testAddDropDownList(espAugsArray, "espAugs", "#espAugtblContainer", AugList = true);
+    }
+
+    function utilAddDropDownList(){
+        testAddDropDownList(utilAugsArray, "utilAugs", "#utilAugtblContainer", AugList = true);
+    }
+
 </script>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
-        function AddDropDownList() {
-            //Create a DropDownList element.
-            var ddlEnhancements = $("<select />");
-
-            //Add attributes
-            ddlEnhancements.attr("name","classenhancement");
- 
-            //Add the Options to the DropDownList.
-            $(enhancements).each(function () {
-                var option = $("<option />");
-                var name = this.Name;
- 
-                //If has Required, set data-required = Required
-                if (this.hasOwnProperty("Required")){
-                    option.attr('data-required', this.Required);
-                }
-
-                //Set text = name.
-                option.html(name);
- 
-                //Set value = id.
-                option.val(this.EnhancementId);
-                //Add the Option element to DropDownList.
-                ddlEnhancements.append(option);
-            });
- 
-            //Reference the container Table.
-            var tblContainer = $("#tblContainer");
- 
-            //Add the Table row.
-            var row = tblContainer[0].insertRow(-1);
- 
-            //Add the DropDownList to Table Row.
-            var cell = row.insertCell(-1);
-            $(cell).append(ddlEnhancements);
- 
-            //Create a Remove Button.
-            var btnRemove = $("<input type = 'button' value = 'Remove'/>");
-            btnRemove.click(function () {
-                //Determine the reference of the Row using the Button.
-                var row = btnRemove.closest("TR");
- 
-                //Delete the Table row.
-                row.remove();
-            });
- 
-            //Add the Remove Buttton to Table Row.
-            cell = row.insertCell(-1);
-            $(cell).append(btnRemove);
-        };
-    </script>
-    <script type="text/javascript">
-        function meleeAugAddDropDownList() {
+        function testAddDropDownList(enhaAugArray, selectAttr, htmlContainer, AugList) {
             //Build an array containing Customer records.
             
-
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
-            ddlEnhancements.attr("name","meleeAugs");
+            ddlEnhancements.attr("name", selectAttr);
  
             //Add the Options to the DropDownList.
-            $(meleeAugsArray).each(function () {
+            $(enhaAugArray).each(function () {
                 var option = $("<option />");
  
                 //Set Customer Name in Text part.
                 option.html(this.Name);
  
                 //Set Customer CustomerId in Value part.
-                option.val(this.meleeAugId);
+                option.val(this.Id);
  
                 //Add the Option element to DropDownList.
                 ddlEnhancements.append(option);
             });
 
-            
+            if(AugList){
+                var cSelect = $("<select />");
+                cSelect.attr("name", "cCostSelect");
 
-            var cSelect = $("<select />");
-            cSelect.attr("name", "cCostSelect");
-
-            $(costSelect).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.costSelectId);
- 
-                //Add the Option element to DropDownList.
-                cSelect.append(option);
-            });
+                $(costSelect).each(function () {
+                    var option = $("<option />");
+    
+                    //Set Customer Name in Text part.
+                    option.html(this.Name);
+    
+                    //Set Customer CustomerId in Value part.
+                    option.val(this.Id);
+    
+                    //Add the Option element to DropDownList.
+                    cSelect.append(option);
+                });
+            }
  
             //Reference the container Table.
-            var tblContainer = $("#meleeAugtblContainer");
+            var tblContainer = $(htmlContainer);
  
             //Add the Table row.
             var row = tblContainer[0].insertRow(-1);
@@ -1124,8 +1071,12 @@
             var cell = row.insertCell(-1);
             $(cell).append(ddlEnhancements);
 
-            var cell2 = row.insertCell(-1);
-            $(cell2).append(cSelect);
+            if (AugList){
+                var cell2 = row.insertCell(-1);
+                $(cell2).append(cSelect);
+            }
+                
+            
  
             //Create a Remove Button.
             var btnRemove = $("<input type = 'button' value = 'Remove'/>");
@@ -1142,255 +1093,3 @@
             $(cell).append(btnRemove);
         };
     </script>
-    <script type="text/javascript">
-        function rangeAugAddDropDownList() {
-            //Build an array containing Customer records.
-            
-
-            //Create a DropDownList element.
-            var ddlEnhancements = $("<select />");
-            ddlEnhancements.attr("name","rangeAugs");
- 
-            //Add the Options to the DropDownList.
-            $(rangeAugsArray).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.rangeAugId);
- 
-                //Add the Option element to DropDownList.
-                ddlEnhancements.append(option);
-            });
-
-            var cSelect = $("<select />");
-            cSelect.attr("name", "cCostSelect");
-
-            $(costSelect).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.costSelectId);
- 
-                //Add the Option element to DropDownList.
-                cSelect.append(option);
-            });
- 
-            //Reference the container Table.
-            var tblContainer = $("#rangeAugtblContainer");
- 
-            //Add the Table row.
-            var row = tblContainer[0].insertRow(-1);
- 
-            //Add the DropDownList to Table Row.
-            var cell = row.insertCell(-1);
-            $(cell).append(ddlEnhancements);
-
-            var cell2 = row.insertCell(-1);
-            $(cell2).append(cSelect);
- 
-            //Create a Remove Button.
-            var btnRemove = $("<input type = 'button' value = 'Remove'/>");
-            btnRemove.click(function () {
-                //Determine the reference of the Row using the Button.
-                var row = btnRemove.closest("TR");
- 
-                //Delete the Table row.
-                row.remove();
-            });
- 
-            //Add the Remove Buttton to Table Row.
-            cell = row.insertCell(-1);
-            $(cell).append(btnRemove);
-        };
-    </script>
-
-    <script type="text/javascript">
-        function defAugAddDropDownList() {
-            //Build an array containing Customer records.
-            
-
-            //Create a DropDownList element.
-            var ddlEnhancements = $("<select />");
-            ddlEnhancements.attr("name","defAugs");
- 
-            //Add the Options to the DropDownList.
-            $(defAugsArray).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.defAugId);
- 
-                //Add the Option element to DropDownList.
-                ddlEnhancements.append(option);
-            });
-
-            var cSelect = $("<select />");
-            cSelect.attr("name", "cCostSelect");
-
-            $(costSelect).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.costSelectId);
- 
-                //Add the Option element to DropDownList.
-                cSelect.append(option);
-            });
- 
-            //Reference the container Table.
-            var tblContainer = $("#defAugtblContainer");
- 
-            //Add the Table row.
-            var row = tblContainer[0].insertRow(-1);
- 
-            //Add the DropDownList to Table Row.
-            var cell = row.insertCell(-1);
-            $(cell).append(ddlEnhancements);
-
-            var cell2 = row.insertCell(-1);
-            $(cell2).append(cSelect);
- 
-            //Create a Remove Button.
-            var btnRemove = $("<input type = 'button' value = 'Remove'/>");
-            btnRemove.click(function () {
-                //Determine the reference of the Row using the Button.
-                var row = btnRemove.closest("TR");
- 
-                //Delete the Table row.
-                row.remove();
-            });
- 
-            //Add the Remove Buttton to Table Row.
-            cell = row.insertCell(-1);
-            $(cell).append(btnRemove);
-        };
-    </script>
-
-    <script type="text/javascript">
-        function espAugAddDropDownList() {
-            //Build an array containing Customer records.
-            
-
-            //Create a DropDownList element.
-            var ddlEnhancements = $("<select />");
-            ddlEnhancements.attr("name","espAugs");
- 
-            //Add the Options to the DropDownList.
-            $(espAugsArray).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.espAugId);
- 
-                //Add the Option element to DropDownList.
-                ddlEnhancements.append(option);
-            });
-
-            var cSelect = $("<select />");
-            cSelect.attr("name", "cCostSelect");
-
-            $(costSelect).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.costSelectId);
- 
-                //Add the Option element to DropDownList.
-                cSelect.append(option);
-            });
- 
-            //Reference the container Table.
-            var tblContainer = $("#espAugtblContainer");
- 
-            //Add the Table row.
-            var row = tblContainer[0].insertRow(-1);
- 
-            //Add the DropDownList to Table Row.
-            var cell = row.insertCell(-1);
-            $(cell).append(ddlEnhancements);
-
-            var cell2 = row.insertCell(-1);
-            $(cell2).append(cSelect);
- 
-            //Create a Remove Button.
-            var btnRemove = $("<input type = 'button' value = 'Remove'/>");
-            btnRemove.click(function () {
-                //Determine the reference of the Row using the Button.
-                var row = btnRemove.closest("TR");
- 
-                //Delete the Table row.
-                row.remove();
-            });
- 
-            //Add the Remove Buttton to Table Row.
-            cell = row.insertCell(-1);
-            $(cell).append(btnRemove);
-        };
-    </script>
-    <script type="text/javascript">
-        function utilAugAddDropDownList() {
-            //Build an array containing Customer records.
-            
-
-            //Create a DropDownList element.
-            var ddlEnhancements = $("<select />");
-            ddlEnhancements.attr("name","utilAugs");
- 
-            //Add the Options to the DropDownList.
-            $(utilAugsArray).each(function () {
-                var option = $("<option />");
- 
-                //Set Customer Name in Text part.
-                option.html(this.Name);
- 
-                //Set Customer CustomerId in Value part.
-                option.val(this.utilAugId);
- 
-                //Add the Option element to DropDownList.
-                ddlEnhancements.append(option);
-            });
- 
-            //Reference the container Table.
-            var tblContainer = $("#utilAugtblContainer");
- 
-            //Add the Table row.
-            var row = tblContainer[0].insertRow(-1);
- 
-            //Add the DropDownList to Table Row.
-            var cell = row.insertCell(-1);
-            $(cell).append(ddlEnhancements);
- 
-            //Create a Remove Button.
-            var btnRemove = $("<input type = 'button' value = 'Remove'/>");
-            btnRemove.click(function () {
-                //Determine the reference of the Row using the Button.
-                var row = btnRemove.closest("TR");
- 
-                //Delete the Table row.
-                row.remove();
-            });
- 
-            //Add the Remove Buttton to Table Row.
-            cell = row.insertCell(-1);
-            $(cell).append(btnRemove);
-        };
-    </script>
-</html>
