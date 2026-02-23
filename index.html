@@ -625,7 +625,7 @@
     var enhancements = [
             { EnhancementId: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
             { EnhancementId: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { EnhancementId: 3, Name: "Siege", cCost: 1, uCost: 0},
+            { EnhancementId: 3, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
             { EnhancementId: 4, Name: "Returning", cCost: 1, uCost: 0},
             { EnhancementId: 5, Name: "Twinned", cCost: 1, uCost: 0},
             { EnhancementId: 6, Name: "Suregrip", cCost: 1, uCost: 0},
@@ -795,6 +795,7 @@
         }
     }
 
+    // Update button
     document.getElementById("testbutton").addEventListener("click", function(){
         
         let classLevel = parseInt(document.getElementById("classLevel").value);
@@ -862,9 +863,9 @@
         
         var enha = document.getElementsByName("classenhancement");
 
-        
-
-        for (i=0, document.getElementById('currentEnha').innerHTML =""; i<enha.length; i++){
+        // Lists out the current Enhancements
+        document.getElementById('currentEnha').innerHTML ="";
+        for (i=0; i<enha.length; i++){
             p = enha[i].value - 1;
             currentCosts.CC += enhancements[p].cCost;
             currentCosts.UC += enhancements[p].uCost;
@@ -1004,40 +1005,45 @@
     });
 
     function enhaAugList(enhaAugArray, currentListId, currentAugs, currentCosts){
-            for (i=0, document.getElementById(currentListId).innerHTML = ""; i<currentAugs.length; i++){
-                console.log(enhaAugArray[0].cCost)
-                q = currentAugs[i].value;
-                currentCosts.CC += enhaAugArray[q].cCost;
-                currentCosts.UC += enhaAugArray[q].uCost;
-                document.getElementById(currentListId).innerHTML += enhaAugArray[q].Name;
-                if (i < currentAugs.length - 1){
-                    document.getElementById(currentListId).innerHTML += (", ");
-                }
+        for (i=0, document.getElementById(currentListId).innerHTML = ""; i<currentAugs.length; i++){
+            console.log(enhaAugArray[0].cCost)
+            q = currentAugs[i].value;
+            currentCosts.CC += enhaAugArray[q].cCost;
+            currentCosts.UC += enhaAugArray[q].uCost;
+            document.getElementById(currentListId).innerHTML += enhaAugArray[q].Name;
+            if (i < currentAugs.length - 1){
+                document.getElementById(currentListId).innerHTML += (", ");
             }
-            return currentCosts;
         }
+        return currentCosts;
+    }
 
 </script>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
         function AddDropDownList() {
-            //Build an array containing Customer records.
-            
             //Create a DropDownList element.
             var ddlEnhancements = $("<select />");
+
+            //Add attributes
             ddlEnhancements.attr("name","classenhancement");
  
             //Add the Options to the DropDownList.
             $(enhancements).each(function () {
                 var option = $("<option />");
+                var name = this.Name;
  
-                //Set Customer Name in Text part.
-                option.html(this.Name);
+                //If has Required, set data-required = Required
+                if (this.hasOwnProperty("Required")){
+                    option.attr('data-required', this.Required);
+                }
+
+                //Set text = name.
+                option.html(name);
  
-                //Set Customer CustomerId in Value part.
+                //Set value = id.
                 option.val(this.EnhancementId);
- 
                 //Add the Option element to DropDownList.
                 ddlEnhancements.append(option);
             });
