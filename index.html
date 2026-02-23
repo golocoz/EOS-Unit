@@ -621,39 +621,14 @@
 
     const flawNames = ["None", "Dull I", "Dull II", "Dull III", "Complex", "Bulky I", "Bulky II", "Bulky III", "Unwieldy", "Vulnerable"]
 
-
-    var enhancementsTest = [
-            { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-            { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { Id: 3, Name: "Siege", cCost: 1, uCost: 0},
-            { Id: 4, Name: "Returning", cCost: 1, uCost: 0},
-            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
-            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
-            { Id: 7, Name: "Flow", cCost: 1, uCost: 0},
-            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
-            { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
-            { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-            { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-            { Id: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-            { Id: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
-            { Id: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
-            { Id: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
-            { Id: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-            { Id: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-            { Id: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-            { Id: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-            { Id: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-            { Id: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
-        ];
-    
     var enhancements = [
             { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
             { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
             { Id: 3, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
-            { Id: 4, Name: "Returning", cCost: 1, uCost: 0},
+            { Id: 4, Name: "Returning", cCost: 1, uCost: 0, Required: {Property: "Thrown"}},
             { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
             { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
-            { Id: 7, Name: "Flow", cCost: 1, uCost: 0},
+            { Id: 7, Name: "Flow", cCost: 1, uCost: 0, Required: {Or: true, Property: "Reach", Augment: "Extend"}},
             { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
             { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
             { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
@@ -836,19 +811,19 @@
         for(i=0; i < wSpecs.length; i++){
             if(wSpecs[i].checked){
                 switch(wSpecs[i].value){
-                case "1":
-                    wSpecCC = 0;
-                    wSpecUC = 0;
-                    break;
-                case "2":
-                    wSpecCC = 1;
-                    wSpecUC = -1;
-                    break;
-                case "3":
-                    wSpecCC = -1;
-                    wSpecUC = 1;
-                    break;
-            }
+                    case "1":
+                        wSpecCC = 0;
+                        wSpecUC = 0;
+                        break;
+                    case "2":
+                        wSpecCC = 1;
+                        wSpecUC = -1;
+                        break;
+                    case "3":
+                        wSpecCC = -1;
+                        wSpecUC = 1;
+                        break;
+                }
             }
         }
 
@@ -889,6 +864,7 @@
 
         // Lists out the current Enhancements
         document.getElementById('currentEnha').innerHTML ="";
+        var enhancementName;
         for (i=0; i<enha.length; i++){
             p = enha[i].value - 1;
             currentCosts.CC += enhancements[p].cCost;
@@ -897,7 +873,36 @@
                 console.log("Reinforced!");
                 enhaReinforced = true;
             }
-            document.getElementById('currentEnha').innerHTML += enhancements[p].Name;
+
+            enhancementName = enhancements[p].Name;
+
+            //Check if has requirements
+            if (enhancements[p].hasOwnProperty("Required")){
+                enhancementName += " (Requires ";
+                var required = enhancements[p].Required;
+                var separator = ", ";
+                var sliceAtEnd = -2;
+                if (required.hasOwnProperty("Or")){
+                    separator = " or ";
+                    sliceAtEnd = -4;
+                }
+
+                //Check for required Handling, Property, Augment
+                if (required.hasOwnProperty("Handling")){
+                    enhancementName += required.Handling + separator;
+                }
+                if (required.hasOwnProperty("Property")){
+                    enhancementName += required.Property + separator;
+                }
+                if (required.hasOwnProperty("Augment")){
+                    enhancementName += required.Augment + separator;
+                }
+
+                enhancementName = enhancementName.slice(0, sliceAtEnd);
+                enhancementName += ")";
+            }
+
+            document.getElementById('currentEnha').innerHTML += enhancementName;
             if (i<enha.length -1){
                 document.getElementById('currentEnha').innerHTML +=  (", ")
             };
@@ -995,7 +1000,7 @@
     }
 
     function enhancementsAddDropDownList(){
-        testAddDropDownList(enhancementsTest, "classenhancement", "#tblContainer", AugList = false);
+        testAddDropDownList(enhancements, "classenhancement", "#tblContainer", AugList = false);
     }
 
     function meleeAddDropDownList(){
