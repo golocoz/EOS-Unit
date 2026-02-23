@@ -690,7 +690,7 @@
         let bonusCC = parseInt(document.getElementById("bonusCC").value);
         let bonusUC = parseInt(document.getElementById("bonusUC").value);
 
-        var enhaCC = 0, enhaUC = 0;
+        var currentCosts.CC = 0, currentCosts.UC = 0;
         
         var enhaReinforced;
         
@@ -733,12 +733,12 @@
                     case "CC":
                         console.log(costFlaw[x].value);
                         console.log(wFlaw);
-                        enhaCC += parseInt(wFlaw);
+                        currentCosts.CC += parseInt(wFlaw);
                         break;
                     case "UC":
                         console.log(costFlaw[x].value);
                         console.log(wFlaw);
-                        enhaUC += parseInt(wFlaw);
+                        currentCosts.UC += parseInt(wFlaw);
                         break;
                 }
             }
@@ -775,8 +775,8 @@
 
         for (i=0; i<enha.length; i++){
             p = enha[i].value - 1;
-            enhaCC += enhancements[p].cCost;
-            enhaUC += enhancements[p].uCost;
+            currentCosts.CC += enhancements[p].cCost;
+            currentCosts.UC += enhancements[p].uCost;
             if (enhancements[p].Name == "Reinforced" || enhancements[p].Name == "Reinforced (D10)"){
                 console.log("Reinforced!");
                 enhaReinforced = true;
@@ -801,7 +801,7 @@
             q = mAugs[i].value;
             console.log(mAugs);
             console.log(meleeAugsArray[q].cCost);
-            enhaCC += meleeAugsArray[q].cCost;
+            currentCosts.CC += meleeAugsArray[q].cCost;
             document.getElementById('currentMeleeAugs').innerHTML += meleeAugsArray[q].Name + (", ");
         }
 
@@ -819,7 +819,7 @@
 
         for (i=0; i<rAugs.length; i++){
             q = rAugs[i].value;
-            enhaCC += rangeAugsArray[q].cCost;
+            currentCosts.CC += rangeAugsArray[q].cCost;
             document.getElementById('currentRangeAugs').innerHTML += rangeAugsArray[q].Name + (", ");
         }
 
@@ -842,32 +842,32 @@
         for (i=0; i<dAugs.length; i++){
             q = dAugs[i].value;
             console.log(q);
-            enhaCC += defAugsArray[q].cCost;
-            enhaUC += defAugsArray[q].uCost;
+            currentCosts.CC += defAugsArray[q].cCost;
+            currentCosts.UC += defAugsArray[q].uCost;
             document.getElementById('currentDefAugs').innerHTML += defAugsArray[q].Name + (", ");
         }
 
         var eAugs = document.getElementsByName("espAugs")
         
         var espAugsArray = [
-                { espAugId: 0, Name: "Replenish I", cCost: 1, ucost:0},
-                { espAugId: 1, Name: "Replenish II", cCost: 3, ucost:0},
-                { espAugId: 2, Name: "Replenish III", cCost: 5, ucost:0},
-                { espAugId: 3, Name: "Cast I", cCost: 1, ucost:0},
-                { espAugId: 4, Name: "Cast II", cCost: 3, ucost:0},
-                { espAugId: 5, Name: "Cast III", cCost: 5, ucost:0},
-                { espAugId: 6, Name: "Converter (CC)", cCost: 1, ucost:0},
-                { espAugId: 7, Name: "Converter (UC)", cCost: 0, ucost:1},
-                { espAugId: 8, Name: "Proxy I", cCost: 1, ucost:0},
-                { espAugId: 9, Name: "Proxy II", cCost: 2, ucost:0},
-                { espAugId: 10, Name: "Proxy III", cCost: 3, ucost:0},
-                { espAugId: 11, Name: "Link", cCost: 2, ucost:0},
+                { espAugId: 0, Name: "Replenish I", cCost: 1, uCost:0},
+                { espAugId: 1, Name: "Replenish II", cCost: 3, uCost:0},
+                { espAugId: 2, Name: "Replenish III", cCost: 5, uCost:0},
+                { espAugId: 3, Name: "Cast I", cCost: 1, uCost:0},
+                { espAugId: 4, Name: "Cast II", cCost: 3, uCost:0},
+                { espAugId: 5, Name: "Cast III", cCost: 5, uCost:0},
+                { espAugId: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
+                { espAugId: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
+                { espAugId: 8, Name: "Proxy I", cCost: 1, uCost:0},
+                { espAugId: 9, Name: "Proxy II", cCost: 2, uCost:0},
+                { espAugId: 10, Name: "Proxy III", cCost: 3, uCost:0},
+                { espAugId: 11, Name: "Link", cCost: 2, uCost:0},
             ];
 
         for (i=0; i<eAugs.length; i++){
             q = eAugs[i].value;
-            enhaCC += espAugsArray[q].cCost;
-            enhaUC += espAugsArray[q].ucost;
+            currentCosts.CC += espAugsArray[q].cCost;
+            currentCosts.UC += espAugsArray[q].uCost;
             document.getElementById('currentEspAugs').innerHTML += espAugsArray[q].Name + (", ");
         }
 
@@ -899,8 +899,8 @@
 
         for (i=0; i<uAugs.length; i++){
             q = uAugs[i].value;
-            enhaCC += utilAugsArray[q].cCost;
-            enhaUC += utilAugsArray[q].uCost;
+            currentCosts.CC += utilAugsArray[q].cCost;
+            currentCosts.UC += utilAugsArray[q].uCost;
             document.getElementById('currentUtilAugs').innerHTML += utilAugsArray[q].Name + (", ");
         }
 
@@ -917,16 +917,16 @@
                 case "0":
                     break;
                 case "CC":
-                    enhaCC += 1;
+                    currentCosts.CC += 1;
                     break;
                 case "UC":
-                    enhaUC += 1;
+                    currentCosts.UC += 1;
                     break;
             }
         }
 
-        document.getElementById("currentCC").innerHTML = enhaCC;
-        document.getElementById("currentUC").innerHTML = enhaUC;
+        document.getElementById("currentCC").innerHTML = currentCosts.CC;
+        document.getElementById("currentUC").innerHTML = currentCosts.UC;
 
         var hdLight, hdTwoHand, hdShield;
         var dsReach, dsFinesse, dsHeavy;
@@ -1295,18 +1295,18 @@
         function espAugAddDropDownList() {
             //Build an array containing Customer records.
             var espAugs = [
-                { espAugId: 0, Name: "Replenish I", cCost: 1, ucost:0},
-                { espAugId: 1, Name: "Replenish II", cCost: 3, ucost:0},
-                { espAugId: 2, Name: "Replenish III", cCost: 5, ucost:0},
-                { espAugId: 3, Name: "Cast I", cCost: 1, ucost:0},
-                { espAugId: 4, Name: "Cast II", cCost: 3, ucost:0},
-                { espAugId: 5, Name: "Cast III", cCost: 5, ucost:0},
-                { espAugId: 6, Name: "Converter (CC)", cCost: 1, ucost:0},
-                { espAugId: 7, Name: "Converter (UC)", cCost: 0, ucost:1},
-                { espAugId: 8, Name: "Proxy I", cCost: 1, ucost:0},
-                { espAugId: 9, Name: "Proxy II", cCost: 2, ucost:0},
-                { espAugId: 10, Name: "Proxy III", cCost: 3, ucost:0},
-                { espAugId: 11, Name: "Link", cCost: 2, ucost:0},
+                { espAugId: 0, Name: "Replenish I", cCost: 1, uCost:0},
+                { espAugId: 1, Name: "Replenish II", cCost: 3, uCost:0},
+                { espAugId: 2, Name: "Replenish III", cCost: 5, uCost:0},
+                { espAugId: 3, Name: "Cast I", cCost: 1, uCost:0},
+                { espAugId: 4, Name: "Cast II", cCost: 3, uCost:0},
+                { espAugId: 5, Name: "Cast III", cCost: 5, uCost:0},
+                { espAugId: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
+                { espAugId: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
+                { espAugId: 8, Name: "Proxy I", cCost: 1, uCost:0},
+                { espAugId: 9, Name: "Proxy II", cCost: 2, uCost:0},
+                { espAugId: 10, Name: "Proxy III", cCost: 3, uCost:0},
+                { espAugId: 11, Name: "Link", cCost: 2, uCost:0},
             ];
 
             //Create a DropDownList element.
