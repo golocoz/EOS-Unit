@@ -726,6 +726,32 @@
     ];
 
     function handlingPropertyCheck(){
+        var lightDisState, oneHandDisState, versDisState, twoHandDisState, shieldDisState;
+        var lightTick, oneHandTick, twoHandTick, versTick, shieldTick;
+
+        lightDisState = document.getElementById("hd1");
+        oneHandDisState = document.getElementById("hd2");
+        versDisState = document.getElementById("hd3");
+        twoHandDisState = document.getElementById("hd4");
+        shieldDisState = document.getElementById("hd5");
+
+        lightTick =  document.getElementById("hd1").checked;
+        oneHandTick = document.getElementById("hd2").checked;
+        versTick = document.getElementById("hd3").checked;
+        twoHandTick = document.getElementById("hd4").checked;
+        shieldTick = document.getElementById("hd5").checked;
+
+        
+        
+        var finesseDisState,heavyDisState;
+        var finesseTick, thrownTick, heavyTick;
+        
+        finesseDisState = document.getElementById("pt2");
+        finesseTick = document.getElementById("pt2").checked;
+
+        heavyDisState = document.getElementById("pt4");
+        heavyTick = document.getElementById("pt4").checked;
+
 
         var wTypes = document.getElementsByClassName("dice");
 
