@@ -85,7 +85,7 @@
                 <tr>
                     <td><input type="checkbox" id="pt3" class="dice" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>Thrown</td>
-                    <td></td>
+                    <td>-D2 if Heavy</td>
                     <td>Range (20/60)</td>
                 </tr>
                 <tr>
@@ -170,7 +170,7 @@
             <tr>
                 <td>Flow</td>
                 <td>1 CC</td>
-                <td>When you hit a melee attack with this weapon, you can move the target a number of feet equal to this weapon’s reach, provided they are no more than one size larger than you. Requires Reach or the Extend enhancement.</td>
+                <td>When you hit a melee attack with this weapon, you can move the target a number of feet equal to this weapon’s reach, provided they are no more than one size larger than you. Requires Reach or the Extend Augment.</td>
             </tr>
             <tr>
                 <td>Safeguard</td>
@@ -615,140 +615,116 @@
     var CostFlaw = 0;
     
     var enhaReinforced;
+    var propHeavy, propThrown;
     
     var wSpecs = document.getElementsByName('wsf');
     var costFlaw = document.getElementsByClassName('cflaw');
 
     const flawNames = ["None", "Dull I", "Dull II", "Dull III", "Complex", "Bulky I", "Bulky II", "Bulky III", "Unwieldy", "Vulnerable"]
-
-
-    var enhancementsTest = [
-            { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-            { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { Id: 3, Name: "Siege", cCost: 1, uCost: 0},
-            { Id: 4, Name: "Returning", cCost: 1, uCost: 0},
-            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
-            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
-            { Id: 7, Name: "Flow", cCost: 1, uCost: 0},
-            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
-            { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
-            { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-            { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-            { Id: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-            { Id: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
-            { Id: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
-            { Id: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
-            { Id: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-            { Id: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-            { Id: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-            { Id: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-            { Id: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-            { Id: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
-        ];
     
-    var enhancements = [
-            { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-            { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { Id: 3, Name: "Siege", cCost: 1, uCost: 0},
-            { Id: 4, Name: "Returning", cCost: 1, uCost: 0},
-            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
-            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
-            { Id: 7, Name: "Flow", cCost: 1, uCost: 0},
-            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
-            { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
-            { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-            { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-            { Id: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-            { Id: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
-            { Id: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
-            { Id: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
-            { Id: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-            { Id: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-            { Id: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-            { Id: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-            { Id: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-            { Id: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
-        ];
+    var enhancementsArray = [
+        { Id: 0, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
+        { Id: 1, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
+        { Id: 2, Name: "Siege", cCost: 1, uCost: 0},
+        { Id: 3, Name: "Returning", cCost: 1, uCost: 0},
+        { Id: 4, Name: "Twinned", cCost: 1, uCost: 0},
+        { Id: 5, Name: "Suregrip", cCost: 1, uCost: 0},
+        { Id: 6, Name: "Flow", cCost: 1, uCost: 0},
+        { Id: 7, Name: "Safeguard", cCost: 1, uCost: 0},
+        { Id: 8, Name: "Reinforced", cCost: 2, uCost: 0},
+        { Id: 9, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
+        { Id: 10, Name: "Transform (2CC)", cCost: 2, uCost: 0},
+        { Id: 11, Name: "Transform (2UC)", cCost: 0, uCost: 2},
+        { Id: 12, Name: "Transform: Range I", cCost: 1, uCost: 0},
+        { Id: 13, Name: "Transform: Range II", cCost: 2, uCost: 0},
+        { Id: 14, Name: "Transform: Range III", cCost: 3, uCost: 0},
+        { Id: 15, Name: "Transform: Heavy", cCost: 1, uCost: 0},
+        { Id: 16, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
+        { Id: 17, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
+        { Id: 18, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
+        { Id: 19, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
+        { Id: 20, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
+    ];
 
     var meleeAugsArray = [
-            { Id: 0, Name: "Sweep I", cCost: 3, uCost:0},
-            { Id: 1, Name: "Sweep II", cCost: 5, uCost:0},
-            { Id: 2, Name: "Extend I", cCost: 3, uCost:0},
-            { Id: 3, Name: "Extend II", cCost: 5, uCost:0},
-            { Id: 4, Name: "Scar", cCost: 1, uCost:0},
-            { Id: 5, Name: "Measure I", cCost: 1, uCost:0},
-            { Id: 6, Name: "Measure II", cCost: 3, uCost:0},
-            { Id: 7, Name: "Measure III", cCost: 5, uCost:0},
-        ];
+        { Id: 0, Name: "Sweep I", cCost: 3, uCost:0},
+        { Id: 1, Name: "Sweep II", cCost: 5, uCost:0},
+        { Id: 2, Name: "Extend I", cCost: 3, uCost:0},
+        { Id: 3, Name: "Extend II", cCost: 5, uCost:0},
+        { Id: 4, Name: "Scar", cCost: 1, uCost:0},
+        { Id: 5, Name: "Measure I", cCost: 1, uCost:0},
+        { Id: 6, Name: "Measure II", cCost: 3, uCost:0},
+        { Id: 7, Name: "Measure III", cCost: 5, uCost:0},
+    ];
 
     var rangeAugsArray = [
-                { Id: 0, Name: "Snipe I", cCost: 2, uCost:0},
-                { Id: 1, Name: "Snipe II", cCost: 4, uCost:0},
-                { Id: 2, Name: "Rile", cCost: 1, uCost:0},
-                { Id: 3, Name: "Spray I", cCost: 0, uCost:0},
-                { Id: 4, Name: "Spray II", cCost: 2, uCost:0},
-                { Id: 5, Name: "Spray III", cCost: 4, uCost:0},
-                { Id: 6, Name: "Ambush", cCost: 2, uCost:0},
-            ];
+        { Id: 0, Name: "Snipe I", cCost: 2, uCost:0},
+        { Id: 1, Name: "Snipe II", cCost: 4, uCost:0},
+        { Id: 2, Name: "Rile", cCost: 1, uCost:0},
+        { Id: 3, Name: "Spray I", cCost: 0, uCost:0},
+        { Id: 4, Name: "Spray II", cCost: 2, uCost:0},
+        { Id: 5, Name: "Spray III", cCost: 4, uCost:0},
+        { Id: 6, Name: "Ambush", cCost: 2, uCost:0},
+    ];
     
     var defAugsArray = [
-                { Id: 0, Name: "Parry I", cCost: 2, uCost:0},
-                { Id: 1, Name: "Parry II", cCost: 4, uCost:0},
-                { Id: 2, Name: "Parry III", cCost: 6, uCost:0},
-                { Id: 3, Name: "Resist I", cCost: 2, uCost:0},
-                { Id: 4, Name: "Resist II", cCost: 4, uCost:0},
-                { Id: 5, Name: "Resist III", cCost: 6, uCost:0},
-                { Id: 6, Name: "Sturdy I", cCost: 2, uCost:0},
-                { Id: 7, Name: "Sturdy II", cCost: 4, uCost:0},
-                { Id: 8, Name: "Sturdy III", cCost: 6, uCost:0},
-                { Id: 9, Name: "Guardian (CC)", cCost: 2, uCost:0},
-                { Id: 10, Name: "Guardian (UC)", cCost: 0, uCost:2},
-            ];
+        { Id: 0, Name: "Parry I", cCost: 2, uCost:0},
+        { Id: 1, Name: "Parry II", cCost: 4, uCost:0},
+        { Id: 2, Name: "Parry III", cCost: 6, uCost:0},
+        { Id: 3, Name: "Resist I", cCost: 2, uCost:0},
+        { Id: 4, Name: "Resist II", cCost: 4, uCost:0},
+        { Id: 5, Name: "Resist III", cCost: 6, uCost:0},
+        { Id: 6, Name: "Sturdy I", cCost: 2, uCost:0},
+        { Id: 7, Name: "Sturdy II", cCost: 4, uCost:0},
+        { Id: 8, Name: "Sturdy III", cCost: 6, uCost:0},
+        { Id: 9, Name: "Guardian (CC)", cCost: 2, uCost:0},
+        { Id: 10, Name: "Guardian (UC)", cCost: 0, uCost:2},
+    ];
 
     var espAugsArray = [
-                { Id: 0, Name: "Replenish I", cCost: 1, uCost:0},
-                { Id: 1, Name: "Replenish II", cCost: 3, uCost:0},
-                { Id: 2, Name: "Replenish III", cCost: 5, uCost:0},
-                { Id: 3, Name: "Cast I", cCost: 1, uCost:0},
-                { Id: 4, Name: "Cast II", cCost: 3, uCost:0},
-                { Id: 5, Name: "Cast III", cCost: 5, uCost:0},
-                { Id: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
-                { Id: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
-                { Id: 8, Name: "Proxy I", cCost: 1, uCost:0},
-                { Id: 9, Name: "Proxy II", cCost: 2, uCost:0},
-                { Id: 10, Name: "Proxy III", cCost: 3, uCost:0},
-                { Id: 11, Name: "Link", cCost: 2, uCost:0},
-            ];
+        { Id: 0, Name: "Replenish I", cCost: 1, uCost:0},
+        { Id: 1, Name: "Replenish II", cCost: 3, uCost:0},
+        { Id: 2, Name: "Replenish III", cCost: 5, uCost:0},
+        { Id: 3, Name: "Cast I", cCost: 1, uCost:0},
+        { Id: 4, Name: "Cast II", cCost: 3, uCost:0},
+        { Id: 5, Name: "Cast III", cCost: 5, uCost:0},
+        { Id: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
+        { Id: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
+        { Id: 8, Name: "Proxy I", cCost: 1, uCost:0},
+        { Id: 9, Name: "Proxy II", cCost: 2, uCost:0},
+        { Id: 10, Name: "Proxy III", cCost: 3, uCost:0},
+        { Id: 11, Name: "Link", cCost: 2, uCost:0},
+    ];
 
     var utilAugsArray = [
-                { Id: 0, Name: "Shroud", cCost: 0, uCost: 1},
-                { Id: 1, Name: "Slog", cCost: 0, uCost: 1},
-                { Id: 2, Name: "Load", cCost: 1, uCost: 0},
-                { Id: 3, Name: "Load", cCost: 0, uCost: 1},
-                { Id: 4, Name: "Scout", cCost: 0, uCost: 1},
-                { Id: 5, Name: "Barrier I", cCost: 0, uCost: 1},
-                { Id: 6, Name: "Barrier II", cCost: 0, uCost: 2},
-                { Id: 7, Name: "Balance", cCost: 0, uCost: 2},
-                { Id: 8, Name: "Maneuver I", cCost: 0, uCost: 3},
-                { Id: 9, Name: "Maneuver II", cCost: 0, uCost: 5},
-                { Id: 10, Name: "Maneuver III", cCost: 0, uCost: 7},
-                { Id: 11, Name: "Hookshot I", cCost: 0, uCost: 2},
-                { Id: 12, Name: "Hookshot II", cCost: 0, uCost: 4},
-                { Id: 13, Name: "Flight", cCost: 0, uCost: 5},
-                { Id: 14, Name: "Polarity", cCost: 0, uCost: 2},
-                { Id: 15, Name: "Vision I", cCost: 0, uCost: 2},
-                { Id: 16, Name: "Vision II", cCost: 0, uCost: 4},
-                { Id: 17, Name: "Manipulate I", cCost: 0, uCost: 1},
-                { Id: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
-                { Id: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
-                { Id: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
-            ];
+        { Id: 0, Name: "Shroud", cCost: 0, uCost: 1},
+        { Id: 1, Name: "Slog", cCost: 0, uCost: 1},
+        { Id: 2, Name: "Load", cCost: 1, uCost: 0},
+        { Id: 3, Name: "Load", cCost: 0, uCost: 1},
+        { Id: 4, Name: "Scout", cCost: 0, uCost: 1},
+        { Id: 5, Name: "Barrier I", cCost: 0, uCost: 1},
+        { Id: 6, Name: "Barrier II", cCost: 0, uCost: 2},
+        { Id: 7, Name: "Balance", cCost: 0, uCost: 2},
+        { Id: 8, Name: "Maneuver I", cCost: 0, uCost: 3},
+        { Id: 9, Name: "Maneuver II", cCost: 0, uCost: 5},
+        { Id: 10, Name: "Maneuver III", cCost: 0, uCost: 7},
+        { Id: 11, Name: "Hookshot I", cCost: 0, uCost: 2},
+        { Id: 12, Name: "Hookshot II", cCost: 0, uCost: 4},
+        { Id: 13, Name: "Flight", cCost: 0, uCost: 5},
+        { Id: 14, Name: "Polarity", cCost: 0, uCost: 2},
+        { Id: 15, Name: "Vision I", cCost: 0, uCost: 2},
+        { Id: 16, Name: "Vision II", cCost: 0, uCost: 4},
+        { Id: 17, Name: "Manipulate I", cCost: 0, uCost: 1},
+        { Id: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
+        { Id: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
+        { Id: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
+    ];
 
     var costSelect = [
-                { Id: 0, Name: "Initial", value:"0"},
-                { Id: 1, Name: "+1 Extra CC", value:"CC"},
-                { Id: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
+        { Id: 0, Name: "Initial", value:"0"},
+        { Id: 1, Name: "+1 Extra CC", value:"CC"},
+        { Id: 2, Name: "+1 Extra UC", value:"UC"},
+    ];
 
     function handlingPropertyCheck(){
         var lightDisState, oneHandDisState, versDisState, twoHandDisState, shieldDisState;
@@ -767,7 +743,7 @@
         shieldTick = document.getElementById("hd5").checked;
 
         var finesseDisState,heavyDisState;
-        var finesseTick, heavyTick;
+        var finesseTick, thrownTick, heavyTick;
         
         finesseDisState = document.getElementById("pt2");
         finesseTick = document.getElementById("pt2").checked;
@@ -812,10 +788,11 @@
             heavyDisState.disabled = true;
         }
 
+        
         if (heavyTick){
             finesseDisState.disabled =true;
         } else {
-            finesseDisState.disabled =false;
+            finesseDisState.disabled = false;
         }
     }
 
@@ -830,7 +807,7 @@
             UC: 0
         };
 
-        var enhaReinforced;
+        handlingPropertyCheck();
         
         for(i=0; i < wSpecs.length; i++){
             if(wSpecs[i].checked){
@@ -850,8 +827,6 @@
             }
             }
         }
-
-
         
         var wFlaw = document.getElementById("flawChoice").value;
         var namesFlaw = document.getElementById("flawChoice");
@@ -884,42 +859,39 @@
         document.getElementById("testtotalCC").innerHTML = classLevel + wSpecCC + bonusCC;
         document.getElementById("testtotalUC").innerHTML = classLevel + wSpecUC + bonusUC;
         
-        var enha = document.getElementsByName("classenhancement");
-
         
 
-        for (i=0, document.getElementById('currentEnha').innerHTML =""; i<enha.length; i++){
-            p = enha[i].value - 1;
-            currentCosts.CC += enhancements[p].cCost;
-            currentCosts.UC += enhancements[p].uCost;
-            if (enhancements[p].Name == "Reinforced" || enhancements[p].Name == "Reinforced (D10)"){
-                console.log("Reinforced!");
-                enhaReinforced = true;
-            }
-            document.getElementById('currentEnha').innerHTML += enhancements[p].Name;
-            if (i<enha.length -1){
-                document.getElementById('currentEnha').innerHTML +=  (", ")
-            };
-        }
+        // for (i=0, document.getElementById('currentEnha').innerHTML =""; i<enha.length; i++){
+        //     p = enha[i].value - 1;
+        //     currentCosts.CC += enhancementsArray[p].cCost;
+        //     currentCosts.UC += enhancementsArray[p].uCost;
+        //     if (enhancementsArray[p].Name == "Reinforced" || enhancementsArray[p].Name == "Reinforced (D10)"){
+        //         console.log("Reinforced!");
+        //         enhaReinforced = true;
+        //     }
+        //     document.getElementById('currentEnha').innerHTML += enhancementsArray[p].Name;
+        //     if (i<enha.length -1){
+        //         document.getElementById('currentEnha').innerHTML +=  (", ")
+        //     };
+        // }
+        
+        enhaReinforced = false;
+        var enha = document.getElementsByName("classenhancement");
+        currentCosts = enhaAugList(enhancementsArray, 'currentEnha', enha, currentCosts);
 
         var mAugs = document.getElementsByName("meleeAugs")
-
         currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
 
         var rAugs = document.getElementsByName("rangeAugs")
-
         currentCosts = enhaAugList(rangeAugsArray, 'currentRangeAugs', rAugs, currentCosts);
 
         var dAugs = document.getElementsByName("defAugs");
-
         currentCosts = enhaAugList(defAugsArray, 'currentDefAugs', dAugs, currentCosts);
 
         var eAugs = document.getElementsByName("espAugs")
-
         currentCosts = enhaAugList(espAugsArray, 'currentEspAugs', eAugs, currentCosts);
 
         var uAugs = document.getElementsByName("utilAugs")
-
         currentCosts = enhaAugList(utilAugsArray, 'currentUtilAugs', uAugs, currentCosts);
 
         var augCost = document.getElementsByName("cCostSelect");
@@ -957,22 +929,35 @@
 
         dsReach = document.getElementById("pt1").checked;
         dsFinesse = document.getElementById("pt2").checked;
+        dsThrown = document.getElementById("pt3").checked;
         dsHeavy = document.getElementById("pt4").checked;
 
         diceSelected = document.getElementsByClassName("dice");
 
         console.log(diceSelected);
         console.log(diceSelected[0].value);
+        var propHeavy = false, propThrown = false;
 
         for (i=0; i < diceSelected.length; i++){
             if (diceSelected[i].checked){
-                console.log(diceSelected[i].value)
+                console.log(diceSelected[i])
                 diceSize += parseInt(diceSelected[i].value);
+                if (diceSelected[i].id == "pt3"){
+                    propThrown = true;
+                } 
+                if (diceSelected[i].id == "pt4"){
+                    propHeavy = true;
+                } 
             }
         }
 
         if (enhaReinforced){
+            console.log("Reinforced!");
             diceSize += 2;
+        }
+
+        if (propHeavy && propThrown){
+            diceSize -= 2;
         }
 
         document.getElementById("diceSize").innerHTML = diceSize;
@@ -986,6 +971,11 @@
                 currentCosts.CC += enhaAugArray[q].cCost;
                 currentCosts.UC += enhaAugArray[q].uCost;
                 document.getElementById(currentListId).innerHTML += enhaAugArray[q].Name;
+
+                if (enhancementsArray[q].Name == "Reinforced" || enhancementsArray[q].Name == "Reinforced (D10)"){
+                console.log("Reinforced!");
+                enhaReinforced = true;
+                }
                 if (i < currentAugs.length - 1){
                     document.getElementById(currentListId).innerHTML += (", ");
                 }
@@ -994,7 +984,7 @@
         }
 
     function enhancementsAddDropDownList(){
-        testAddDropDownList(enhancementsTest, "classenhancement", "#tblContainer", AugList = false);
+        testAddDropDownList(enhancementsArray, "classenhancement", "#tblContainer", AugList = false);
     }
 
     function meleeAddDropDownList(){
@@ -1075,8 +1065,6 @@
                 $(cell2).append(cSelect);
             }
                 
-            
- 
             //Create a Remove Button.
             var btnRemove = $("<input type = 'button' value = 'Remove'/>");
             btnRemove.click(function () {
