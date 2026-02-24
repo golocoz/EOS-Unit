@@ -591,10 +591,9 @@
                 <option value="UC">Slashing</option>
                 <option value="UC">Piercing</option>
             </select></p>
-        <p>Total CC: <span id="testtotalCC"></span></p>
-        <p>Total UC: <span id="testtotalUC"></span></p>
-        <p>Current CC: <span id="currentCC"></span></p>
-        <p>Current UC: <span id="currentUC"></span></p>
+        <p>Total CC: <span id="testtotalCC"></span> Total UC: <span id="testtotalUC"></span></p>
+        <p>Current CC: <span id="currentCC"> </span> Current UC: <span id="currentUC"></span></p>
+        <p>Remaining CC: <span id="remainingCC"> </span> Remaining UC: <span id="remainingUC"></span></p>
         <p>Flaw: <span id="currentFlaw"></span></p>
         <p>Enhancements: <span id="currentEnha"></span></p>
         <p>Melee Augs: <span id="currentMeleeAugs"></span></p>
@@ -917,6 +916,8 @@
 
         document.getElementById("currentCC").innerHTML = currentCosts.CC;
         document.getElementById("currentUC").innerHTML = currentCosts.UC;
+        document.getElementById("remainingCC").innerHTML = classLevel + wSpecCC + bonusCC - currentCosts.CC;
+        document.getElementById("remainingUC").innerHTML = classLevel + wSpecUC + bonusUC - currentCosts.UC;
 
         var hdLight, hdTwoHand, hdShield;
         var dsReach, dsFinesse, dsHeavy;
