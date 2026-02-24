@@ -874,7 +874,7 @@
         //For each Enhancement
         for (i=0; i<enha.length; i++){
             enhancementDiv = $('<span></span>');
-            // p = enha[i].value - 1;
+            p = enha[i].value;
             // currentCosts.CC += enhancementsArray[p].cCost;
             // currentCosts.UC += enhancementsArray[p].uCost;
             // if (enhancementsArray[p].Name == "Reinforced" || enhancementsArray[p].Name == "Reinforced (D10)"){
@@ -882,11 +882,11 @@
             //     enhaReinforced = true;
             // }
 
-            enhancementDiv.text(enhancementsArray[i].Name);
+            enhancementDiv.text(enhancementsArray[p].Name);
 
             //Check if has requirements
-            requirementCheck: if (enhancementsArray[i].hasOwnProperty("Required")){
-                var required = enhancementsArray[i].Required;
+            requirementCheck: if (enhancementsArray[p].hasOwnProperty("Required")){
+                var required = enhancementsArray[p].Required;
                 var separator;
                 var sliceAtEnd;
 
