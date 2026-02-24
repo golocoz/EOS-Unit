@@ -2,6 +2,7 @@
  <!-- help -->
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
 <html>
     <head>
         <title>EOS Unit v2.1</title>
@@ -25,7 +26,7 @@
             <tbody>
                 <tr>
                     
-                    <td><input type="checkbox" class="dice" name="hd" id="hd1" value=-2 onclick="handlingPropertyCheck()"></td>                    
+                    <td><input data-name="Light" type="checkbox" class="dice handlingType" name="hd" id="hd1" value=-2 onclick="handlingPropertyCheck()"></td>                    
                     <label for="hd1"></label>    
                         <td>Light</td>
                         <td>-D2</td>
@@ -33,25 +34,25 @@
                     </label>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="dice" name="hd" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="One-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>One-Handed</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="dice" name="hd" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Versatile" type="checkbox" class="dice handlingType" name="hd" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>Versatile</td>
                     <td></td>
                     <td>Precludes Light and Two-Handed</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="dice" name="hd" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Two-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
                     <td>Two-Handed</td>
                     <td>+D2</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="dice" name="hd" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Shield" type="checkbox" class="dice handlingType" name="hd" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
                     <td>Shield</td>
                     <td>-D4</td>
                     <td>+2 AC when donned as an Action (cannot be used as a weapon while donned), precludes Light.</td>
@@ -71,25 +72,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="checkbox" id="pt1" class="dice" value=0 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>Reach</td>
                     <td>-D2</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" name="heavyFinesse" class="dice" id="pt2" value=-2 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Finesse" type="checkbox" name="heavyFinesse" class="dice propertyType" id="pt2" value=-2 onclick="handlingPropertyCheck()"></td>
                     <td>Finesse</td>
                     <td>-D2</td>
                     <td>No damage mod if Light, precludes Heavy</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="pt3" class="dice" value=0 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Thrown" type="checkbox" id="pt3" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>Thrown</td>
                     <td></td>
                     <td>Range (20/60)</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" name="heavyFinesse" id="pt4" class="dice" value=+2 onclick="handlingPropertyCheck()" disabled></td>
+                    <td><input data-name="Heavy" type="checkbox" name="heavyFinesse" id="pt4" class="dice propertyType" value=+2 onclick="handlingPropertyCheck()" disabled></td>
                     <td>Heavy</td>
                     <td>+D2</td>
                     <td>Requires Two-Handed</td>
@@ -605,6 +606,7 @@
         
 
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
     
     let DiceSizeBase = 8;
@@ -626,10 +628,10 @@
             { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
             { Id: 3, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
             { Id: 4, Name: "Returning", cCost: 1, uCost: 0, Required: {Property: "Thrown"}},
-            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0},
-            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0},
+            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0, Required: {Handling: "Light"}},
+            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0, Required: {Handling: "Versatile"}},
             { Id: 7, Name: "Flow", cCost: 1, uCost: 0, Required: {Or: true, Property: "Reach", Augment: "Extend"}},
-            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0},
+            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0, Required: {Handling: "Shield"}},
             { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
             { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
             { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
@@ -796,6 +798,13 @@
 
     // Update button
     document.getElementById("testbutton").addEventListener("click", function(){
+        var diceSelected;
+        var diceSize = 8;
+
+        diceSelected = document.getElementsByClassName("dice");
+        htSelected = $('input.handlingType:checked');
+        ptSelected = $('input.propertyType:checked');
+        augSelected = $('select[name="meleeAugs"]');
         
         let classLevel = parseInt(document.getElementById("classLevel").value);
         let bonusCC = parseInt(document.getElementById("bonusCC").value);
@@ -864,8 +873,10 @@
 
         // Lists out the current Enhancements
         document.getElementById('currentEnha').innerHTML ="";
-        var enhancementName;
+        var enhancementDiv;
+        //For each Enhancement
         for (i=0; i<enha.length; i++){
+            enhancementDiv = $('<span></span>');
             p = enha[i].value - 1;
             currentCosts.CC += enhancements[p].cCost;
             currentCosts.UC += enhancements[p].uCost;
@@ -874,58 +885,130 @@
                 enhaReinforced = true;
             }
 
-            enhancementName = enhancements[p].Name;
+            enhancementDiv.text(enhancements[p].Name);
 
             //Check if has requirements
-            if (enhancements[p].hasOwnProperty("Required")){
-                enhancementName += " (Requires ";
+            requirementCheck: if (enhancements[p].hasOwnProperty("Required")){
                 var required = enhancements[p].Required;
-                var separator = ", ";
-                var sliceAtEnd = -2;
+                var separator;
+                var sliceAtEnd;
+
+                // Or
                 if (required.hasOwnProperty("Or")){
                     separator = " or ";
                     sliceAtEnd = -4;
+
+                    //Check for required Handling, Property, Augment
+                    if (required.hasOwnProperty("Handling")){
+                        for (j=0; j<htSelected.length; j++){
+                            console.log("requirementsCheck: " + htSelected[j].getAttribute("data-name"));
+                            if (required.Handling == htSelected[j].getAttribute("data-name")){
+                                break requirementCheck;
+                            }
+                        }
+                    }
+                    if (required.hasOwnProperty("Property")){
+                        for (j=0; j<ptSelected.length; j++){
+                            console.log("requirementsCheck: " + ptSelected[j].getAttribute("data-name"));
+                            if (required.Property == ptSelected[j].getAttribute("data-name")){
+                                break requirementCheck;
+                            }
+                        }
+                    }
+                    if (required.hasOwnProperty("Augment")){
+                        for (j=0; j<augSelected.length; j++){
+                            console.log("requirementsCheck: " + augSelected[j].getAttribute("data-name"));
+                            if (required.Augment == augSelected[j].find("option:selected").text()){
+                                break requirementCheck;
+                            }
+                        }
+                    }
+                // And
+                } else {
+                    separator = ", ";
+                    sliceAtEnd = -2;
+                    var requirementsNeeded = 0;
+                    var requirementsFullfilled = 0;
+
+                    //Check for required Handling, Property, Augment
+                    if (required.hasOwnProperty("Handling")){
+                        requirementsNeeded++;
+
+                        for (j=0; j<htSelected.length; j++){
+                            console.log("requirementsCheck: " + htSelected[j].getAttribute("data-name"));
+                            if (required.Handling == htSelected[j].getAttribute("data-name")){
+                                requirementsFullfilled++;
+                                break;
+                            }
+                        }
+                    }
+                    if (required.hasOwnProperty("Property")){
+                        requirementsNeeded++;
+                        for (j=0; j<ptSelected.length; j++){
+                            console.log("list out ptSelected: " + ptSelected[j].getAttribute("data-name"));
+                        }
+                        
+                        for (j=0; j<ptSelected.length; j++){
+                            console.log("requirementsCheck: " + ptSelected[j].getAttribute("data-name"));
+                            if (required.Property == ptSelected[j].getAttribute("data-name")){
+                                requirementsFullfilled++;
+                            }
+                        }
+                    }
+                    if (required.hasOwnProperty("Augment")){
+                        requirementsNeeded++;
+
+                        for (j=0; j<augSelected.length; j++){
+                            console.log("requirementsCheck: " + augSelected[j].getAttribute("data-name"));
+                            if (required.Augment == augSelected[j].find("option:selected").text()){
+                                requirementsFullfilled++;
+                            }
+                        }
+                    }
+
+                    if (requirementsNeeded == requirementsFullfilled){
+                        break requirementCheck;
+                    }
                 }
 
+                //Put red text
+                enhancementDiv.addClass("error");
+                enhancementDiv.append(" (Requires ");
                 //Check for required Handling, Property, Augment
                 if (required.hasOwnProperty("Handling")){
-                    enhancementName += required.Handling + separator;
+                    enhancementDiv.append(required.Handling + separator);
                 }
                 if (required.hasOwnProperty("Property")){
-                    enhancementName += required.Property + separator;
+                    enhancementDiv.append(required.Property + separator);
                 }
                 if (required.hasOwnProperty("Augment")){
-                    enhancementName += required.Augment + separator;
+                    enhancementDiv.append(required.Augment + separator);
                 }
 
-                enhancementName = enhancementName.slice(0, sliceAtEnd);
-                enhancementName += ")";
+                var originalText = enhancementDiv.text();
+                originalText = originalText.slice(0, sliceAtEnd);
+                enhancementDiv.text(originalText + ")");
             }
-
-            document.getElementById('currentEnha').innerHTML += enhancementName;
+            
+            $("#currentEnha").append(enhancementDiv);
             if (i<enha.length -1){
                 document.getElementById('currentEnha').innerHTML +=  (", ")
             };
         }
 
         var mAugs = document.getElementsByName("meleeAugs")
-
         currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
 
         var rAugs = document.getElementsByName("rangeAugs")
-
         currentCosts = enhaAugList(rangeAugsArray, 'currentRangeAugs', rAugs, currentCosts);
 
         var dAugs = document.getElementsByName("defAugs");
-
         currentCosts = enhaAugList(defAugsArray, 'currentDefAugs', dAugs, currentCosts);
 
         var eAugs = document.getElementsByName("espAugs")
-
         currentCosts = enhaAugList(espAugsArray, 'currentEspAugs', eAugs, currentCosts);
 
         var uAugs = document.getElementsByName("utilAugs")
-
         currentCosts = enhaAugList(utilAugsArray, 'currentUtilAugs', uAugs, currentCosts);
 
         var augCost = document.getElementsByName("cCostSelect");
@@ -951,21 +1034,6 @@
 
         document.getElementById("currentCC").innerHTML = currentCosts.CC;
         document.getElementById("currentUC").innerHTML = currentCosts.UC;
-
-        var hdLight, hdTwoHand, hdShield;
-        var dsReach, dsFinesse, dsHeavy;
-        var diceSelected;
-        var diceSize = 8;
-
-        hdLight = document.getElementById("hd1").checked;
-        hdTwoHand = document.getElementById("hd4").checked;
-        hdShield = document.getElementById("hd5").checked;
-
-        dsReach = document.getElementById("pt1").checked;
-        dsFinesse = document.getElementById("pt2").checked;
-        dsHeavy = document.getElementById("pt4").checked;
-
-        diceSelected = document.getElementsByClassName("dice");
 
         console.log(diceSelected);
         console.log(diceSelected[0].value);
@@ -1023,78 +1091,75 @@
         testAddDropDownList(utilAugsArray, "utilAugs", "#utilAugtblContainer", AugList = true);
     }
 
-</script>
+    function testAddDropDownList(enhaAugArray, selectAttr, htmlContainer, AugList) {
+        //Build an array containing Customer records.
+        
+        //Create a DropDownList element.
+        var ddlEnhancements = $("<select />");
+        ddlEnhancements.attr("name", selectAttr);
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        function testAddDropDownList(enhaAugArray, selectAttr, htmlContainer, AugList) {
-            //Build an array containing Customer records.
-            
-            //Create a DropDownList element.
-            var ddlEnhancements = $("<select />");
-            ddlEnhancements.attr("name", selectAttr);
- 
-            //Add the Options to the DropDownList.
-            $(enhaAugArray).each(function () {
+        //Add the Options to the DropDownList.
+        $(enhaAugArray).each(function () {
+            var option = $("<option />");
+
+            //Set Customer Name in Text part.
+            option.html(this.Name);
+
+            //Set Customer CustomerId in Value part.
+            option.val(this.Id);
+
+            //Add the Option element to DropDownList.
+            ddlEnhancements.append(option);
+        });
+
+        if(AugList){
+            var cSelect = $("<select />");
+            cSelect.attr("name", "cCostSelect");
+
+            $(costSelect).each(function () {
                 var option = $("<option />");
- 
+
                 //Set Customer Name in Text part.
                 option.html(this.Name);
- 
+
                 //Set Customer CustomerId in Value part.
                 option.val(this.Id);
- 
+
                 //Add the Option element to DropDownList.
-                ddlEnhancements.append(option);
+                cSelect.append(option);
             });
+        }
 
-            if(AugList){
-                var cSelect = $("<select />");
-                cSelect.attr("name", "cCostSelect");
+        //Reference the container Table.
+        var tblContainer = $(htmlContainer);
 
-                $(costSelect).each(function () {
-                    var option = $("<option />");
-    
-                    //Set Customer Name in Text part.
-                    option.html(this.Name);
-    
-                    //Set Customer CustomerId in Value part.
-                    option.val(this.Id);
-    
-                    //Add the Option element to DropDownList.
-                    cSelect.append(option);
-                });
-            }
- 
-            //Reference the container Table.
-            var tblContainer = $(htmlContainer);
- 
-            //Add the Table row.
-            var row = tblContainer[0].insertRow(-1);
- 
-            //Add the DropDownList to Table Row.
-            var cell = row.insertCell(-1);
-            $(cell).append(ddlEnhancements);
+        //Add the Table row.
+        var row = tblContainer[0].insertRow(-1);
 
-            if (AugList){
-                var cell2 = row.insertCell(-1);
-                $(cell2).append(cSelect);
-            }
-                
+        //Add the DropDownList to Table Row.
+        var cell = row.insertCell(-1);
+        $(cell).append(ddlEnhancements);
+
+        if (AugList){
+            var cell2 = row.insertCell(-1);
+            $(cell2).append(cSelect);
+        }
             
- 
-            //Create a Remove Button.
-            var btnRemove = $("<input type = 'button' value = 'Remove'/>");
-            btnRemove.click(function () {
-                //Determine the reference of the Row using the Button.
-                var row = btnRemove.closest("TR");
- 
-                //Delete the Table row.
-                row.remove();
-            });
- 
-            //Add the Remove Buttton to Table Row.
-            cell = row.insertCell(-1);
-            $(cell).append(btnRemove);
-        };
-    </script>
+        
+
+        //Create a Remove Button.
+        var btnRemove = $("<input type = 'button' value = 'Remove'/>");
+        btnRemove.click(function () {
+            //Determine the reference of the Row using the Button.
+            var row = btnRemove.closest("TR");
+
+            //Delete the Table row.
+            row.remove();
+        });
+
+        //Add the Remove Buttton to Table Row.
+        cell = row.insertCell(-1);
+        $(cell).append(btnRemove);
+    };
+</script>
+</html>
