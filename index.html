@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="style.css">
 <html>
     <head>
-        <title>EOS Unit v2.1</title>
+        <title>EOS Unit v2.2</title>
     </head>
-        <h1>EOS Unit v2.1</h1>
+        <h1>EOS Unit v2.2</h1>
         <p>Name: <input type="user-answer" id="uA1"> </p>
         <p>Class Level: <input type="number" id="classLevel" name="quantity" min="1" max="20" value="1"></p>
         <p>Bonus CC: <input type="number" id="bonusCC" name="quantity" min="0" max="99" value="0"></p>
@@ -621,28 +621,28 @@
 
     const flawNames = ["None", "Dull I", "Dull II", "Dull III", "Complex", "Bulky I", "Bulky II", "Bulky III", "Unwieldy", "Vulnerable"]
 
-    var enhancements = [
-            { Id: 1, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-            { Id: 2, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { Id: 3, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
-            { Id: 4, Name: "Returning", cCost: 1, uCost: 0, Required: {Property: "Thrown"}},
-            { Id: 5, Name: "Twinned", cCost: 1, uCost: 0, Required: {Handling: "Light"}},
-            { Id: 6, Name: "Suregrip", cCost: 1, uCost: 0, Required: {Handling: "Versatile"}},
-            { Id: 7, Name: "Flow", cCost: 1, uCost: 0, Required: {Or: true, Property: "Reach", Augment: "Extend"}},
-            { Id: 8, Name: "Safeguard", cCost: 1, uCost: 0, Required: {Handling: "Shield"}},
-            { Id: 9, Name: "Reinforced", cCost: 2, uCost: 0},
-            { Id: 10, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-            { Id: 11, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-            { Id: 12, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-            { Id: 13, Name: "Transform: Range I", cCost: 1, uCost: 0},
-            { Id: 14, Name: "Transform: Range II", cCost: 2, uCost: 0},
-            { Id: 15, Name: "Transform: Range III", cCost: 3, uCost: 0},
-            { Id: 16, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-            { Id: 17, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-            { Id: 18, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-            { Id: 19, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-            { Id: 20, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-            { Id: 21, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
+    var enhancementsArray = [
+            { Id: 0, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
+            { Id: 1, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
+            { Id: 2, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
+            { Id: 3, Name: "Returning", cCost: 1, uCost: 0, Required: {Property: "Thrown"}},
+            { Id: 4, Name: "Twinned", cCost: 1, uCost: 0, Required: {Handling: "Light"}},
+            { Id: 5, Name: "Suregrip", cCost: 1, uCost: 0, Required: {Handling: "Versatile"}},
+            { Id: 6, Name: "Flow", cCost: 1, uCost: 0, Required: {Or: true, Property: "Reach", Augment: "Extend"}},
+            { Id: 7, Name: "Safeguard", cCost: 1, uCost: 0, Required: {Handling: "Shield"}},
+            { Id: 8, Name: "Reinforced", cCost: 2, uCost: 0},
+            { Id: 9, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
+            { Id: 10, Name: "Transform (2CC)", cCost: 2, uCost: 0},
+            { Id: 11, Name: "Transform (2UC)", cCost: 0, uCost: 2},
+            { Id: 12, Name: "Transform: Range I", cCost: 1, uCost: 0},
+            { Id: 13, Name: "Transform: Range II", cCost: 2, uCost: 0},
+            { Id: 14, Name: "Transform: Range III", cCost: 3, uCost: 0},
+            { Id: 15, Name: "Transform: Heavy", cCost: 1, uCost: 0},
+            { Id: 16, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
+            { Id: 17, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
+            { Id: 18, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
+            { Id: 19, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
+            { Id: 20, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
         ];
 
     var meleeAugsArray = [
@@ -875,18 +875,18 @@
         for (i=0; i<enha.length; i++){
             enhancementDiv = $('<span></span>');
             p = enha[i].value - 1;
-            currentCosts.CC += enhancements[p].cCost;
-            currentCosts.UC += enhancements[p].uCost;
-            if (enhancements[p].Name == "Reinforced" || enhancements[p].Name == "Reinforced (D10)"){
+            currentCosts.CC += enhancementsArray[p].cCost;
+            currentCosts.UC += enhancementsArray[p].uCost;
+            if (enhancementsArray[p].Name == "Reinforced" || enhancementsArray[p].Name == "Reinforced (D10)"){
                 console.log("Reinforced!");
                 enhaReinforced = true;
             }
 
-            enhancementDiv.text(enhancements[p].Name);
+            enhancementDiv.text(enhancementsArray[p].Name);
 
             //Check if has requirements
-            requirementCheck: if (enhancements[p].hasOwnProperty("Required")){
-                var required = enhancements[p].Required;
+            requirementCheck: if (enhancementsArray[p].hasOwnProperty("Required")){
+                var required = enhancementsArray[p].Required;
                 var separator;
                 var sliceAtEnd;
 
