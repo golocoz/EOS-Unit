@@ -37,19 +37,19 @@
                     <td><input data-name="One-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>One-Handed</td>
                     <td></td>
-                    <td></td>
+                    <td>Precludes Two-Handed and Versatile</td>
                 </tr>
                 <tr>
                     <td><input data-name="Versatile" type="checkbox" class="dice handlingType" name="hd" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
                     <td>Versatile</td>
                     <td></td>
-                    <td>Precludes Light and Two-Handed</td>
+                    <td>Precludes Light, One-Handed and Two-Handed</td>
                 </tr>
                 <tr>
                     <td><input data-name="Two-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
                     <td>Two-Handed</td>
                     <td>+D2</td>
-                    <td></td>
+                    <td>Precludes One-Handed and Versatile</td>
                 </tr>
                 <tr>
                     <td><input data-name="Shield" type="checkbox" class="dice handlingType" name="hd" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
@@ -591,7 +591,7 @@
                 <option value="UC">Piercing</option>
             </select></p>
         <p>Total CC: <span id="testtotalCC"></span> Total UC: <span id="testtotalUC"></span></p>
-        <p>Current CC: <span id="currentCC"> </span> Current UC: <span id="currentUC"></span></p>
+        <p>Current CC: <span id="currentCC" > </span> Current UC: <span id="currentUC" ></span></p>
         <p>Remaining CC: <span id="remainingCC"> </span> Remaining UC: <span id="remainingUC"></span></p>
         <p>Flaw: <span id="currentFlaw"></span></p>
         <p>Enhancements: <span id="currentEnha"></span></p>
@@ -726,62 +726,47 @@
     ];
 
     function handlingPropertyCheck(){
-        var lightDisState, oneHandDisState, versDisState, twoHandDisState, shieldDisState;
-        var lightTick, oneHandTick, twoHandTick, versTick, shieldTick;
 
-        lightDisState = document.getElementById("hd1");
-        oneHandDisState = document.getElementById("hd2");
-        versDisState = document.getElementById("hd3");
-        twoHandDisState = document.getElementById("hd4");
-        shieldDisState = document.getElementById("hd5");
+        var wTypes = document.getElementsByClassName("dice");
 
-        lightTick =  document.getElementById("hd1").checked;
-        oneHandTick = document.getElementById("hd2").checked;
-        versTick = document.getElementById("hd3").checked;
-        twoHandTick = document.getElementById("hd4").checked;
-        shieldTick = document.getElementById("hd5").checked;
+        console.log(wTypes);
 
-        var finesseDisState,heavyDisState;
-        var finesseTick, thrownTick, heavyTick;
-        
-        finesseDisState = document.getElementById("pt2");
-        finesseTick = document.getElementById("pt2").checked;
-
-        heavyDisState = document.getElementById("pt4");
-        heavyTick = document.getElementById("pt4").checked;
+        for (i=0; i < wTypes.length; i++){
+            if (wTypes[i].id != "pt4"){
+                console.log("not heavy enabled!");
+                wTypes[i].disabled = false;
+            } else if (wTypes[i].id == "pt4"){
+                console.log("heavy disabled!");
+                wTypes[i].disabled = true;
+            }
+        }
 
         if (lightTick){
             versDisState.disabled = true;
             shieldDisState.disabled = true;
-        } else {
-            versDisState.disabled = false;
-            shieldDisState.disabled = false;
-        }
+        } 
+
+        if (oneHandTick){
+            versDisState.disabled = true;
+            twoHandDisState.disabled = true;
+        } 
         
         if (versTick){
             lightDisState.disabled = true;
+            oneHandDisState.disabled = true;
             twoHandDisState.disabled = true;
-        } else {
-            lightDisState.disabled = false;
-            twoHandDisState.disabled = false;
-        }
+        } 
 
         if (twoHandTick){
             heavyDisState.disabled = false;
             versDisState.disabled = true;
-        } else {
-            heavyDisState.checked = false;
-            heavyDisState.disabled = true;
-            if(!lightTick){
-                versDisState.disabled = false;
-            }
-        }
+            lightDisState.disabled = true;
+            oneHandDisState.disabled = true;
+        } 
 
         if (shieldTick){
             lightDisState.disabled = true;
-        } else {
-            lightDisState = false;
-        }
+        } 
 
         if (finesseTick){
             heavyDisState.disabled = true;
@@ -790,9 +775,7 @@
         
         if (heavyTick){
             finesseDisState.disabled =true;
-        } else {
-            finesseDisState.disabled = false;
-        }
+        } 
     }
 
     // Update button
@@ -1034,6 +1017,22 @@
         document.getElementById("remainingCC").innerHTML = classLevel + wSpecCC + bonusCC - currentCosts.CC;
         document.getElementById("remainingUC").innerHTML = classLevel + wSpecUC + bonusUC - currentCosts.UC;
 
+        remainingCC = $("#remainingCC");
+        remainingCC.removeClass();
+
+        if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
+            console.log("negative!")
+            remainingCC.addClass("error");
+        }
+
+        remainingUC = $("#remainingUC");
+        remainingUC.removeClass();
+
+        if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
+            console.log("negative!")
+            remainingUC.addClass("error");
+        }
+        
         // dsReach = document.getElementById("pt1").checked;
         // dsFinesse = document.getElementById("pt2").checked;
         // dsThrown = document.getElementById("pt3").checked;
