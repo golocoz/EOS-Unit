@@ -866,7 +866,7 @@
         document.getElementById("testtotalCC").innerHTML = classLevel + wSpecCC + bonusCC;
         document.getElementById("testtotalUC").innerHTML = classLevel + wSpecUC + bonusUC;
         
-        
+        var enha = document.getElementsByName("classenhancement");
 
         // Lists out the current Enhancements
         document.getElementById('currentEnha').innerHTML ="";
@@ -874,19 +874,19 @@
         //For each Enhancement
         for (i=0; i<enha.length; i++){
             enhancementDiv = $('<span></span>');
-            p = enha[i].value - 1;
-            currentCosts.CC += enhancementsArray[p].cCost;
-            currentCosts.UC += enhancementsArray[p].uCost;
-            if (enhancementsArray[p].Name == "Reinforced" || enhancementsArray[p].Name == "Reinforced (D10)"){
-                console.log("Reinforced!");
-                enhaReinforced = true;
-            }
+            // p = enha[i].value - 1;
+            // currentCosts.CC += enhancementsArray[p].cCost;
+            // currentCosts.UC += enhancementsArray[p].uCost;
+            // if (enhancementsArray[p].Name == "Reinforced" || enhancementsArray[p].Name == "Reinforced (D10)"){
+            //     console.log("Reinforced!");
+            //     enhaReinforced = true;
+            // }
 
-            enhancementDiv.text(enhancementsArray[p].Name);
+            enhancementDiv.text(enhancementsArray[i].Name);
 
             //Check if has requirements
-            requirementCheck: if (enhancementsArray[p].hasOwnProperty("Required")){
-                var required = enhancementsArray[p].Required;
+            requirementCheck: if (enhancementsArray[i].hasOwnProperty("Required")){
+                var required = enhancementsArray[i].Required;
                 var separator;
                 var sliceAtEnd;
 
