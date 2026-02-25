@@ -790,7 +790,8 @@
         } 
 
         if (twoHandTick){
-            heavyDisState.disabled = false;
+            if (!lightTick){
+               heavyDisState.disabled = false;}   
             versDisState.disabled = true;
             oneHandDisState.disabled = true;
             
