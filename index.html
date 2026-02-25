@@ -1006,6 +1006,9 @@
             };
         }
 
+        var enha = document.getElementsByName("classenhancement");
+        currentCosts = enhaAugList(enhancementsArray, 'currentEnha', enha, currentCosts);
+        
         var mAugs = document.getElementsByName("meleeAugs")
         currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
 
