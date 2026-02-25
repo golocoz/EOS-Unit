@@ -1073,18 +1073,38 @@
 
         console.log(diceSelected);
         console.log(diceSelected[0].value);
-        var propHeavy = false, propThrown = false;
+        var hdLight =  false;
+        var propHeavy = false, propThrown = false, propFinesse = false;
 
         for (i=0; i < diceSelected.length; i++){
             if (diceSelected[i].checked){
                 console.log(diceSelected[i])
                 diceSize += parseInt(diceSelected[i].value);
-                if (diceSelected[i].id == "pt3"){
-                    propThrown = true;
-                } 
-                if (diceSelected[i].id == "pt4"){
-                    propHeavy = true;
-                } 
+                // if (diceSelected[i].id == "pt3"){
+                //     propThrown = true;
+                // } 
+                // if (diceSelected[i].id == "pt4"){
+                //     propHeavy = true;
+                // } 
+
+                switch (diceSelected[i].id){
+                    case "hd1": {
+                        hdLight = true;
+                        break;
+                    }
+                    case "pt2": {
+                        propFinesse = true;
+                        break;
+                    }
+                    case "pt3": {
+                        propThrown = true;
+                        break;
+                    }
+                    case "pt4": {
+                        propHeavy = true;
+                        break;
+                    }
+                }
             }
         }
 
@@ -1095,6 +1115,10 @@
 
         if (propHeavy && propThrown){
             diceSize -= 2;
+        }
+
+        if (propFinesse && hdLight){
+            diceSize += 2;
         }
 
         document.getElementById("diceSize").innerHTML = diceSize;
