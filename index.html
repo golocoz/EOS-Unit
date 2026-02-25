@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="style.css">
 <html>
     <head>
-        <title>EOS Unit v2.2</title>
+        <title>EOS Unit v2.3</title>
     </head>
-        <h1>EOS Unit v2.2</h1>
+        <h1>EOS Unit v2.3</h1>
         <p>Name: <input type="user-answer" id="uA1"> </p>
         <p>Class Level: <input type="number" id="classLevel" name="quantity" min="1" max="20" value="1"></p>
         <p>Bonus CC: <input type="number" id="bonusCC" name="quantity" min="0" max="99" value="0"></p>
@@ -72,7 +72,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
+                    <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" value=-2 onclick="handlingPropertyCheck()"></td>
                     <td>Reach</td>
                     <td>-D2</td>
                     <td></td>
@@ -166,7 +166,7 @@
             <tr>
                 <td>Suregrip</td>
                 <td>1 CC</td>
-                <td>While wielding this weapon, it cannot be disarmed from you unwillingly. While within 30 feet and you can see it, you can also recall it back to your hand as a Free Action. Requires Versatile.</td>
+                <td>While wielding this weapon, it cannot be disarmed from you unwillingly. Once per turn, while within 30 feet of the weapon and you can see it, you can also recall it back to your hand as a Free Action. Requires Versatile.</td>
             </tr>
             <tr>
                 <td>Flow</td>
@@ -551,7 +551,7 @@
             <tr>
                 <td>Polarity</td>
                 <td>2 UC</td>
-                <td>As a Bonus Action, you can teleport to a space that you have occupied since the start of your last turn. After teleporting, your remaining Speed is reduced to 0.</td>
+                <td>As a Bonus Action, you can teleport to a space that your weapon have occupied since the start of your last turn. After teleporting, your remaining Speed is reduced to 0.</td>
             </tr>
             <tr>
                 <td>Vision I/II</td>
@@ -698,8 +698,8 @@
     var utilAugsArray = [
         { Id: 0, Name: "Shroud", cCost: 0, uCost: 1},
         { Id: 1, Name: "Slog", cCost: 0, uCost: 1},
-        { Id: 2, Name: "Load", cCost: 1, uCost: 0},
-        { Id: 3, Name: "Load", cCost: 0, uCost: 1},
+        { Id: 2, Name: "Load (CC)", cCost: 1, uCost: 0},
+        { Id: 3, Name: "Load (UC)", cCost: 0, uCost: 1},
         { Id: 4, Name: "Scout", cCost: 0, uCost: 1},
         { Id: 5, Name: "Barrier I", cCost: 0, uCost: 1},
         { Id: 6, Name: "Barrier II", cCost: 0, uCost: 2},
@@ -775,6 +775,7 @@
         if (lightTick){
             versDisState.disabled = true;
             shieldDisState.disabled = true;
+            heavyDisState.disabled = true;
         } 
 
         if (oneHandTick){
@@ -804,7 +805,8 @@
 
         
         if (heavyTick){
-            finesseDisState.disabled =true;
+            oneHandDisState.disabled = true;
+            finesseDisState.disabled = true;
         } 
     }
 
