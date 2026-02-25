@@ -793,6 +793,7 @@
             heavyDisState.disabled = false;
             versDisState.disabled = true;
             oneHandDisState.disabled = true;
+            
         } 
 
         if (shieldTick){
@@ -804,7 +805,7 @@
         }
 
         
-        if (heavyTick){
+        if (heavyTick && twoHandTick){
             lightDisState.disabled = true;
             finesseDisState.disabled = true;
         } 
