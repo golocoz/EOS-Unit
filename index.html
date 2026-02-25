@@ -757,6 +757,11 @@
 
         console.log(wTypes);
 
+        if (!twoHandTick){
+            console.log("not two handed!")
+            document.getElementById("pt4").checked = false;
+        }
+        
         for (i=0; i < wTypes.length; i++){
             if (wTypes[i].id != "pt4"){
                 console.log("not heavy enabled!");
