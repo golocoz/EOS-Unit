@@ -111,19 +111,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="radio" name="wsf" class ="ws" id="ws1" value="1" checked></td>
+                    <td><input data-name="Balanced" type="radio" name="wsf" class ="ws" id="ws1" value="1" checked></td>
                     <td>Balanced</td>
                     <td>Your class level</td>
                     <td>Your class level</td>
                 </tr>
                 <tr>
-                    <td><input type="radio" name="wsf" class ="ws" id="ws2" value="2"></td>
+                    <td><input data-name="Assault" type="radio" name="wsf" class ="ws" id="ws2" value="2"></td>
                     <td>Assault</td>
                     <td>Your class level + 1</td>
                     <td>Your class level - 1</td>
                 </tr>
                 <tr>
-                    <td><input type="radio" name="wsf" class ="ws" id="ws3" value="3"></td>
+                    <td><input data-name="Diverse" type="radio" name="wsf" class ="ws" id="ws3" value="3"></td>
                     <td>Diverse</td>
                     <td>Your class level - 1</td>
                     <td>Your class level + 1</td>
@@ -590,6 +590,8 @@
                 <option value="UC">Slashing</option>
                 <option value="UC">Piercing</option>
             </select></p>
+        <p>Properties: <span id="currentProperties"></span></p>
+        <p>Weapon Spec: <span id="currentWeaponSpec"></span></p>
         <p>Total CC: <span id="testtotalCC"></span> Total UC: <span id="testtotalUC"></span></p>
         <p>Current CC: <span id="currentCC" > </span> Current UC: <span id="currentUC" ></span></p>
         <p>Remaining CC: <span id="remainingCC"> </span> Remaining UC: <span id="remainingUC"></span></p>
@@ -820,6 +822,7 @@
         diceSelected = document.getElementsByClassName("dice");
         htSelected = $('input.handlingType:checked');
         ptSelected = $('input.propertyType:checked');
+        wsSelected = $('input.ws:checked');
         augSelected = $('select[name="meleeAugs"]');
         
         let classLevel = parseInt(document.getElementById("classLevel").value);
@@ -864,20 +867,34 @@
         }
 
         for(x=0; x < costFlaw.length; x++){
-                
-                switch(costFlaw[x].value){
-                    case "CC":
-                        console.log(costFlaw[x].value);
-                        console.log(wFlaw);
-                        currentCosts.CC += parseInt(wFlaw);
-                        break;
-                    case "UC":
-                        console.log(costFlaw[x].value);
-                        console.log(wFlaw);
-                        currentCosts.UC += parseInt(wFlaw);
-                        break;
-                }
+            switch(costFlaw[x].value){
+                case "CC":
+                    console.log(costFlaw[x].value);
+                    console.log(wFlaw);
+                    currentCosts.CC += parseInt(wFlaw);
+                    break;
+                case "UC":
+                    console.log(costFlaw[x].value);
+                    console.log(wFlaw);
+                    currentCosts.UC += parseInt(wFlaw);
+                    break;
             }
+        }
+
+        // Lists out the current weapon properties (includes Handling, Property)
+        $("#currentProperties").empty();
+        for (i=0; i<htSelected.length; i++){
+            $("#currentProperties").append(htSelected[i].getAttribute("data-name") + ", ");
+        }
+
+        for (i=0; i<ptSelected.length; i++){
+            $("#currentProperties").append(ptSelected[i].getAttribute("data-name") + ", ");
+        }
+
+        $("#currentProperties").text($("#currentProperties").text().slice(0, -2));
+
+        // Lists out the current weapon spec
+        $("#currentWeaponSpec").text(wsSelected[0].getAttribute("data-name"));
 
         document.getElementById("testCLD").innerHTML = classLevel;
         document.getElementById("testtotalCC").innerHTML = classLevel + wSpecCC + bonusCC;
@@ -949,7 +966,6 @@
                         requirementsNeeded++;
 
                         for (j=0; j<htSelected.length; j++){
-                            console.log("requirementsCheck: " + htSelected[j].getAttribute("data-name"));
                             if (required.Handling == htSelected[j].getAttribute("data-name")){
                                 requirementsFullfilled++;
                                 break;
@@ -958,12 +974,8 @@
                     }
                     if (required.hasOwnProperty("Property")){
                         requirementsNeeded++;
-                        for (j=0; j<ptSelected.length; j++){
-                            console.log("list out ptSelected: " + ptSelected[j].getAttribute("data-name"));
-                        }
                         
                         for (j=0; j<ptSelected.length; j++){
-                            console.log("requirementsCheck: " + ptSelected[j].getAttribute("data-name"));
                             if (required.Property == ptSelected[j].getAttribute("data-name")){
                                 requirementsFullfilled++;
                             }
@@ -973,7 +985,6 @@
                         requirementsNeeded++;
 
                         for (j=0; j<augSelected.length; j++){
-                            console.log("requirementsCheck: " + augSelected[j].getAttribute("data-name"));
                             if (required.Augment == augSelected[j].find("option:selected").text()){
                                 requirementsFullfilled++;
                             }
