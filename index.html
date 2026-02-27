@@ -2,9 +2,23 @@
  <!-- help -->
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <html>
 <head>
+    <style>
+        .error {
+            color: red;
+        }
+
+        .infoTable td, .infoTable th {
+            padding: 7px;
+        }
+
+        body {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
     <title>EOS Unit v2.3</title>
 </head>
 <body>
@@ -85,7 +99,7 @@
                 <td>No damage mod if Light</td>
             </tr>
             <tr>
-                <td><input data-name="Thrown" type="checkbox" id="pt3" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Thrown" data-range="(20/60)" type="checkbox" id="pt3" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
                 <td>Thrown</td>
                 <td>-D2 if Heavy</td>
                 <td>Range (20/60)</td>
@@ -934,7 +948,77 @@
                 }
             }
         }
+
+        // Calculate CC and UC
+        document.getElementById("currentCC").innerHTML = currentCosts.CC;
+        document.getElementById("currentUC").innerHTML = currentCosts.UC;
+        document.getElementById("remainingCC").innerHTML = classLevel + wSpecCC + bonusCC - currentCosts.CC;
+        document.getElementById("remainingUC").innerHTML = classLevel + wSpecUC + bonusUC - currentCosts.UC;
+
+        remainingCC = $("#remainingCC");
+        remainingCC.removeClass();
+
+        if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
+            console.log("negative!")
+            remainingCC.addClass("error");
+        }
+
+        remainingUC = $("#remainingUC");
+        remainingUC.removeClass();
+
+        if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
+            console.log("negative!")
+            remainingUC.addClass("error");
+        }
+
+        // Calculate dice size
+        console.log(diceSelected);
+        console.log(diceSelected[0].value);
+        var hdLight =  false;
+        var propHeavy = false, propThrown = false, propFinesse = false;
+
+        for (i=0; i < diceSelected.length; i++){
+            if (diceSelected[i].checked){
+                console.log(diceSelected[i])
+                diceSize += parseInt(diceSelected[i].value);
+
+                switch (diceSelected[i].id){
+                    case "hd1": {
+                        hdLight = true;
+                        break;
+                    }
+                    case "pt2": {
+                        propFinesse = true;
+                        break;
+                    }
+                    case "pt3": {
+                        propThrown = true;
+                        break;
+                    }
+                    case "pt4": {
+                        propHeavy = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (enhaReinforced){
+            console.log("Reinforced!");
+            diceSize += 2;
+        }
+
+        if (propHeavy && propThrown){
+            diceSize -= 2;
+        }
+
+        if (propFinesse && hdLight){
+            diceSize += 2;
+        }
+
+        document.getElementById("diceSize").innerHTML = diceSize;
         
+        // List flaw
         var wFlaw = document.getElementById("flawChoice").value;
         var namesFlaw = document.getElementById("flawChoice");
         console.log(namesFlaw[0].selected);
@@ -964,11 +1048,19 @@
         // Lists out the current weapon properties (includes Handling, Property)
         $("#currentProperties").empty();
         for (i=0; i<htSelected.length; i++){
-            $("#currentProperties").append(htSelected[i].getAttribute("data-name") + ", ");
+            $("#currentProperties").append(htSelected[i].getAttribute("data-name"));
+            if (htSelected[i].getAttribute("data-name") == "Versatile"){
+                $("#currentProperties").append(" (D" + (diceSize + 2) + ")");
+            }
+            $("#currentProperties").append(", ");
         }
 
         for (i=0; i<ptSelected.length; i++){
-            $("#currentProperties").append(ptSelected[i].getAttribute("data-name") + ", ");
+            $("#currentProperties").append(ptSelected[i].getAttribute("data-name"));
+            if (ptSelected[i].getAttribute('data-range') != undefined){
+                $("#currentProperties").append(" " + ptSelected[i].getAttribute('data-range'));
+            }
+            $("#currentProperties").append(", ");
         }
 
         $("#currentProperties").text($("#currentProperties").text().slice(0, -2));
@@ -1140,85 +1232,6 @@
                     break;
             }
         }
-
-        document.getElementById("currentCC").innerHTML = currentCosts.CC;
-        document.getElementById("currentUC").innerHTML = currentCosts.UC;
-        document.getElementById("remainingCC").innerHTML = classLevel + wSpecCC + bonusCC - currentCosts.CC;
-        document.getElementById("remainingUC").innerHTML = classLevel + wSpecUC + bonusUC - currentCosts.UC;
-
-        remainingCC = $("#remainingCC");
-        remainingCC.removeClass();
-
-        if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
-            console.log("negative!")
-            remainingCC.addClass("error");
-        }
-
-        remainingUC = $("#remainingUC");
-        remainingUC.removeClass();
-
-        if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
-            console.log("negative!")
-            remainingUC.addClass("error");
-        }
-        
-        // dsReach = document.getElementById("pt1").checked;
-        // dsFinesse = document.getElementById("pt2").checked;
-        // dsThrown = document.getElementById("pt3").checked;
-        // dsHeavy = document.getElementById("pt4").checked;
-
-        console.log(diceSelected);
-        console.log(diceSelected[0].value);
-        var hdLight =  false;
-        var propHeavy = false, propThrown = false, propFinesse = false;
-
-        for (i=0; i < diceSelected.length; i++){
-            if (diceSelected[i].checked){
-                console.log(diceSelected[i])
-                diceSize += parseInt(diceSelected[i].value);
-                // if (diceSelected[i].id == "pt3"){
-                //     propThrown = true;
-                // } 
-                // if (diceSelected[i].id == "pt4"){
-                //     propHeavy = true;
-                // } 
-
-                switch (diceSelected[i].id){
-                    case "hd1": {
-                        hdLight = true;
-                        break;
-                    }
-                    case "pt2": {
-                        propFinesse = true;
-                        break;
-                    }
-                    case "pt3": {
-                        propThrown = true;
-                        break;
-                    }
-                    case "pt4": {
-                        propHeavy = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (enhaReinforced){
-            console.log("Reinforced!");
-            diceSize += 2;
-        }
-
-        if (propHeavy && propThrown){
-            diceSize -= 2;
-        }
-
-        if (propFinesse && hdLight){
-            diceSize += 2;
-        }
-
-        document.getElementById("diceSize").innerHTML = diceSize;
-
     });
 
     function enhaAugList(enhaAugArray, currentListId, currentAugs, currentCosts){
