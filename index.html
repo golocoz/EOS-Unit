@@ -4,607 +4,686 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css">
 <html>
-    <head>
-        <title>EOS Unit v2.3</title>
-    </head>
-        <h1>EOS Unit v2.3</h1>
-        <p>Name: <input type="user-answer" id="uA1"> </p>
-        <p>Class Level: <input type="number" id="classLevel" name="quantity" min="1" max="20" value="1"></p>
-        <p>Bonus CC: <input type="number" id="bonusCC" name="quantity" min="0" max="99" value="0"></p>
-        <p>Bonus UC: <input type="number" id="bonusUC" name="quantity" min="0" max="99" value="0"></p>
+<head>
+    <title>EOS Unit v2.3</title>
+</head>
+<body>
+    <h1>EOS Unit v2.3</h1>
+    <p>EOS Unit Name: <input type="user-answer" id="eosUnitName"> </p>
+    <p>Class Level: <input type="number" id="classLevel" name="quantity" min="1" max="20" value="1"></p>
+    <p>Bonus CC: <input type="number" id="bonusCC" name="quantity" min="0" max="99" value="0"></p>
+    <p>Bonus UC: <input type="number" id="bonusUC" name="quantity" min="0" max="99" value="0"></p>
 
-        <h2>Handling Types</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Handling Type</th>
-                    <th>Dice Mod</th>
-                    <th>Others</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    
-                    <td><input data-name="Light" type="checkbox" class="dice handlingType" name="hd" id="hd1" value=-2 onclick="handlingPropertyCheck()"></td>                    
-                    <label for="hd1"></label>    
-                        <td>Light</td>
-                        <td>-D2</td>
-                        <td></td>
-                    </label>
-                </tr>
-                <tr>
-                    <td><input data-name="One-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
-                    <td>One-Handed</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input data-name="Versatile" type="checkbox" class="dice handlingType" name="hd" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
-                    <td>Versatile</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input data-name="Two-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
-                    <td>Two-Handed</td>
-                    <td>+D2</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input data-name="Shield" type="checkbox" class="dice handlingType" name="hd" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
-                    <td>Shield</td>
-                    <td>-D4</td>
-                    <td>+2 AC when donned as an Action (cannot be used as a weapon while donned)</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>Property Types</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Property Type</th>
-                    <th>Dice Mod</th>
-                    <th>Others</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" value=-2 onclick="handlingPropertyCheck()"></td>
-                    <td>Reach</td>
-                    <td>-D2</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input data-name="Finesse" type="checkbox" name="heavyFinesse" class="dice propertyType" id="pt2" value=-2 onclick="handlingPropertyCheck()"></td>
-                    <td>Finesse</td>
-                    <td>-D2</td>
-                    <td>No damage mod if Light</td>
-                </tr>
-                <tr>
-                    <td><input data-name="Thrown" type="checkbox" id="pt3" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
-                    <td>Thrown</td>
-                    <td>-D2 if Heavy</td>
-                    <td>Range (20/60)</td>
-                </tr>
-                <tr>
-                    <td><input data-name="Heavy" type="checkbox" name="heavyFinesse" id="pt4" class="dice propertyType" value=+2 onclick="handlingPropertyCheck()" disabled></td>
-                    <td>Heavy</td>
-                    <td>+D2</td>
-                    <td>Requires Two-Handed</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <h2>Weapon Specs</h2>
-        <form name="wsForm">
-            <table border="1">
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Weapon Spec</th>
-                    <th>Combat Cost</th>
-                    <th>Utility Cost</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input data-name="Balanced" type="radio" name="wsf" class ="ws" id="ws1" value="1" checked></td>
-                    <td>Balanced</td>
-                    <td>Your class level</td>
-                    <td>Your class level</td>
-                </tr>
-                <tr>
-                    <td><input data-name="Assault" type="radio" name="wsf" class ="ws" id="ws2" value="2"></td>
-                    <td>Assault</td>
-                    <td>Your class level + 1</td>
-                    <td>Your class level - 1</td>
-                </tr>
-                <tr>
-                    <td><input data-name="Diverse" type="radio" name="wsf" class ="ws" id="ws3" value="3"></td>
-                    <td>Diverse</td>
-                    <td>Your class level - 1</td>
-                    <td>Your class level + 1</td>
-                </tr>
-            </tbody>
-        </table>
-        </form>
-
-        <h2>Enhancements</h2>
-
-        <table border="1">
+    <h2>Handling Types</h2>
+    <table border="1" class="infoTable">
         <thead>
             <tr>
-                <th>Enhancement</th>
-                <th>Cost</th>
-                <th>Description</th>
+                <th>Select</th>
+                <th>Handling Type</th>
+                <th>Dice Mod</th>
+                <th>Others</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Quickdraw</td>
-                <td>1 CC/UC</td>
-                <td>When storing or retrieving this weapon from your Personal Arc, you can use your Bonus Action as well as your Action.</td>
-            </tr>
-            <tr>
-                <td>Siege</td>
-                <td>1 CC</td>
-                <td>This weapon deals double damage to structures and objects. Requires Heavy.</td>
-            </tr>
-            <tr>
-                <td>Returning</td>
-                <td>1 CC</td>
-                <td>When thrown, you can recall this weapon back to your hand after it hits or misses. Requires Thrown.</td>
-            </tr>
-            <tr>
-                <td>Twinned</td>
-                <td>1 CC</td>
-                <td>This weapon has two copies with the same properties. Requires Light.<br>Whenever you cast a spell that affects one pair, it affects both pairs instead.<br>When you can make a weapon attack with one pair of this weapon, you can use your Bonus Action to make an attack with the other pair.</td>
-            </tr>
-            <tr>
-                <td>Suregrip</td>
-                <td>1 CC</td>
-                <td>While wielding this weapon, it cannot be disarmed from you unwillingly. Once per turn, while within 30 feet of the weapon and you can see it, you can also recall it back to your hand as a Free Action. Requires Versatile.</td>
-            </tr>
-            <tr>
-                <td>Flow</td>
-                <td>1 CC</td>
-                <td>When you hit a melee attack with this weapon, you can move the target a number of feet equal to this weapon’s reach, provided they are no more than one size larger than you. Requires Reach or the Extend Augment.</td>
-            </tr>
-            <tr>
-                <td>Safeguard</td>
-                <td>1 CC</td>
-                <td>You can use this weapon to attack even when Donned as a Shield. Also, at the end of your turn, one creature you can see gains half cover as long as they are within 5 feet of you (only one creature at a time). Requires Shield.</td>
-            </tr>
-            <tr>
-                <td>Reinforced</td>
-                <td>2 CC</td>
-                <td>This weapon’s damage dice increases by +d2, If the damage die was a D10 (or it’s versatile damage die was a D10), this Cost increases by +2</td>
-            </tr>
-            <tr>
-                <td>Trigger action</td>
-                <td>0 CC/UC</td>
-                <td>This weapon has a special action that can be taken with an Action/Bonus Action/Free Action/Reaction. This enhancement can be chosen more than once, but the Trigger Action of the same category (except Utility) costs +1 extra CC or UC (your choice).</td>
-            </tr>
-            <tr>
-                <td>Transform</td>
-                <td>2 CC/UC</td>
-                <td>As a Free Action, this weapon gains the Range (30/120) and Loading property, and its damage die is reduced by -d2 and its damage changes to Piercing. You can also:<br><br>
-                    Increase Range:<br>
-                    [Cost +1 CC for 80/320]<br>
-                    [Cost +2 CC for 100/400]<br>
-                    [Cost +3 CC for 150/600]<br>
-                    Heavy: Increase damage by +d2, loses Light and One-Handed property to gain Heavy and Two-Handed property. Requires One-Handed [Cost +1 CC]<br>
-                    Remove Loading property [Cost +1 CC]<br>
-                    Burn: When you attack with this weapon while it is transformed, you take 1d4 Fire damage that cannot be reduced in any way [-1 CC/UC]<br>
-                    Exposed: When you attack with this weapon while it is transformed, melee attacks against you have Advantage until the start of your next turn [-1 CC/UC]<br><br>
-
-                    You can transform and revert this weapon once during your turn.</td>
-            </tr>
-        </tbody>
-        </table>
-
-        <div style="padding-top: 5px;" >
-            <input type="button" id = "btnAdd" onclick = "enhancementsAddDropDownList()" value = "Add Enhancement" />
-            <hr />
-            <table id = "tblContainer" border="0" cellpadding="5" cellspacing="5"></table>
-            <hr/>
-        </div>
-        
-        <h2>Flaw</h2>
-        <form name="flawForm">
-            <table border="1">
-            <thead>
-                <tr>
-                    <th>Flaw</th>
-                    <th>Cost</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="nameFlaw">Dull I/II/III</td>
-                    <td >-1/-2/-3 CC/UC</td>
-                    <td>While you have this weapon in this inventory or you are wielding it, you have [-1/-2/-3] penalty to your attack rolls and your spell save/Trigger Action DC is reduced by [1/2/3] (negated while it is inside your Personal Arc)</td>
-                </tr>
-                <tr>
-                    <td class="nameFlaw">Complex</td>
-                    <td>-1 CC/UC</td>
-                    <td>After making a weapon attack or casting a spell with this weapon during your turn, you cannot use it again for those actions until you take a Bonus Action to reactivate it.</td>
-                </tr>
-                <tr>
-                    <td class="nameFlaw">Bulky I/II/III</td>
-                    <td>-1/-2/-3 CC/UC</td>
-                    <td>While you have this weapon in your inventory or you are wielding it, your Speed is reduced by [10/20/30] feet (negated while it is inside your Personal Arc).</td>
-                </tr>
-                <tr>
-                    <td class="nameFlaw">Unwieldy</td>
-                    <td>-1 CC/UC</td>
-                    <td>While you have this weapon in your inventory or you are wielding it, you cannot make Opportunity Attacks or cast spells as a Reaction (negated while it is inside your Personal Arc).</td>
-                </tr>
-                <tr>
-                    <td class="nameFlaw">Vulnerable</td>
-                    <td>-1 CC/UC</td>
-                    <td>While you have this weapon in your inventory or you are wielding it, your Armor Class is reduced by 2 (negated while it is inside your Personal Arc).</td>
-                </tr>
-            </tbody>
-        </table>
-        </form>
-        <form style="padding-top: 5px;">
-            <label for="flawChoice">Flaw:</label>
-
-            <select class="choiceFlaw" id="flawChoice">
-                <option value=0>None</option>
-                <option value=-1>Dull I</option>
-                <option value=-2>Dull II</option>
-                <option value=-3>Dull III</option>
-                <option value=-1>Complex</option>
-                <option value=-1>Bulky I</option>
-                <option value=-2>Bulky II</option>
-                <option value=-3>Bulky III</option>
-                <option value=-1>Unwieldy</option>
-                <option value=-1>Vulnerable</option>
-            </select>
-        </form>
-        <form style="padding-top: 5px;">
-            <label for="flawCost">CC or UC:</label>
-
-            <select class="cflaw" id="flawselect">
-                <option value="CC">CC</option>
-                <option value="UC">UC</option>
-            </select>
-        </form>
-
-        <h2>Augments</h2>
-        <h3>Melee Augments</h3>
-
-        <table border="1">
-        <thead>
-            <tr>
-                <th>Trigger Action</th>
-                <th>Cost</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Sweep I/II</td>
-                <td>3/5 CC</td>
-                <td>When you take the Attack action and hit a creature with a melee attack with this weapon, you can use your Bonus Action to make an additional attack on [another creature/each other creature of your choice, up to your proficiency bonus] within Reach of this weapon. You make separate attack rolls for each one.</td>
-            </tr>
-            <tr>
-                <td>Extend I/II</td>
-                <td>3/5 CC</td>
-                <td>As a Bonus Action, you can extend the Reach of this weapon by 10 feet [until the start of your next turn/for 1 minute].</td>
-            </tr>
-            <tr>
-                <td>Scar</td>
-                <td>1 CC</td>
-                <td>Whenever you miss a melee attack with this weapon, you can use your Reaction to deal damage of your weapon’s damage type to the target equal to your Proficiency Bonus plus your Strength or Dexterity modifier (your choice). The attack still counts as a miss for the purpose of spells and features.</td>
-            </tr>
-            <tr>
-                <td>Measure I/II/III</td>
-                <td>1/3/5 CC</td>
-                <td>As a Bonus Action, you gain a [+1/+2/+3] bonus to your next melee attack roll with this weapon within the current turn. On a hit, it also deals an additional [+1/+2/+3] bonus damage.</td>
-            </tr>
-        </tbody>
-        </table>
-
-        <div style="padding-top: 5px;" >
-            <input type="button" id = "meleeAugbtnAdd" onclick = "meleeAddDropDownList()" value = "Add Melee Aug" />
-            <hr />
-            <table id = "meleeAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
-            <hr/>
-        </div>
-        
-
-        <h3>Ranged Augments</h3>
-
-        <table border="1">
-        <thead>
-            <tr>
-                <th>Trigger Action</th>
-                <th>Cost</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Snipe I/II</td>
-                <td>2/4 CC</td>
-                <td>As a Bonus Action, you prepare your weapon’s scope. [Until the end of your turn/ For 1 minute], attacking at long range doesn't impose Disadvantage on your ranged weapon attack rolls made with this weapon.<br><br>
-
-                While this Trigger Action is active and you roll a 1 on one your weapon’s damage die, it counts as a 2 instead.</td>
-            </tr>
-            <tr>
-                <td>Rile</td>
-                <td>1 CC</td>
-                <td>As an Attack action, you can make a ranged attack roll with your weapon. On a hit, you deal half damage on the attack, but the creature has the Blinded condition against creatures other than you until the end of their next turn.</td>
-            </tr>
-            <tr>
-                <td>Spray I/II/III</td>
-                <td>0/2/4 CC</td>
-                <td>While transformed, your weapon cannot attack normally. Instead, as an Attack action, your weapon shoots in a [15/30/30]-foot cone instead. Each creature within that area must succeed a Dexterity saving throw or take your weapon’s damage [minus -d2/-/plus +d2]. They take half of that damage on a success.</td>
-            </tr>
-            <tr>
-                <td>Ambush</td>
-                <td>2 CC</td>
-                <td>After you make a ranged attack or subject a target with a Saving Throw, you can use your Reaction to move 5 feet. If you are Heavily Obscured or behind Three-Quarters Cover or Total Cover, you can take the Hide action.</td>
-            </tr>
-        </tbody>
-        </table>
-
-        <div style="padding-top: 5px;" >
-            <input type="button" id = "rangeAugbtnAdd" onclick = "rangeAddDropDownList()" value = "Add Range Aug" />
-            <hr />
-            <table id = "rangeAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
-            <hr/>
-        </div>
-        
-        <h3>Defensive Augments</h3>
-
-        <table border="1">
-        <thead>
-            <tr>
-                <th>Trigger Action</th>
-                <th>Cost</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Parry I/II/III</td>
-                <td>2/4/6 CC</td>
-                <td>As a Reaction to being attacked, you can increase your AC by your Proficiency Bonus [-/plus 2/plus 2] against that attack, potentially turning it into a miss. [-/-/This AC lasts until the end of the turn]</td>
-            </tr>
-            <tr>
-                <td>Resist I/II/III</td>
-                <td>2/4/6 CC</td>
-                <td>As a Reaction when you are subjected to a Saving Throw, you can give yourself a bonus to that Saving Throw equal to your Proficiency Bonus [-/plus 2/plus 4]. </td>
-            </tr>
-            <tr>
-                <td>Sturdy I/II/III</td>
-                <td>2/4/6 CC</td>
-                <td>As a Bonus Action, you gain Resistance to Bludgeoning, Slashing, and Piercing damage [for the next damage you take before the start of your next turn/until the start of your next turn/for 1 minute].<br><br>
-
-            If you have the Load Enhancement, you also gain Resistance to the activated damage type for the duration.</td>
-            </tr>
-            <tr>
-                <td>Guardian</td>
-                <td>2 CC/UC</td>
-                <td>Whenever another creature within 5 feet of you would take damage, you can use your Reaction to give that creature Resistance to the triggering damage.<br><br>
-
-                If your weapon has the Shield property, the range of this Trigger Action is increased to 15 feet.<br><br>
-
-                This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply.</td>
-            </tr>
-        </tbody>
-        </table>
-
-        <div style="padding-top: 5px;" ></div>
-            <input type="button" id = "defAugbtnAdd" onclick = "defAddDropDownList()" value = "Add Defensive Aug" />
-            <hr />
-            <table id = "defAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
-            <hr/>
-        </div>
-        
-
-        <h3>ESP Augments</h3>
-
-        <table border="1">
-        <thead>
-            <tr>
-                <th>Trigger Action</th>
-                <th>Cost</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Replenish I/II/III</td>
-                <td>1/3/5 CC</td>
-                <td>As an Action, you regain an expended [1st/2nd/3rd] level spell slot, or regain one use of an AS spell of the same level or lower.<br><br>
-
-                You can choose this Trigger Action more than once, and can be used once each time you choose it before needing to Resupply.</td>
-            </tr>
-            <tr>
-                <td>Cast I/II/III</td>
-                <td>1/3/5 CC</td>
-                <td>When you pick this Trigger Action, choose a [1st/2nd/3rd] level spell that does not require Concentration. You can cast that spell with this weapon, using either your Trigger Action DC or your spell save DC (your choice). If the spell has a Range of Touch, its Range is instead increased to your weapon’s Reach.<br><br>
-
-                You can choose this Trigger Action more than once, and can be used once each time you choose it before needing to Resupply.
-                </td>
-            </tr>
-            <tr>
-                <td>Converter</td>
-                <td>1 CC/UC</td>
-                <td>As a Magic action, choose a willing creature within 5 feet you can see. You can expend any number of Hit Die and have the target regain a number of Hit Points equal to the roll(s) plus either your Wisdom, Intelligence, or Charisma modifier (chosen when you choose this Trigger Action).</td>
-            </tr>
-            <tr>
-                <td>Proxy I/II/II</td>
-                <td>1/2/3 CC</td>
-                <td>As a Magic action, choose a willing creature within 5 feet you can see. You can expend any number of Hit Die and have the target regain a number of Hit Points equal to the roll(s) plus either your Wisdom, Intelligence, or Charisma modifier (chosen when you choose this Trigger Action).</td>
-            </tr>
-            <tr>
-                <td>Link</td>
-                <td>2 CC</td>
-                <td>As a Bonus Action, you prepare your weapon to channel your ESP. The next spell you cast will have a separate Concentration, allowing you to concentrate on up to two spells at once, provided they are different spells. You roll separately to maintain your normal Concentration and Link Concentration whenever you take damage.<br><br>
-
-                This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply. You can only have one Link Concentration active at a time.</td>
-            </tr>
-        </tbody>
-        </table>
-
-        <div style="padding-top: 5px;" >
-            <input type="button" id = "espAugbtnAdd" onclick = "espAddDropDownList()" value = "Add ESP Aug" />
-            <hr />
-            <table id = "espAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
-            <hr/>
-        </div>
-
-        <h3>Utility Augments</h3>
-
-        <table border="1">
-        <thead>
-            <tr>
-                <th>Trigger Action</th>
-                <th>Cost</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Shroud</td>
-                <td>1 UC</td>
-                <td>As an Action, you choose a point within 30 feet you can see. The area within 5 feet of that point becomes Heavily Obscured with Darkness.<br><br>
-
-                It lasts for 1 minute or until a strong wind (such as one created by Gust of Wind) disperses it.<br><br>
-
-                This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply. Additionally, you can expend two uses instead of one to create magical Darkness instead.</td>
-            </tr>
-            <tr>
-                <td>Slog</td>
-                <td>1 UC</td>
-                <td>Whenever you hit a creature with this weapon’s attack or spell, or if a creature fails a Saving Throw subjected by this weapon’s attack or spell, you can reduce their Speed by 10 feet until the end of their next turn.<br><br>
- 
-                You can choose this Trigger Action more than once and can be used two times each time you choose it before needing to Resupply. Additionally, you can expend more than one use to further increase the Speed reduced by an extra 5 feet for each use expended.</td>
-            </tr>
-            <tr>
-                <td>Load</td>
-                <td>1 CC/UC</td>
-                <td>When you add this Trigger Action to your EOS Unit, choose between the following damage types: Acid, Cold, Fire, Lightning, Thunder, Poison, Radiant, Necrotic, or Psychic.<br><br>
-
-                As a Bonus Action, you can change the damage type of this weapon to the chosen type. You can revert it back to its original damage type as a Bonus Action.<br><br>
-
-                You can choose this Trigger Action more than once, choosing a different damage type each time you do.</td>
-            </tr>
-            <tr>
-                <td>Scout</td>
-                <td>1 UC</td>
-                <td>As an Attack action, you can fire a special ammo to a target creature or point within 60 feet you can see. Choose a feature for your ammo:<br><br>
-
-                Bug. The ammo latches on towards the target. You know the exact location of the ammo while you are holding your weapon. A successful Investigation (Intelligence) check against your DC reveals the ammo.<br><br>
-
-                Flare. The ammo ignites, emitting a 30-feet radius of Bright Light. At the end of its flight, if it is airborne, it will descend at a rate of 5 feet each round. The light lasts for 1 minute.<br><br>
-
-                Firing a special ammo when one was fired will cause the previous one to be destroyed.<br><br>
-
-                You can choose this Trigger Action more than once and can be used three times each time you choose it before needing to Resupply.
-                </td>
-            </tr>
-            <tr>
-                <td>Barrier I/II</td>
-                <td>1/2 UC</td>
-                <td>As a Bonus Action, choose a point within 10 feet to deploy a 15-foot-long, 5-foot-wide, 5-foot-high barrier. The barrier is an object with 15 AC, 10 Hit Points, Resistance to all damage, and Immunity to Piercing damage. [-/You can also use a Bonus Action to move the barrier 15 feet. At the end of the movement, you can change its orientation.]<br><br>
-
-                You can recall it back to your EOS Unit from anywhere as an Action. If you do and redeploy it, it will retain its previous Hit Points until you resupply.
-                </td>
-            </tr>
-            <tr>
-                <td>Balance</td>
-                <td>2 UC</td>
-                <td>When you would be pushed, pulled, or gain the Grappled or Prone condition, you can use your Reaction to instead negate that effect (Any other effect that follows it will still apply).<br><br>
-
-                This Trigger Action can be used up to three times before needing to Resupply.
-                </td>
-            </tr>
-            <tr>
-                <td>Maneuver I/II/III</td>
-                <td>3/5/7 UC</td>
-                <td>As a Free Action, you double your Speed for this turn.<br><br>
-
-                To use this again, you have to use your Action [three times/two times/once] to cool down your weapon.
-                </td>
-            </tr>
-            <tr>
-                <td>Hookshot I/II</td>
-                <td>2/4 UC</td>
-                <td>As an [Action/Bonus Action], you shoot a grappling hook to a solid surface or creature within 15 feet you can see and pull yourself towards the target. [-/You can use your Action to pull yourself to a solid surface or creature within your Speed instead.]</td>
-            </tr>
-            <tr>
-                <td>Flight</td>
-                <td>5 UC</td>
-                <td>As an Action, you expand your weapon. For 1 minute, you gain a Fly Speed equal to your Speed as long as you are holding your weapon.</td>
-            </tr>
-            <tr>
-                <td>Polarity</td>
-                <td>2 UC</td>
-                <td>As a Bonus Action, you can teleport to a space that your weapon have occupied since the start of your last turn. After teleporting, your remaining Speed is reduced to 0.</td>
-            </tr>
-            <tr>
-                <td>Vision I/II</td>
-                <td>2/4 UC</td>
-                <td>As an Action, you gain 60 feet of Darkvision that can see through [Nonmagical/Magical] Darkness for 1 minute.</td>
-            </tr>
-            <tr>
-                <td>Manipulate I/II</td>
-                <td>1/3 UC</td>
-                <td>When you take the Utilize action, you can use it even when the object is [30/60] feet away from you. You must have vision of the object, and it cannot be an item held by an unwilling creature.</td>
-            </tr>
-            <tr>
-                <td>Prep</td>
-                <td>3 CC/UC</td>
-                <td>As a Free Action, you gain an extra Bonus Action this turn. You cannot take the same Bonus Action twice in a turn.<br><br>
                 
-                This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply. </td>
+                <td><input data-name="Light" type="checkbox" class="dice handlingType" name="hd" id="hd1" value=-2 onclick="handlingPropertyCheck()"></td>                    
+                <label for="hd1"></label>    
+                    <td>Light</td>
+                    <td>-D2</td>
+                    <td></td>
+                </label>
+            </tr>
+            <tr>
+                <td><input data-name="One-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
+                <td>One-Handed</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input data-name="Versatile" type="checkbox" class="dice handlingType" name="hd" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
+                <td>Versatile</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input data-name="Two-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
+                <td>Two-Handed</td>
+                <td>+D2</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input data-name="Shield" type="checkbox" class="dice handlingType" name="hd" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
+                <td>Shield</td>
+                <td>-D4</td>
+                <td>+2 AC when donned as an Action (cannot be used as a weapon while donned)</td>
             </tr>
         </tbody>
-        </table>
+    </table>
 
-        <div style="padding-top: 5px;" >
-            <input type="button" id = "utilAugbtnAdd" onclick = "utilAddDropDownList()" value = "Add Utility Aug" />
-            <hr />
-            <table id = "utilAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
-            <hr/>
-        </div>
+    <h2>Property Types</h2>
+    <table border="1" class="infoTable">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Property Type</th>
+                <th>Dice Mod</th>
+                <th>Others</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" value=-2 onclick="handlingPropertyCheck()"></td>
+                <td>Reach</td>
+                <td>-D2</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input data-name="Finesse" type="checkbox" name="heavyFinesse" class="dice propertyType" id="pt2" value=-2 onclick="handlingPropertyCheck()"></td>
+                <td>Finesse</td>
+                <td>-D2</td>
+                <td>No damage mod if Light</td>
+            </tr>
+            <tr>
+                <td><input data-name="Thrown" type="checkbox" id="pt3" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
+                <td>Thrown</td>
+                <td>-D2 if Heavy</td>
+                <td>Range (20/60)</td>
+            </tr>
+            <tr>
+                <td><input data-name="Heavy" type="checkbox" name="heavyFinesse" id="pt4" class="dice propertyType" value=+2 onclick="handlingPropertyCheck()" disabled></td>
+                <td>Heavy</td>
+                <td>+D2</td>
+                <td>Requires Two-Handed</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Weapon Specs</h2>
+    <form name="wsForm">
+        <table border="1" class="infoTable">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Weapon Spec</th>
+                <th>Combat Cost</th>
+                <th>Utility Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input data-name="Balanced" type="radio" name="wsf" class ="ws" id="ws1" value="1" checked></td>
+                <td>Balanced</td>
+                <td>Your class level</td>
+                <td>Your class level</td>
+            </tr>
+            <tr>
+                <td><input data-name="Assault" type="radio" name="wsf" class ="ws" id="ws2" value="2"></td>
+                <td>Assault</td>
+                <td>Your class level + 1</td>
+                <td>Your class level - 1</td>
+            </tr>
+            <tr>
+                <td><input data-name="Diverse" type="radio" name="wsf" class ="ws" id="ws3" value="3"></td>
+                <td>Diverse</td>
+                <td>Your class level - 1</td>
+                <td>Your class level + 1</td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
 
+    <h2>Enhancements</h2>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Enhancement</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Quickdraw</td>
+            <td>1 CC/UC</td>
+            <td>When storing or retrieving this weapon from your Personal Arc, you can use your Bonus Action as well as your Action.</td>
+        </tr>
+        <tr>
+            <td>Siege</td>
+            <td>1 CC</td>
+            <td>This weapon deals double damage to structures and objects. Requires Heavy.</td>
+        </tr>
+        <tr>
+            <td>Returning</td>
+            <td>1 CC</td>
+            <td>When thrown, you can recall this weapon back to your hand after it hits or misses. Requires Thrown.</td>
+        </tr>
+        <tr>
+            <td>Twinned</td>
+            <td>1 CC</td>
+            <td>This weapon has two copies with the same properties. Requires Light.<br>Whenever you cast a spell that affects one pair, it affects both pairs instead.<br>When you can make a weapon attack with one pair of this weapon, you can use your Bonus Action to make an attack with the other pair.</td>
+        </tr>
+        <tr>
+            <td>Suregrip</td>
+            <td>1 CC</td>
+            <td>While wielding this weapon, it cannot be disarmed from you unwillingly. Once per turn, while within 30 feet of the weapon and you can see it, you can also recall it back to your hand as a Free Action. Requires Versatile.</td>
+        </tr>
+        <tr>
+            <td>Flow</td>
+            <td>1 CC</td>
+            <td>When you hit a melee attack with this weapon, you can move the target a number of feet equal to this weapon’s reach, provided they are no more than one size larger than you. Requires Reach or the Extend Augment.</td>
+        </tr>
+        <tr>
+            <td>Safeguard</td>
+            <td>1 CC</td>
+            <td>You can use this weapon to attack even when Donned as a Shield. Also, at the end of your turn, one creature you can see gains half cover as long as they are within 5 feet of you (only one creature at a time). Requires Shield.</td>
+        </tr>
+        <tr>
+            <td>Reinforced</td>
+            <td>2 CC</td>
+            <td>This weapon’s damage dice increases by +d2, If the damage die was a D10 (or it’s versatile damage die was a D10), this Cost increases by +2</td>
+        </tr>
+        <tr>
+            <td>Trigger action</td>
+            <td>0 CC/UC</td>
+            <td>This weapon has a special action that can be taken with an Action/Bonus Action/Free Action/Reaction. This enhancement can be chosen more than once, but the Trigger Action of the same category (except Utility) costs +1 extra CC or UC (your choice).</td>
+        </tr>
+        <tr>
+            <td>Transform</td>
+            <td>2 CC/UC</td>
+            <td>As a Free Action, this weapon gains the Range (30/120) and Loading property, and its damage die is reduced by -d2 and its damage changes to Piercing. You can also:<br><br>
+                Increase Range:<br>
+                [Cost +1 CC for 80/320]<br>
+                [Cost +2 CC for 100/400]<br>
+                [Cost +3 CC for 150/600]<br>
+                Heavy: Increase damage by +d2, loses Light and One-Handed property to gain Heavy and Two-Handed property. Requires One-Handed [Cost +1 CC]<br>
+                Remove Loading property [Cost +1 CC]<br>
+                Burn: When you attack with this weapon while it is transformed, you take 1d4 Fire damage that cannot be reduced in any way [-1 CC/UC]<br>
+                Exposed: When you attack with this weapon while it is transformed, melee attacks against you have Advantage until the start of your next turn [-1 CC/UC]<br><br>
+
+                You can transform and revert this weapon once during your turn.</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" >
+        <input type="button" id = "btnAdd" onclick = "enhancementsAddDropDownList()" value = "Add Enhancement" />
+        <hr />
+        <table id = "tblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+    
+    <h2>Flaw</h2>
+    <form name="flawForm">
+        <table border="1" class="infoTable">
+        <thead>
+            <tr>
+                <th>Flaw</th>
+                <th>Cost</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="nameFlaw">Dull I/II/III</td>
+                <td >-1/-2/-3 CC/UC</td>
+                <td>While you have this weapon in this inventory or you are wielding it, you have [-1/-2/-3] penalty to your attack rolls and your spell save/Trigger Action DC is reduced by [1/2/3] (negated while it is inside your Personal Arc)</td>
+            </tr>
+            <tr>
+                <td class="nameFlaw">Complex</td>
+                <td>-1 CC/UC</td>
+                <td>After making a weapon attack or casting a spell with this weapon during your turn, you cannot use it again for those actions until you take a Bonus Action to reactivate it.</td>
+            </tr>
+            <tr>
+                <td class="nameFlaw">Bulky I/II/III</td>
+                <td>-1/-2/-3 CC/UC</td>
+                <td>While you have this weapon in your inventory or you are wielding it, your Speed is reduced by [10/20/30] feet (negated while it is inside your Personal Arc).</td>
+            </tr>
+            <tr>
+                <td class="nameFlaw">Unwieldy</td>
+                <td>-1 CC/UC</td>
+                <td>While you have this weapon in your inventory or you are wielding it, you cannot make Opportunity Attacks or cast spells as a Reaction (negated while it is inside your Personal Arc).</td>
+            </tr>
+            <tr>
+                <td class="nameFlaw">Vulnerable</td>
+                <td>-1 CC/UC</td>
+                <td>While you have this weapon in your inventory or you are wielding it, your Armor Class is reduced by 2 (negated while it is inside your Personal Arc).</td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <form style="padding-top: 5px;">
+        <label for="flawChoice">Flaw:</label>
+
+        <select class="choiceFlaw" id="flawChoice">
+            <option value=0>None</option>
+            <option value=-1>Dull I</option>
+            <option value=-2>Dull II</option>
+            <option value=-3>Dull III</option>
+            <option value=-1>Complex</option>
+            <option value=-1>Bulky I</option>
+            <option value=-2>Bulky II</option>
+            <option value=-3>Bulky III</option>
+            <option value=-1>Unwieldy</option>
+            <option value=-1>Vulnerable</option>
+        </select>
+    </form>
+    <form style="padding-top: 5px;">
+        <label for="flawCost">CC or UC:</label>
+
+        <select class="cflaw" id="flawselect">
+            <option value="CC">CC</option>
+            <option value="UC">UC</option>
+        </select>
+    </form>
+
+    <h2>Augments</h2>
+    <h3>Melee Augments</h3>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Trigger Action</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Sweep I/II</td>
+            <td>3/5 CC</td>
+            <td>When you take the Attack action and hit a creature with a melee attack with this weapon, you can use your Bonus Action to make an additional attack on [another creature/each other creature of your choice, up to your proficiency bonus] within Reach of this weapon. You make separate attack rolls for each one.</td>
+        </tr>
+        <tr>
+            <td>Extend I/II</td>
+            <td>3/5 CC</td>
+            <td>As a Bonus Action, you can extend the Reach of this weapon by 10 feet [until the start of your next turn/for 1 minute].</td>
+        </tr>
+        <tr>
+            <td>Scar</td>
+            <td>1 CC</td>
+            <td>Whenever you miss a melee attack with this weapon, you can use your Reaction to deal damage of your weapon’s damage type to the target equal to your Proficiency Bonus plus your Strength or Dexterity modifier (your choice). The attack still counts as a miss for the purpose of spells and features.</td>
+        </tr>
+        <tr>
+            <td>Measure I/II/III</td>
+            <td>1/3/5 CC</td>
+            <td>As a Bonus Action, you gain a [+1/+2/+3] bonus to your next melee attack roll with this weapon within the current turn. On a hit, it also deals an additional [+1/+2/+3] bonus damage.</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" >
+        <input type="button" id = "meleeAugbtnAdd" onclick = "meleeAddDropDownList()" value = "Add Melee Aug" />
+        <hr />
+        <table id = "meleeAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+    
+
+    <h3>Ranged Augments</h3>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Trigger Action</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Snipe I/II</td>
+            <td>2/4 CC</td>
+            <td>As a Bonus Action, you prepare your weapon’s scope. [Until the end of your turn/ For 1 minute], attacking at long range doesn't impose Disadvantage on your ranged weapon attack rolls made with this weapon.<br><br>
+
+            While this Trigger Action is active and you roll a 1 on one your weapon’s damage die, it counts as a 2 instead.</td>
+        </tr>
+        <tr>
+            <td>Rile</td>
+            <td>1 CC</td>
+            <td>As an Attack action, you can make a ranged attack roll with your weapon. On a hit, you deal half damage on the attack, but the creature has the Blinded condition against creatures other than you until the end of their next turn.</td>
+        </tr>
+        <tr>
+            <td>Spray I/II/III</td>
+            <td>0/2/4 CC</td>
+            <td>While transformed, your weapon cannot attack normally. Instead, as an Attack action, your weapon shoots in a [15/30/30]-foot cone instead. Each creature within that area must succeed a Dexterity saving throw or take your weapon’s damage [minus -d2/-/plus +d2]. They take half of that damage on a success.</td>
+        </tr>
+        <tr>
+            <td>Ambush</td>
+            <td>2 CC</td>
+            <td>After you make a ranged attack or subject a target with a Saving Throw, you can use your Reaction to move 5 feet. If you are Heavily Obscured or behind Three-Quarters Cover or Total Cover, you can take the Hide action.</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" >
+        <input type="button" id = "rangeAugbtnAdd" onclick = "rangeAddDropDownList()" value = "Add Range Aug" />
+        <hr />
+        <table id = "rangeAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+    
+    <h3>Defensive Augments</h3>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Trigger Action</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Parry I/II/III</td>
+            <td>2/4/6 CC</td>
+            <td>As a Reaction to being attacked, you can increase your AC by your Proficiency Bonus [-/plus 2/plus 2] against that attack, potentially turning it into a miss. [-/-/This AC lasts until the end of the turn]</td>
+        </tr>
+        <tr>
+            <td>Resist I/II/III</td>
+            <td>2/4/6 CC</td>
+            <td>As a Reaction when you are subjected to a Saving Throw, you can give yourself a bonus to that Saving Throw equal to your Proficiency Bonus [-/plus 2/plus 4]. </td>
+        </tr>
+        <tr>
+            <td>Sturdy I/II/III</td>
+            <td>2/4/6 CC</td>
+            <td>As a Bonus Action, you gain Resistance to Bludgeoning, Slashing, and Piercing damage [for the next damage you take before the start of your next turn/until the start of your next turn/for 1 minute].<br><br>
+
+        If you have the Load Enhancement, you also gain Resistance to the activated damage type for the duration.</td>
+        </tr>
+        <tr>
+            <td>Guardian</td>
+            <td>2 CC/UC</td>
+            <td>Whenever another creature within 5 feet of you would take damage, you can use your Reaction to give that creature Resistance to the triggering damage.<br><br>
+
+            If your weapon has the Shield property, the range of this Trigger Action is increased to 15 feet.<br><br>
+
+            This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply.</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" ></div>
+        <input type="button" id = "defAugbtnAdd" onclick = "defAddDropDownList()" value = "Add Defensive Aug" />
+        <hr />
+        <table id = "defAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+    
+
+    <h3>ESP Augments</h3>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Trigger Action</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Replenish I/II/III</td>
+            <td>1/3/5 CC</td>
+            <td>As an Action, you regain an expended [1st/2nd/3rd] level spell slot, or regain one use of an AS spell of the same level or lower.<br><br>
+
+            You can choose this Trigger Action more than once, and can be used once each time you choose it before needing to Resupply.</td>
+        </tr>
+        <tr>
+            <td>Cast I/II/III</td>
+            <td>1/3/5 CC</td>
+            <td>When you pick this Trigger Action, choose a [1st/2nd/3rd] level spell that does not require Concentration. You can cast that spell with this weapon, using either your Trigger Action DC or your spell save DC (your choice). If the spell has a Range of Touch, its Range is instead increased to your weapon’s Reach.<br><br>
+
+            You can choose this Trigger Action more than once, and can be used once each time you choose it before needing to Resupply.
+            </td>
+        </tr>
+        <tr>
+            <td>Converter</td>
+            <td>1 CC/UC</td>
+            <td>As a Magic action, choose a willing creature within 5 feet you can see. You can expend any number of Hit Die and have the target regain a number of Hit Points equal to the roll(s) plus either your Wisdom, Intelligence, or Charisma modifier (chosen when you choose this Trigger Action).</td>
+        </tr>
+        <tr>
+            <td>Proxy I/II/II</td>
+            <td>1/2/3 CC</td>
+            <td>As a Magic action, choose a willing creature within 5 feet you can see. You can expend any number of Hit Die and have the target regain a number of Hit Points equal to the roll(s) plus either your Wisdom, Intelligence, or Charisma modifier (chosen when you choose this Trigger Action).</td>
+        </tr>
+        <tr>
+            <td>Link</td>
+            <td>2 CC</td>
+            <td>As a Bonus Action, you prepare your weapon to channel your ESP. The next spell you cast will have a separate Concentration, allowing you to concentrate on up to two spells at once, provided they are different spells. You roll separately to maintain your normal Concentration and Link Concentration whenever you take damage.<br><br>
+
+            This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply. You can only have one Link Concentration active at a time.</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" >
+        <input type="button" id = "espAugbtnAdd" onclick = "espAddDropDownList()" value = "Add ESP Aug" />
+        <hr />
+        <table id = "espAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+
+    <h3>Utility Augments</h3>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Trigger Action</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Shroud</td>
+            <td>1 UC</td>
+            <td>As an Action, you choose a point within 30 feet you can see. The area within 5 feet of that point becomes Heavily Obscured with Darkness.<br><br>
+
+            It lasts for 1 minute or until a strong wind (such as one created by Gust of Wind) disperses it.<br><br>
+
+            This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply. Additionally, you can expend two uses instead of one to create magical Darkness instead.</td>
+        </tr>
+        <tr>
+            <td>Slog</td>
+            <td>1 UC</td>
+            <td>Whenever you hit a creature with this weapon’s attack or spell, or if a creature fails a Saving Throw subjected by this weapon’s attack or spell, you can reduce their Speed by 10 feet until the end of their next turn.<br><br>
+
+            You can choose this Trigger Action more than once and can be used two times each time you choose it before needing to Resupply. Additionally, you can expend more than one use to further increase the Speed reduced by an extra 5 feet for each use expended.</td>
+        </tr>
+        <tr>
+            <td>Load</td>
+            <td>1 CC/UC</td>
+            <td>When you add this Trigger Action to your EOS Unit, choose between the following damage types: Acid, Cold, Fire, Lightning, Thunder, Poison, Radiant, Necrotic, or Psychic.<br><br>
+
+            As a Bonus Action, you can change the damage type of this weapon to the chosen type. You can revert it back to its original damage type as a Bonus Action.<br><br>
+
+            You can choose this Trigger Action more than once, choosing a different damage type each time you do.</td>
+        </tr>
+        <tr>
+            <td>Scout</td>
+            <td>1 UC</td>
+            <td>As an Attack action, you can fire a special ammo to a target creature or point within 60 feet you can see. Choose a feature for your ammo:<br><br>
+
+            Bug. The ammo latches on towards the target. You know the exact location of the ammo while you are holding your weapon. A successful Investigation (Intelligence) check against your DC reveals the ammo.<br><br>
+
+            Flare. The ammo ignites, emitting a 30-feet radius of Bright Light. At the end of its flight, if it is airborne, it will descend at a rate of 5 feet each round. The light lasts for 1 minute.<br><br>
+
+            Firing a special ammo when one was fired will cause the previous one to be destroyed.<br><br>
+
+            You can choose this Trigger Action more than once and can be used three times each time you choose it before needing to Resupply.
+            </td>
+        </tr>
+        <tr>
+            <td>Barrier I/II</td>
+            <td>1/2 UC</td>
+            <td>As a Bonus Action, choose a point within 10 feet to deploy a 15-foot-long, 5-foot-wide, 5-foot-high barrier. The barrier is an object with 15 AC, 10 Hit Points, Resistance to all damage, and Immunity to Piercing damage. [-/You can also use a Bonus Action to move the barrier 15 feet. At the end of the movement, you can change its orientation.]<br><br>
+
+            You can recall it back to your EOS Unit from anywhere as an Action. If you do and redeploy it, it will retain its previous Hit Points until you resupply.
+            </td>
+        </tr>
+        <tr>
+            <td>Balance</td>
+            <td>2 UC</td>
+            <td>When you would be pushed, pulled, or gain the Grappled or Prone condition, you can use your Reaction to instead negate that effect (Any other effect that follows it will still apply).<br><br>
+
+            This Trigger Action can be used up to three times before needing to Resupply.
+            </td>
+        </tr>
+        <tr>
+            <td>Maneuver I/II/III</td>
+            <td>3/5/7 UC</td>
+            <td>As a Free Action, you double your Speed for this turn.<br><br>
+
+            To use this again, you have to use your Action [three times/two times/once] to cool down your weapon.
+            </td>
+        </tr>
+        <tr>
+            <td>Hookshot I/II</td>
+            <td>2/4 UC</td>
+            <td>As an [Action/Bonus Action], you shoot a grappling hook to a solid surface or creature within 15 feet you can see and pull yourself towards the target. [-/You can use your Action to pull yourself to a solid surface or creature within your Speed instead.]</td>
+        </tr>
+        <tr>
+            <td>Flight</td>
+            <td>5 UC</td>
+            <td>As an Action, you expand your weapon. For 1 minute, you gain a Fly Speed equal to your Speed as long as you are holding your weapon.</td>
+        </tr>
+        <tr>
+            <td>Polarity</td>
+            <td>2 UC</td>
+            <td>As a Bonus Action, you can teleport to a space that your weapon have occupied since the start of your last turn. After teleporting, your remaining Speed is reduced to 0.</td>
+        </tr>
+        <tr>
+            <td>Vision I/II</td>
+            <td>2/4 UC</td>
+            <td>As an Action, you gain 60 feet of Darkvision that can see through [Nonmagical/Magical] Darkness for 1 minute.</td>
+        </tr>
+        <tr>
+            <td>Manipulate I/II</td>
+            <td>1/3 UC</td>
+            <td>When you take the Utilize action, you can use it even when the object is [30/60] feet away from you. You must have vision of the object, and it cannot be an item held by an unwilling creature.</td>
+        </tr>
+        <tr>
+            <td>Prep</td>
+            <td>3 CC/UC</td>
+            <td>As a Free Action, you gain an extra Bonus Action this turn. You cannot take the same Bonus Action twice in a turn.<br><br>
+            
+            This Trigger Action can be chosen more than once, and can be used twice for each time you choose it before needing to Resupply. </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" >
+        <input type="button" id = "utilAugbtnAdd" onclick = "utilAddDropDownList()" value = "Add Utility Aug" />
+        <hr />
+        <table id = "utilAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+
+    <h3>Summary sheet&emsp;<span><input type="button" value="Update" id="testbutton"></span></h3>
+    <h2>EOS Unit: <span id="currentEosUnitName"></span></h2>
+
+    <table>
+        <tr>
+            <td>Class Level: </td>
+            <td id="testCLD" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Dice Size:</td>
+            <td colspan="2">
+                <span>D</span><span id="diceSize"></span>
+                <span>
+                    <select class="type" id="dmgType">
+                        <option>Bludgeoning</option>
+                        <option>Slashing</option>
+                        <option>Piercing</option>
+                    </select>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>Properties: </td>
+            <td id="currentProperties" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Weapon Spec: </td>
+            <td id="currentWeaponSpec" colspan="2"></td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td></td>
+            <td><b>CC</b></td>
+            <td><b>UC</b></td>
+        </tr>
+        <tr>
+            <td>Total: </td>
+            <td id="testtotalCC"></td>
+            <td id="testtotalUC"></td>
+        </tr>
+        <tr>
+            <td>Current: </td>
+            <td id="currentCC"></td>
+            <td id="currentUC"></td>
+        </tr>
+        <tr>
+            <td>Remaining: </td>
+            <td id="remainingCC"></td>
+            <td id="remainingUC"></td>
+        </tr>
+        <tr>
+            <td>Flaw: </td>
+            <td id="currentFlaw" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Enhancements: </td>
+            <td id="currentEnha" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Melee Augments: </td>
+            <td id="currentMeleeAugs" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Ranged Augments: </td>
+            <td id="currentRangeAugs" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Defensive Augments: </td>
+            <td id="currentDefAugs" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>ESP Augments: </td>
+            <td id="currentEspAugs" colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Util Augments: </td>
+            <td id="currentUtilAugs" colspan="2"></td>
+        </tr>
+    </table>
+
+    <!-- <p>Class Level: <span id="testCLD"></span></p>
+    <p>Dice Size: D<span id="diceSize"></span> <select class="type" id="dmgType">
+            <option value="CC">Bludgeoning</option>
+            <option value="UC">Slashing</option>
+            <option value="UC">Piercing</option>
+        </select></p>
+    <p>Properties: <span id="currentProperties"></span></p>
+    <p>Weapon Spec: <span id="currentWeaponSpec"></span></p> -->
+
+    <!-- <p>Total CC: <span id="testtotalCC"></span> Total UC: <span id="testtotalUC"></span></p>
+    <p>Current CC: <span id="currentCC" > </span> Current UC: <span id="currentUC" ></span></p>
+    <p>Remaining CC: <span id="remainingCC"> </span> Remaining UC: <span id="remainingUC"></span></p>
+     -->
+
+    <!-- <p>Flaw: <span id="currentFlaw"></span></p>
+    <p>Enhancements: <span id="currentEnha"></span></p>
+    <p>Melee Augs: <span id="currentMeleeAugs"></span></p>
+    <p>Ranged Augs: <span id="currentRangeAugs"></span></p>
+    <p>Defensive Augs: <span id="currentDefAugs"></span></p>
+    <p>ESP Augs: <span id="currentEspAugs"></span></p>
+    <p>Util Augs: <span id="currentUtilAugs"></span></p> -->
+</body>
         
-        
-        <h2>EOS Stats</h2>
-        <input type="button" value="Update" id="testbutton">
-        <p>Class Level: <span id="testCLD"></span></p>
-        <p>Dice Size: D<span id="diceSize"></span> <select class="type" id="dmgType">
-                <option value="CC">Bludgeoning</option>
-                <option value="UC">Slashing</option>
-                <option value="UC">Piercing</option>
-            </select></p>
-        <p>Properties: <span id="currentProperties"></span></p>
-        <p>Weapon Spec: <span id="currentWeaponSpec"></span></p>
-        <p>Total CC: <span id="testtotalCC"></span> Total UC: <span id="testtotalUC"></span></p>
-        <p>Current CC: <span id="currentCC" > </span> Current UC: <span id="currentUC" ></span></p>
-        <p>Remaining CC: <span id="remainingCC"> </span> Remaining UC: <span id="remainingUC"></span></p>
-        <p>Flaw: <span id="currentFlaw"></span></p>
-        <p>Enhancements: <span id="currentEnha"></span></p>
-        <p>Melee Augs: <span id="currentMeleeAugs"></span></p>
-        <p>Ranged Augs: <span id="currentRangeAugs"></span></p>
-        <p>Defensive Augs: <span id="currentDefAugs"></span></p>
-        <p>ESP Augs: <span id="currentEspAugs"></span></p>
-        <p>Util Augs: <span id="currentUtilAugs"></span></p>
-        
-
-
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
     
@@ -835,7 +914,8 @@
         };
 
         handlingPropertyCheck();
-        
+        $("#currentEosUnitName").text($("#eosUnitName").val());
+
         for(i=0; i < wSpecs.length; i++){
             if(wSpecs[i].checked){
                 switch(wSpecs[i].value){
