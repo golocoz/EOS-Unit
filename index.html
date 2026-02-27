@@ -899,6 +899,46 @@
         document.getElementById("testCLD").innerHTML = classLevel;
         document.getElementById("testtotalCC").innerHTML = classLevel + wSpecCC + bonusCC;
         document.getElementById("testtotalUC").innerHTML = classLevel + wSpecUC + bonusUC;
+
+        enhaReinforced = false;
+        var enha = document.getElementsByName("classenhancement");
+        currentCosts = enhaAugList(enhancementsArray, 'currentEnha', enha, currentCosts);
+        
+        var mAugs = document.getElementsByName("meleeAugs")
+        currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
+
+        var rAugs = document.getElementsByName("rangeAugs")
+        currentCosts = enhaAugList(rangeAugsArray, 'currentRangeAugs', rAugs, currentCosts);
+
+        var dAugs = document.getElementsByName("defAugs");
+        currentCosts = enhaAugList(defAugsArray, 'currentDefAugs', dAugs, currentCosts);
+
+        var eAugs = document.getElementsByName("espAugs")
+        currentCosts = enhaAugList(espAugsArray, 'currentEspAugs', eAugs, currentCosts);
+
+        var uAugs = document.getElementsByName("utilAugs")
+        currentCosts = enhaAugList(utilAugsArray, 'currentUtilAugs', uAugs, currentCosts);
+
+        var augCost = document.getElementsByName("cCostSelect");
+        var costSelect = [
+                { Id: 0, Name: "Initial", value:"0"},
+                { Id: 1, Name: "+1 Extra CC", value:"CC"},
+                { Id: 2, Name: "+1 Extra UC", value:"UC"},
+            ];
+
+        for(i=0; i<augCost.length; i++){
+            r = augCost[i].value;
+            switch(costSelect[r].value){
+                case "0":
+                    break;
+                case "CC":
+                    currentCosts.CC += 1;
+                    break;
+                case "UC":
+                    currentCosts.UC += 1;
+                    break;
+            }
+        }
         
         var enha = document.getElementsByName("classenhancement");
 
@@ -1019,46 +1059,6 @@
             if (i<enha.length -1){
                 document.getElementById('currentEnha').innerHTML +=  (", ")
             };
-        }
-
-        enhaReinforced = false;
-        var enha = document.getElementsByName("classenhancement");
-        currentCosts = enhaAugList(enhancementsArray, 'currentEnha', enha, currentCosts);
-        
-        var mAugs = document.getElementsByName("meleeAugs")
-        currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
-
-        var rAugs = document.getElementsByName("rangeAugs")
-        currentCosts = enhaAugList(rangeAugsArray, 'currentRangeAugs', rAugs, currentCosts);
-
-        var dAugs = document.getElementsByName("defAugs");
-        currentCosts = enhaAugList(defAugsArray, 'currentDefAugs', dAugs, currentCosts);
-
-        var eAugs = document.getElementsByName("espAugs")
-        currentCosts = enhaAugList(espAugsArray, 'currentEspAugs', eAugs, currentCosts);
-
-        var uAugs = document.getElementsByName("utilAugs")
-        currentCosts = enhaAugList(utilAugsArray, 'currentUtilAugs', uAugs, currentCosts);
-
-        var augCost = document.getElementsByName("cCostSelect");
-        var costSelect = [
-                { Id: 0, Name: "Initial", value:"0"},
-                { Id: 1, Name: "+1 Extra CC", value:"CC"},
-                { Id: 2, Name: "+1 Extra UC", value:"UC"},
-            ];
-
-        for(i=0; i<augCost.length; i++){
-            r = augCost[i].value;
-            switch(costSelect[r].value){
-                case "0":
-                    break;
-                case "CC":
-                    currentCosts.CC += 1;
-                    break;
-                case "UC":
-                    currentCosts.UC += 1;
-                    break;
-            }
         }
 
         document.getElementById("currentCC").innerHTML = currentCosts.CC;
