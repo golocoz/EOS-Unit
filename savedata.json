@@ -1,0 +1,21 @@
+{
+    "handlingTypes": [
+        {"name" : "Light"},
+        {"name" : "Two-Handed"}
+    ],
+    "propertyTypes": [
+        {"name" : "Reach"},
+        {"name" : "Thrown"}
+    ],
+    "ws": "Balanced",
+    "enhancements": [
+        {"name" : "Quickdraw (CC)"},
+        {"name" : "Quickdraw (CC)"},
+        {"name" : "Quickdraw (CC)"},
+        {"name" : "Quickdraw (CC)"}
+    ],
+    "meleeAugs": [
+        {"name" : "Sweep I", "costSelect" : "Initial"},
+        {"name" : "Extend I", "costSelect" : "Initial"}
+    ]
+}
