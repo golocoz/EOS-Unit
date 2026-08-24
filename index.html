@@ -717,101 +717,101 @@
     const flawNames = ["None", "Dull I", "Dull II", "Dull III", "Complex", "Bulky I", "Bulky II", "Bulky III", "Unwieldy", "Vulnerable"]
 
     var enhancementsArray = [
-            { Id: 0, Name: "Quickdraw (CC)", cCost: 1, uCost: 0},
-            { Id: 1, Name: "Quickdraw (UC)", cCost: 0, uCost: 1},
-            { Id: 2, Name: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
-            { Id: 3, Name: "Returning", cCost: 1, uCost: 0, Required: {Property: "Thrown"}},
-            { Id: 4, Name: "Twinned", cCost: 1, uCost: 0, Required: {Handling: "Light"}},
-            { Id: 5, Name: "Suregrip", cCost: 1, uCost: 0, Required: {Handling: "Versatile"}},
-            { Id: 6, Name: "Flow", cCost: 1, uCost: 0, Required: {Or: true, Property: "Reach", Augment: "Extend"}},
-            { Id: 7, Name: "Safeguard", cCost: 1, uCost: 0, Required: {Handling: "Shield"}},
-            { Id: 8, Name: "Reinforced", cCost: 2, uCost: 0},
-            { Id: 9, Name: "Reinforced (D10)", cCost: 4, uCost: 0},
-            { Id: 10, Name: "Transform (2CC)", cCost: 2, uCost: 0},
-            { Id: 11, Name: "Transform (2UC)", cCost: 0, uCost: 2},
-            { Id: 12, Name: "Transform: Range I", cCost: 1, uCost: 0},
-            { Id: 13, Name: "Transform: Range II", cCost: 2, uCost: 0},
-            { Id: 14, Name: "Transform: Range III", cCost: 3, uCost: 0},
-            { Id: 15, Name: "Transform: Heavy", cCost: 1, uCost: 0},
-            { Id: 16, Name: "Transform: Remove Loading", cCost: 1, uCost: 0},
-            { Id: 17, Name: "Transform: Burn (CC)", cCost: -1, uCost: 0},
-            { Id: 18, Name: "Transform: Burn (UC)", cCost: 0, uCost: -1},
-            { Id: 19, Name: "Transform: Exposed (CC)", cCost: -1, uCost: 0},
-            { Id: 20, Name: "Transform: Exposed (UC)", cCost: 0, uCost: -1},
+            { Id: 0, Name: "Quickdraw (CC)",            namePlain: "Quickdraw", cCost: 1, uCost: 0},
+            { Id: 1, Name: "Quickdraw (UC)",            namePlain: "Quickdraw", cCost: 0, uCost: 1},
+            { Id: 2, Name: "Siege",                     namePlain: "Siege", cCost: 1, uCost: 0, Required: {Property: "Heavy"}},
+            { Id: 3, Name: "Returning",                 namePlain: "Returning", cCost: 1, uCost: 0, Required: {Property: "Thrown"}},
+            { Id: 4, Name: "Twinned",                   namePlain: "Twinned", cCost: 1, uCost: 0, Required: {Handling: "Light"}},
+            { Id: 5, Name: "Suregrip",                  namePlain: "Suregrip", cCost: 1, uCost: 0, Required: {Handling: "Versatile"}},
+            { Id: 6, Name: "Flow",                      namePlain: "Flow", cCost: 1, uCost: 0, Required: {Or: true, Property: "Reach", Augment: "Extend"}},
+            { Id: 7, Name: "Safeguard",                 namePlain: "Safeguard", cCost: 1, uCost: 0, Required: {Handling: "Shield"}},
+            { Id: 8, Name: "Reinforced",                namePlain: "Reinforced", cCost: 2, uCost: 0},
+            { Id: 9, Name: "Reinforced (D10)",          namePlain: "Reinforced", cCost: 4, uCost: 0},
+            { Id: 10, Name: "Transform (2CC)",          namePlain: "Transform", cCost: 2, uCost: 0},
+            { Id: 11, Name: "Transform (2UC)",          namePlain: "Transform", cCost: 0, uCost: 2},
+            { Id: 12, Name: "Transform: Range I",       namePlain: "Transform", cCost: 1, uCost: 0},
+            { Id: 13, Name: "Transform: Range II",      namePlain: "Transform", cCost: 2, uCost: 0},
+            { Id: 14, Name: "Transform: Range III",     namePlain: "Transform", cCost: 3, uCost: 0},
+            { Id: 15, Name: "Transform: Heavy",         namePlain: "Transform", cCost: 1, uCost: 0},
+            { Id: 16, Name: "Transform: Remove Loading",namePlain: "Transform", cCost: 1, uCost: 0},
+            { Id: 17, Name: "Transform: Burn (CC)",     namePlain: "Transform", cCost: -1, uCost: 0},
+            { Id: 18, Name: "Transform: Burn (UC)",     namePlain: "Transform", cCost: 0, uCost: -1},
+            { Id: 19, Name: "Transform: Exposed (CC)",  namePlain: "Transform", cCost: -1, uCost: 0},
+            { Id: 20, Name: "Transform: Exposed (UC)",  namePlain: "Transform", cCost: 0, uCost: -1},
         ];
 
     var meleeAugsArray = [
-        { Id: 0, Name: "Sweep I", cCost: 3, uCost:0},
-        { Id: 1, Name: "Sweep II", cCost: 5, uCost:0},
-        { Id: 2, Name: "Extend I", cCost: 3, uCost:0},
-        { Id: 3, Name: "Extend II", cCost: 5, uCost:0},
-        { Id: 4, Name: "Scar", cCost: 1, uCost:0},
-        { Id: 5, Name: "Measure I", cCost: 1, uCost:0},
-        { Id: 6, Name: "Measure II", cCost: 3, uCost:0},
-        { Id: 7, Name: "Measure III", cCost: 5, uCost:0},
+        { Id: 0, Name: "Sweep I",       namePlain: "Sweep", cCost: 3, uCost:0},
+        { Id: 1, Name: "Sweep II",      namePlain: "Sweep", cCost: 5, uCost:0},
+        { Id: 2, Name: "Extend I",      namePlain: "Extend", cCost: 3, uCost:0},
+        { Id: 3, Name: "Extend II",     namePlain: "Extend", cCost: 5, uCost:0},
+        { Id: 4, Name: "Scar",          namePlain: "Scar", cCost: 1, uCost:0},
+        { Id: 5, Name: "Measure I",     namePlain: "Measure", cCost: 1, uCost:0},
+        { Id: 6, Name: "Measure II",    namePlain: "Measure", cCost: 3, uCost:0},
+        { Id: 7, Name: "Measure III",   namePlain: "Measure", cCost: 5, uCost:0},
     ];
 
     var rangeAugsArray = [
-        { Id: 0, Name: "Snipe I", cCost: 2, uCost:0},
-        { Id: 1, Name: "Snipe II", cCost: 4, uCost:0},
-        { Id: 2, Name: "Rile", cCost: 1, uCost:0},
-        { Id: 3, Name: "Spray I", cCost: 0, uCost:0},
-        { Id: 4, Name: "Spray II", cCost: 2, uCost:0},
-        { Id: 5, Name: "Spray III", cCost: 4, uCost:0},
-        { Id: 6, Name: "Ambush", cCost: 2, uCost:0},
-    ];
+        { Id: 0, Name: "Snipe I",       namePlain: "Snipe", cCost: 2, uCost:0},
+        { Id: 1, Name: "Snipe II",      namePlain: "Snipe", cCost: 4, uCost:0},
+        { Id: 2, Name: "Rile",          namePlain: "Rile", cCost: 1, uCost:0},
+        { Id: 3, Name: "Spray I",       namePlain: "Spray", cCost: 0, uCost:0},
+        { Id: 4, Name: "Spray II",      namePlain: "Spray", cCost: 2, uCost:0},
+        { Id: 5, Name: "Spray III",     namePlain: "Spray", cCost: 4, uCost:0},
+        { Id: 6, Name: "Ambush",        namePlain: "Ambush", cCost: 2, uCost:0},
+    ];  
     
     var defAugsArray = [
-        { Id: 0, Name: "Parry I", cCost: 2, uCost:0},
-        { Id: 1, Name: "Parry II", cCost: 4, uCost:0},
-        { Id: 2, Name: "Parry III", cCost: 6, uCost:0},
-        { Id: 3, Name: "Resist I", cCost: 2, uCost:0},
-        { Id: 4, Name: "Resist II", cCost: 4, uCost:0},
-        { Id: 5, Name: "Resist III", cCost: 6, uCost:0},
-        { Id: 6, Name: "Sturdy I", cCost: 2, uCost:0},
-        { Id: 7, Name: "Sturdy II", cCost: 4, uCost:0},
-        { Id: 8, Name: "Sturdy III", cCost: 6, uCost:0},
-        { Id: 9, Name: "Guardian (CC)", cCost: 2, uCost:0},
-        { Id: 10, Name: "Guardian (UC)", cCost: 0, uCost:2},
+        { Id: 0, Name: "Parry I",       namePlain: "Parry", cCost: 2, uCost:0},
+        { Id: 1, Name: "Parry II",      namePlain: "Parry", cCost: 4, uCost:0},
+        { Id: 2, Name: "Parry III",     namePlain: "Parry", cCost: 6, uCost:0},
+        { Id: 3, Name: "Resist I",      namePlain: "Resist", cCost: 2, uCost:0},
+        { Id: 4, Name: "Resist II",     namePlain: "Resist", cCost: 4, uCost:0},
+        { Id: 5, Name: "Resist III",    namePlain: "Resist", cCost: 6, uCost:0},
+        { Id: 6, Name: "Sturdy I",      namePlain: "Sturdy", cCost: 2, uCost:0},
+        { Id: 7, Name: "Sturdy II",     namePlain: "Sturdy", cCost: 4, uCost:0},
+        { Id: 8, Name: "Sturdy III",    namePlain: "Sturdy", cCost: 6, uCost:0},
+        { Id: 9, Name: "Guardian (CC)", namePlain: "Guardian", cCost: 2, uCost:0},
+        { Id: 10, Name: "Guardian (UC)",namePlain: "Guardian", cCost: 0, uCost:2},
     ];
 
     var espAugsArray = [
-        { Id: 0, Name: "Replenish I", cCost: 1, uCost:0},
-        { Id: 1, Name: "Replenish II", cCost: 3, uCost:0},
-        { Id: 2, Name: "Replenish III", cCost: 5, uCost:0},
-        { Id: 3, Name: "Cast I", cCost: 1, uCost:0},
-        { Id: 4, Name: "Cast II", cCost: 3, uCost:0},
-        { Id: 5, Name: "Cast III", cCost: 5, uCost:0},
-        { Id: 6, Name: "Converter (CC)", cCost: 1, uCost:0},
-        { Id: 7, Name: "Converter (UC)", cCost: 0, uCost:1},
-        { Id: 8, Name: "Proxy I", cCost: 1, uCost:0},
-        { Id: 9, Name: "Proxy II", cCost: 2, uCost:0},
-        { Id: 10, Name: "Proxy III", cCost: 3, uCost:0},
-        { Id: 11, Name: "Link", cCost: 2, uCost:0},
+        { Id: 0, Name: "Replenish I",   namePlain: "Replenish", cCost: 1, uCost:0},
+        { Id: 1, Name: "Replenish II",  namePlain: "Replenish", cCost: 3, uCost:0},
+        { Id: 2, Name: "Replenish III", namePlain: "Replenish", cCost: 5, uCost:0},
+        { Id: 3, Name: "Cast I",        namePlain: "Cast", cCost: 1, uCost:0},
+        { Id: 4, Name: "Cast II",       namePlain: "Cast", cCost: 3, uCost:0},
+        { Id: 5, Name: "Cast III",      namePlain: "Cast", cCost: 5, uCost:0},
+        { Id: 6, Name: "Converter (CC)",namePlain: "Converter", cCost: 1, uCost:0},
+        { Id: 7, Name: "Converter (UC)",namePlain: "Converter", cCost: 0, uCost:1},
+        { Id: 8, Name: "Proxy I",       namePlain: "Proxy", cCost: 1, uCost:0},
+        { Id: 9, Name: "Proxy II",      namePlain: "Proxy", cCost: 2, uCost:0},
+        { Id: 10, Name: "Proxy III",    namePlain: "Proxy", cCost: 3, uCost:0},
+        { Id: 11, Name: "Link",         namePlain: "Link", cCost: 2, uCost:0},
     ];
 
     var utilAugsArray = [
-        { Id: 0, Name: "Shroud", cCost: 0, uCost: 1},
-        { Id: 1, Name: "Slog", cCost: 0, uCost: 1},
-        { Id: 2, Name: "Load (CC)", cCost: 1, uCost: 0},
-        { Id: 3, Name: "Load (UC)", cCost: 0, uCost: 1},
-        { Id: 4, Name: "Scout", cCost: 0, uCost: 1},
-        { Id: 5, Name: "Barrier I", cCost: 0, uCost: 1},
-        { Id: 6, Name: "Barrier II", cCost: 0, uCost: 2},
-        { Id: 7, Name: "Balance", cCost: 0, uCost: 2},
-        { Id: 8, Name: "Maneuver I", cCost: 0, uCost: 3},
-        { Id: 9, Name: "Maneuver II", cCost: 0, uCost: 5},
-        { Id: 10, Name: "Maneuver III", cCost: 0, uCost: 7},
-        { Id: 11, Name: "Hookshot I", cCost: 0, uCost: 2},
-        { Id: 12, Name: "Hookshot II", cCost: 0, uCost: 4},
-        { Id: 13, Name: "Flight", cCost: 0, uCost: 5},
-        { Id: 14, Name: "Polarity", cCost: 0, uCost: 2},
-        { Id: 15, Name: "Vision I", cCost: 0, uCost: 2},
-        { Id: 16, Name: "Vision II", cCost: 0, uCost: 4},
-        { Id: 17, Name: "Manipulate I", cCost: 0, uCost: 1},
-        { Id: 18, Name: "Manipulate II", cCost: 0, uCost: 3},
-        { Id: 19, Name: "Prep (CC)", cCost: 3, uCost: 0},
-        { Id: 20, Name: "Prep (UC)", cCost: 0, uCost: 3},
+        { Id: 0, Name: "Shroud",        namePlain: "Shroud", cCost: 0, uCost: 1},
+        { Id: 1, Name: "Slog",          namePlain: "Slog", cCost: 0, uCost: 1},
+        { Id: 2, Name: "Load (CC)",     namePlain: "Load", cCost: 1, uCost: 0},
+        { Id: 3, Name: "Load (UC)",     namePlain: "Load", cCost: 0, uCost: 1},
+        { Id: 4, Name: "Scout",         namePlain: "Scout", cCost: 0, uCost: 1},
+        { Id: 5, Name: "Barrier I",     namePlain: "Barrier", cCost: 0, uCost: 1},
+        { Id: 6, Name: "Barrier II",    namePlain: "Barrier", cCost: 0, uCost: 2},
+        { Id: 7, Name: "Balance",       namePlain: "Balance", cCost: 0, uCost: 2},
+        { Id: 8, Name: "Maneuver I",    namePlain: "Maneuver", cCost: 0, uCost: 3},
+        { Id: 9, Name: "Maneuver II",   namePlain: "Maneuver", cCost: 0, uCost: 5},
+        { Id: 10, Name: "Maneuver III", namePlain: "Maneuver", cCost: 0, uCost: 7},
+        { Id: 11, Name: "Hookshot I",   namePlain: "Hookshot", cCost: 0, uCost: 2},
+        { Id: 12, Name: "Hookshot II",  namePlain: "Hookshot", cCost: 0, uCost: 4},
+        { Id: 13, Name: "Flight",       namePlain: "Flight", cCost: 0, uCost: 5},
+        { Id: 14, Name: "Polarity",     namePlain: "Polarity", cCost: 0, uCost: 2},
+        { Id: 15, Name: "Vision I",     namePlain: "Vision", cCost: 0, uCost: 2},
+        { Id: 16, Name: "Vision II",    namePlain: "Vision", cCost: 0, uCost: 4},
+        { Id: 17, Name: "Manipulate I", namePlain: "Manipulate", cCost: 0, uCost: 1},
+        { Id: 18, Name: "Manipulate II",namePlain: "Manipulate", cCost: 0, uCost: 3},
+        { Id: 19, Name: "Prep (CC)",    namePlain: "Prep", cCost: 3, uCost: 0},
+        { Id: 20, Name: "Prep (UC)",    namePlain: "Prep", cCost: 0, uCost: 3},
     ];
 
     var costSelect = [
@@ -1160,8 +1160,9 @@
                     }
                     if (required.hasOwnProperty("Augment")){
                         for (j=0; j<augSelected.length; j++){
-                            console.log("requirementsCheck: " + augSelected[j].getAttribute("data-name"));
-                            if (required.Augment == augSelected[j].find("option:selected").text()){
+                            var augSelectedNamePlain = augSelected.find(':selected').data('name');
+                            console.log("requirementsCheck: " + augSelectedNamePlain);
+                            if (required.Augment == augSelectedNamePlain){
                                 break requirementCheck;
                             }
                         }
@@ -1292,13 +1293,9 @@
         $(enhaAugArray).each(function () {
             var option = $("<option />");
 
-            //Set Customer Name in Text part.
             option.html(this.Name);
-
-            //Set Customer CustomerId in Value part.
             option.val(this.Id);
-
-            //Add the Option element to DropDownList.
+            option.attr("data-name", this.namePlain);
             ddlEnhancements.append(option);
         });
 
@@ -1309,24 +1306,14 @@
             $(costSelect).each(function () {
                 var option = $("<option />");
 
-                //Set Customer Name in Text part.
                 option.html(this.Name);
-
-                //Set Customer CustomerId in Value part.
                 option.val(this.Id);
-
-                //Add the Option element to DropDownList.
                 cSelect.append(option);
             });
         }
 
-        //Reference the container Table.
         var tblContainer = $(htmlContainer);
-
-        //Add the Table row.
         var row = tblContainer[0].insertRow(-1);
-
-        //Add the DropDownList to Table Row.
         var cell = row.insertCell(-1);
         $(cell).append(ddlEnhancements);
 
@@ -1334,9 +1321,7 @@
             var cell2 = row.insertCell(-1);
             $(cell2).append(cSelect);
         }
-            
         
-
         //Create a Remove Button.
         var btnRemove = $("<input type = 'button' value = 'Remove'/>");
         btnRemove.click(function () {
