@@ -595,10 +595,38 @@
         <hr/>
     </div>
 
+    <h3>Universal Limit Trigger</h3>
+
+    <table border="1" class="infoTable">
+    <thead>
+        <tr>
+            <th>Augment</th>
+            <th>Cost</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ULT</td>
+            <td>3 CC + 3 UC</td>
+            <td>
+                Choose the augments your EOS Unit has, then combine A and B components to create your ULT!
+            </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <div style="padding-top: 5px;" >
+        <input type="button" id = "ultbtnAdd" onclick="ultAddDropDownList()" value = "Add Universal Limit Trigger" />
+        <hr />
+        <table id = "ultAugtblContainer" border="0" cellpadding="5" cellspacing="5"></table>
+        <hr/>
+    </div>
+
     <h3>
         Summary sheet&emsp;
         <span><input type="button" value="Update" id="testbutton"></span>
-        <span title="Make sure your build is valid!" tabindex="0" style="display: inline-block;">
+        <span title="Make sure your build is valid and has a name!" tabindex="0" style="display: inline-block;">
             <input type="button" value="Export" id="exportButton" onclick="exportJsonData()" disabled>
         </span>
     </h3>
@@ -679,6 +707,10 @@
             <td>Util Augments: </td>
             <td id="currentUtilAugs" colspan="2"></td>
         </tr>
+        <tr>
+            <td>Universal Limit Trigger: </td>
+            <td id="currentUltAugs" colspan="2"></td>
+        </tr>
     </table>
 
     <!-- <p>Class Level: <span id="testCLD"></span></p>
@@ -707,7 +739,6 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
     let exportDataJson;
-    let isValidConfig;
     
     let DiceSizeBase = 8;
     let DiceSize;
@@ -822,6 +853,10 @@
         { Id: 20, Name: "Prep (UC)",    namePlain: "Prep", cCost: 0, uCost: 3},
     ];
 
+    var ultAugsArray = [
+        { Id: 0, Name: "Universal Limit Trigger", namePlain: "ULT", cCost: 3, uCost: 3},
+    ];
+
     var costSelect = [
         { Id: 0, Name: "Initial", value:"0"},
         { Id: 1, Name: "+1 Extra CC", value:"CC"},
@@ -920,21 +955,26 @@
         var diceSelected;
         var diceSize = 8;
 
+        // Get handling type, property type, weapon spec, and augs selected
         diceSelected = document.getElementsByClassName("dice");
         htSelected = $('input.handlingType:checked');
         ptSelected = $('input.propertyType:checked');
         wsSelected = $('input.ws:checked');
         augSelected = $('select[name="meleeAugs"]');
+        ultSelected = $('select[name="ultAugs"]');
         
+        // Get class level, bonus CC and bonus UC
         let classLevel = parseInt(document.getElementById("classLevel").value);
         let bonusCC = parseInt(document.getElementById("bonusCC").value);
         let bonusUC = parseInt(document.getElementById("bonusUC").value);
 
+        // Set current costs to 0
         var currentCosts = {
             CC: 0,
             UC: 0
         };
 
+        // Handle property exclusivity, get name
         handlingPropertyCheck();
         $("#currentEosUnitName").text($("#eosUnitName").val());
 
@@ -989,20 +1029,23 @@
         var enha = document.getElementsByName("classenhancement");
         currentCosts = enhaAugList(enhancementsArray, 'currentEnha', enha, currentCosts);
         
-        var mAugs = document.getElementsByName("meleeAugs")
+        var mAugs = document.getElementsByName("meleeAugs");
         currentCosts = enhaAugList(meleeAugsArray, 'currentMeleeAugs', mAugs, currentCosts);
 
-        var rAugs = document.getElementsByName("rangeAugs")
+        var rAugs = document.getElementsByName("rangeAugs");
         currentCosts = enhaAugList(rangeAugsArray, 'currentRangeAugs', rAugs, currentCosts);
 
         var dAugs = document.getElementsByName("defAugs");
         currentCosts = enhaAugList(defAugsArray, 'currentDefAugs', dAugs, currentCosts);
 
-        var eAugs = document.getElementsByName("espAugs")
+        var eAugs = document.getElementsByName("espAugs");
         currentCosts = enhaAugList(espAugsArray, 'currentEspAugs', eAugs, currentCosts);
 
-        var uAugs = document.getElementsByName("utilAugs")
+        var uAugs = document.getElementsByName("utilAugs");
         currentCosts = enhaAugList(utilAugsArray, 'currentUtilAugs', uAugs, currentCosts);
+
+        var ultAugs = document.getElementsByName("ultAugs");
+        currentCosts = enhaAugList(ultAugsArray, 'currentUltAugs', ultAugs, currentCosts);
 
         // Populate export data in JSON format
         var currentSelectedAugsNames = $('[name=meleeAugs], [name=rangeAugs], [name=defAugs], [name=espAugs], [name=utilAugs]').find('option:selected').map(function() {
@@ -1037,7 +1080,7 @@
         document.getElementById("remainingCC").innerHTML = classLevel + wSpecCC + bonusCC - currentCosts.CC;
         document.getElementById("remainingUC").innerHTML = classLevel + wSpecUC + bonusUC - currentCosts.UC;
 
-        isValidConfig = true;
+        let isValidConfig = true;
         remainingCC = $("#remainingCC");
         remainingCC.removeClass();
 
@@ -1056,7 +1099,7 @@
             isValidConfig = false;
         }
 
-        if (isValidConfig){
+        if (isValidConfig && $("#eosUnitName").val().trim().length != 0){
             $("#exportButton").prop("disabled", false);
         } else {
             $("#exportButton").prop("disabled", true);
@@ -1264,23 +1307,28 @@
     });
 
     function enhaAugList(enhaAugArray, currentListId, currentAugs, currentCosts){
-            for (i=0, document.getElementById(currentListId).innerHTML = ""; i<currentAugs.length; i++){
-                console.log(enhaAugArray[0].cCost)
-                q = currentAugs[i].value;
-                currentCosts.CC += enhaAugArray[q].cCost;
-                currentCosts.UC += enhaAugArray[q].uCost;
-                document.getElementById(currentListId).innerHTML += enhaAugArray[q].Name;
+        for (i=0, document.getElementById(currentListId).innerHTML = ""; i<currentAugs.length; i++){
+            console.log("enhaAugList: cost: " + enhaAugArray[0].cCost)
+            q = currentAugs[i].value;
+            currentCosts.CC += enhaAugArray[q].cCost;
+            currentCosts.UC += enhaAugArray[q].uCost;
 
-                if (enhancementsArray[q].Name == "Reinforced" || enhancementsArray[q].Name == "Reinforced (D10)"){
-                console.log("Reinforced!");
-                enhaReinforced = true;
-                }
-                if (i < currentAugs.length - 1){
-                    document.getElementById(currentListId).innerHTML += (", ");
-                }
+            if (enhaAugArray[q].Name === ultAugsArray[0].Name){
+                document.getElementById(currentListId).innerHTML += "Active!"
+            } else {
+                document.getElementById(currentListId).innerHTML += enhaAugArray[q].Name;
             }
-            return currentCosts;
+
+            if (enhancementsArray[q].Name == "Reinforced" || enhancementsArray[q].Name == "Reinforced (D10)"){
+            console.log("enhaAugList: Reinforced!");
+            enhaReinforced = true;
+            }
+            if (i < currentAugs.length - 1){
+                document.getElementById(currentListId).innerHTML += (", ");
+            }
         }
+        return currentCosts;
+    }
 
     function enhancementsAddDropDownList(){
         testAddDropDownList(enhancementsArray, "classenhancement", "#tblContainer", AugList = false);
@@ -1306,9 +1354,12 @@
         testAddDropDownList(utilAugsArray, "utilAugs", "#utilAugtblContainer", AugList = false);
     }
 
+    function ultAddDropDownList(){
+        $("#ultbtnAdd").prop("disabled", true);
+        addDropdownUlt(ultAugsArray, "ultAugs", "#ultAugtblContainer");
+    }
+
     function testAddDropDownList(enhaAugArray, selectAttr, htmlContainer, AugList) {
-        //Build an array containing Customer records.
-        
         //Create a DropDownList element.
         var ddlEnhancements = $("<select />");
         ddlEnhancements.attr("name", selectAttr);
@@ -1361,13 +1412,52 @@
         $(cell).append(btnRemove);
     };
 
+    function addDropdownUlt(enhaAugArray, selectAttr, htmlContainer){
+        //Create a DropDownList element.
+        var ddlEnhancements = $("<select />");
+        ddlEnhancements.attr("name", selectAttr);
+
+        //Add the Options to the DropDownList.
+        $(enhaAugArray).each(function () {
+            var option = $("<option />");
+
+            option.html(this.Name);
+            option.val(this.Id);
+            option.attr("data-name", this.namePlain);
+            ddlEnhancements.append(option);
+        });
+
+        var tblContainer = $(htmlContainer);
+        var row = tblContainer[0].insertRow(-1);
+        var cell = row.insertCell(-1);
+        $(cell).append(ddlEnhancements);
+
+        //Create a Remove Button.
+        var btnRemove = $("<input type = 'button' value = 'Remove'/>");
+        btnRemove.click(function () {
+            //Determine the reference of the Row using the Button.
+            var row = btnRemove.closest("TR");
+
+            // Re-enable add ULT button
+            $("#ultbtnAdd").prop("disabled", false);
+
+            //Delete the Table row.
+            row.remove();
+        });
+
+        //Add the Remove Buttton to Table Row.
+        cell = row.insertCell(-1);
+        $(cell).append(btnRemove);
+    }
+
     function exportJsonData(){
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(exportDataJson);
   
         const downloadAnchorNode = document.createElement('a');
         
         downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "EOS_unit_augments.json");
+        var eosUnitName = $("#eosUnitName").val().replaceAll(" ", "_");
+        downloadAnchorNode.setAttribute("download", "EOS_Unit-" + eosUnitName + ".json");
         
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
