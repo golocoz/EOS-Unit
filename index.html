@@ -1047,7 +1047,7 @@
         var ultAugs = document.getElementsByName("ultAugs");
         currentCosts = enhaAugList(ultAugsArray, 'currentUltAugs', ultAugs, currentCosts);
 
-        // Populate export data in JSON format
+        // Populate export data in JSON format (BETA)
         var currentSelectedAugsNames = $('[name=meleeAugs], [name=rangeAugs], [name=defAugs], [name=espAugs], [name=utilAugs]').find('option:selected').map(function() {
             return $(this).data('name'); 
         }).get();
