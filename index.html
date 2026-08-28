@@ -954,6 +954,7 @@
         } 
     }
 
+    let isValidConfig = true;
     // Update
     function update(){
         var diceSelected;
@@ -1084,7 +1085,7 @@
         document.getElementById("remainingCC").innerHTML = classLevel + wSpecCC + bonusCC - currentCosts.CC;
         document.getElementById("remainingUC").innerHTML = classLevel + wSpecUC + bonusUC - currentCosts.UC;
 
-        let isValidConfig = true;
+        isValidConfig = true;
         remainingCC = $("#remainingCC");
         remainingCC.removeClass();
 
@@ -1492,6 +1493,12 @@
     }
 
     function exportJsonData(){
+        update();
+        if (!isValidConfig){
+            alert("Make sure your build is valid and has a name!");
+            return;
+        }
+
         let eosUnit = new EosUnit();
         eosUnit.eosUnitName = $("#eosUnitName").val();
         eosUnit.classLevel = parseInt($("#classLevel").val());
@@ -1616,8 +1623,7 @@
         // Convert JS object to JSON
         const jsonString = JSON.stringify(eosUnit, null, 2);
         // console.log(eosUnit);
-        // console.log(jsonString); 
-        update();
+        // console.log(jsonString);
 
         // Download file
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonString);
