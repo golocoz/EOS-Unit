@@ -41,7 +41,7 @@
         <tbody>
             <tr>
                 
-                <td><input data-name="Light" type="checkbox" class="dice handlingType" name="hd" id="hd1" value=-2 onclick="handlingPropertyCheck()"></td>                    
+                <td><input data-name="Light" type="checkbox" class="dice handlingType" name="handlingType" id="hd1" value=-2 onclick="handlingPropertyCheck()"></td>                    
                 <label for="hd1"></label>    
                     <td>Light</td>
                     <td>-D2</td>
@@ -49,25 +49,25 @@
                 </label>
             </tr>
             <tr>
-                <td><input data-name="One-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="One-Handed" type="checkbox" class="dice handlingType" name="handlingType" id="hd2" value=0 onclick="handlingPropertyCheck()"></td>
                 <td>One-Handed</td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td><input data-name="Versatile" type="checkbox" class="dice handlingType" name="hd" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Versatile" type="checkbox" class="dice handlingType" name="handlingType" id="hd3" value=0 onclick="handlingPropertyCheck()"></td>
                 <td>Versatile</td>
                 <td></td>
                 <td>Increases die size by +d2 when used with two hands</td>
             </tr>
             <tr>
-                <td><input data-name="Two-Handed" type="checkbox" class="dice handlingType" name="hd" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Two-Handed" type="checkbox" class="dice handlingType" name="handlingType" id="hd4" value=2 onclick="handlingPropertyCheck()"></td>
                 <td>Two-Handed</td>
                 <td>+D2</td>
                 <td></td>
             </tr>
             <tr>
-                <td><input data-name="Shield" type="checkbox" class="dice handlingType" name="hd" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Shield" type="checkbox" class="dice handlingType" name="handlingType" id="hd5" value=-4 onclick="handlingPropertyCheck()"></td>
                 <td>Shield</td>
                 <td>-D4</td>
                 <td>+2 AC when donned as an Action (cannot be used as a weapon while donned)</td>
@@ -87,25 +87,25 @@
         </thead>
         <tbody>
             <tr>
-                <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" value=-2 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Reach" type="checkbox" id="pt1" class="dice propertyType" name="propertyType" value=-2 onclick="handlingPropertyCheck()"></td>
                 <td>Reach</td>
                 <td>-D2</td>
                 <td></td>
             </tr>
             <tr>
-                <td><input data-name="Finesse" type="checkbox" name="heavyFinesse" class="dice propertyType" id="pt2" value=-2 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Finesse" type="checkbox" class="dice propertyType" name="propertyType" id="pt2" value=-2 onclick="handlingPropertyCheck()"></td>
                 <td>Finesse</td>
                 <td>-D2</td>
                 <td>No damage mod if Light</td>
             </tr>
             <tr>
-                <td><input data-name="Thrown" data-range="(20/60)" type="checkbox" id="pt3" class="dice propertyType" value=0 onclick="handlingPropertyCheck()"></td>
+                <td><input data-name="Thrown" data-range="(20/60)" type="checkbox" id="pt3" class="dice propertyType" name="propertyType" value=0 onclick="handlingPropertyCheck()"></td>
                 <td>Thrown</td>
                 <td>-D2 if Heavy</td>
                 <td>Range (20/60)</td>
             </tr>
             <tr>
-                <td><input data-name="Heavy" type="checkbox" name="heavyFinesse" id="pt4" class="dice propertyType" value=+2 onclick="handlingPropertyCheck()" disabled></td>
+                <td><input data-name="Heavy" type="checkbox" id="pt4" class="dice propertyType" name="propertyType" value=+2 onclick="handlingPropertyCheck()" disabled></td>
                 <td>Heavy</td>
                 <td>+D2</td>
                 <td>Requires Two-Handed</td>
@@ -625,10 +625,14 @@
 
     <h3>
         Summary sheet&emsp;
-        <span><input type="button" value="Update" id="testbutton"></span>
-        <span title="BETA FEATURE: Make sure your build is valid and has a name!" tabindex="0" style="display: inline-block;">
+        <span><input type="button" value="Update" id="updateButton" onclick="update()"></span>
+        <span title="Make sure your build is valid and has a name!" tabindex="0" style="display: inline-block;">
             <input type="button" value="Export" id="exportButton" onclick="exportJsonData()" disabled>
         </span>
+        <span title="Import your EOS Unit!" tabindex="0" style="display: inline-block;">
+            <button id="importButton">Import</button>
+        </span>
+        <input type="file" id="inputFile" accept=".json" style="display: none;" />
     </h3>
     <h2>EOS Unit: <span id="currentEosUnitName"></span></h2>
 
@@ -738,7 +742,7 @@
         
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
-    let exportDataJson;
+    // let exportDataJson;
     
     let DiceSizeBase = 8;
     let DiceSize;
@@ -893,19 +897,19 @@
 
         var wTypes = document.getElementsByClassName("dice");
 
-        console.log(wTypes);
+        // console.log(wTypes);
 
         if (!twoHandTick){
-            console.log("not two handed!")
+            // console.log("not two handed!")
             document.getElementById("pt4").checked = false;
         }
         
         for (i=0; i < wTypes.length; i++){
             if (wTypes[i].id != "pt4"){
-                console.log("not heavy enabled!");
+                // console.log("not heavy enabled!");
                 wTypes[i].disabled = false;
             } else if (wTypes[i].id == "pt4"){
-                console.log("heavy disabled!");
+                // console.log("heavy disabled!");
                 wTypes[i].disabled = true;
             }
         }
@@ -950,8 +954,8 @@
         } 
     }
 
-    // Update button
-    document.getElementById("testbutton").addEventListener("click", function(){
+    // Update
+    function update(){
         var diceSelected;
         var diceSize = 8;
 
@@ -1000,8 +1004,8 @@
         // List flaw
         var wFlaw = document.getElementById("flawChoice").value;
         var namesFlaw = document.getElementById("flawChoice");
-        console.log(namesFlaw[0].selected);
-        console.log(wFlaw);
+        // console.log(namesFlaw[0].selected);
+        // console.log(wFlaw);
 
         for (i=0; i < flawNames.length; i++){
             if (namesFlaw[i].selected){
@@ -1012,13 +1016,13 @@
         for(x=0; x < costFlaw.length; x++){
             switch(costFlaw[x].value){
                 case "CC":
-                    console.log(costFlaw[x].value);
-                    console.log(wFlaw);
+                    // console.log(costFlaw[x].value);
+                    // console.log(wFlaw);
                     currentCosts.CC += parseInt(wFlaw);
                     break;
                 case "UC":
-                    console.log(costFlaw[x].value);
-                    console.log(wFlaw);
+                    // console.log(costFlaw[x].value);
+                    // console.log(wFlaw);
                     currentCosts.UC += parseInt(wFlaw);
                     break;
             }
@@ -1048,10 +1052,10 @@
         currentCosts = enhaAugList(ultAugsArray, 'currentUltAugs', ultAugs, currentCosts);
 
         // Populate export data in JSON format (BETA)
-        var currentSelectedAugsNames = $('[name=meleeAugs], [name=rangeAugs], [name=defAugs], [name=espAugs], [name=utilAugs]').find('option:selected').map(function() {
-            return $(this).data('name'); 
-        }).get();
-        exportDataJson = JSON.stringify(currentSelectedAugsNames);
+        // var currentSelectedAugsNames = $('[name=meleeAugs], [name=rangeAugs], [name=defAugs], [name=espAugs], [name=utilAugs]').find('option:selected').map(function() {
+        //     return $(this).data('name'); 
+        // }).get();
+        // exportDataJson = JSON.stringify(currentSelectedAugsNames);
 
         var augCost = document.getElementsByName("cCostSelect");
         var costSelect = [
@@ -1085,7 +1089,7 @@
         remainingCC.removeClass();
 
         if (classLevel + wSpecCC + bonusCC - currentCosts.CC < 0){
-            console.log("negative!")
+            // console.log("negative!")
             remainingCC.addClass("error");
             isValidConfig = false;
         }
@@ -1094,26 +1098,20 @@
         remainingUC.removeClass();
 
         if (classLevel + wSpecUC + bonusUC - currentCosts.UC < 0){
-            console.log("negative!")
+            // console.log("negative!")
             remainingUC.addClass("error");
             isValidConfig = false;
         }
 
-        if (isValidConfig && $("#eosUnitName").val().trim().length != 0){
-            $("#exportButton").prop("disabled", false);
-        } else {
-            $("#exportButton").prop("disabled", true);
-        }
-
         // Calculate dice size
-        console.log(diceSelected);
-        console.log(diceSelected[0].value);
+        // console.log(diceSelected);
+        // console.log(diceSelected[0].value);
         var hdLight =  false;
         var propHeavy = false, propThrown = false, propFinesse = false;
 
         for (i=0; i < diceSelected.length; i++){
             if (diceSelected[i].checked){
-                console.log(diceSelected[i])
+                // console.log(diceSelected[i])
                 diceSize += parseInt(diceSelected[i].value);
 
                 switch (diceSelected[i].id){
@@ -1138,7 +1136,7 @@
         }
 
         if (enhaReinforced){
-            console.log("Reinforced!");
+            // console.log("Reinforced!");
             diceSize += 2;
         }
 
@@ -1276,6 +1274,9 @@
                     }
                 }
 
+                // Build invalid
+                isValidConfig = false;
+
                 //Put red text
                 enhancementDiv.addClass("error");
                 enhancementDiv.append(" (Requires ");
@@ -1301,14 +1302,16 @@
             };
         }
 
-        
-
-        
-    });
+        if (isValidConfig && $("#eosUnitName").val().trim().length != 0){
+            $("#exportButton").prop("disabled", false);
+        } else {
+            $("#exportButton").prop("disabled", true);
+        }
+    };
 
     function enhaAugList(enhaAugArray, currentListId, currentAugs, currentCosts){
         for (i=0, document.getElementById(currentListId).innerHTML = ""; i<currentAugs.length; i++){
-            console.log("enhaAugList: cost: " + enhaAugArray[0].cCost)
+            // console.log("enhaAugList: cost: " + enhaAugArray[0].cCost)
             q = currentAugs[i].value;
             currentCosts.CC += enhaAugArray[q].cCost;
             currentCosts.UC += enhaAugArray[q].uCost;
@@ -1320,7 +1323,7 @@
             }
 
             if (enhancementsArray[q].Name == "Reinforced" || enhancementsArray[q].Name == "Reinforced (D10)"){
-            console.log("enhaAugList: Reinforced!");
+            // console.log("enhaAugList: Reinforced!");
             enhaReinforced = true;
             }
             if (i < currentAugs.length - 1){
@@ -1331,27 +1334,27 @@
     }
 
     function enhancementsAddDropDownList(){
-        testAddDropDownList(enhancementsArray, "classenhancement", "#tblContainer", AugList = false);
+        return testAddDropDownList(enhancementsArray, "classenhancement", "#tblContainer", AugList = false);
     }
 
     function meleeAddDropDownList(){
-        testAddDropDownList(meleeAugsArray, "meleeAugs", "#meleeAugtblContainer", AugList = true);
+        return testAddDropDownList(meleeAugsArray, "meleeAugs", "#meleeAugtblContainer", AugList = true);
     }
 
     function rangeAddDropDownList(){
-        testAddDropDownList(rangeAugsArray, "rangeAugs", "#rangeAugtblContainer", AugList = true);
+        return testAddDropDownList(rangeAugsArray, "rangeAugs", "#rangeAugtblContainer", AugList = true);
     }
 
     function defAddDropDownList(){
-        testAddDropDownList(defAugsArray, "defAugs", "#defAugtblContainer", AugList = true);
+        return testAddDropDownList(defAugsArray, "defAugs", "#defAugtblContainer", AugList = true);
     }
 
     function espAddDropDownList(){
-        testAddDropDownList(espAugsArray, "espAugs", "#espAugtblContainer", AugList = true);
+        return testAddDropDownList(espAugsArray, "espAugs", "#espAugtblContainer", AugList = true);
     }
 
     function utilAddDropDownList(){
-        testAddDropDownList(utilAugsArray, "utilAugs", "#utilAugtblContainer", AugList = false);
+        return testAddDropDownList(utilAugsArray, "utilAugs", "#utilAugtblContainer", AugList = false);
     }
 
     function ultAddDropDownList(){
@@ -1410,6 +1413,9 @@
         //Add the Remove Buttton to Table Row.
         cell = row.insertCell(-1);
         $(cell).append(btnRemove);
+
+        // Return select element
+        return ddlEnhancements;
     };
 
     function addDropdownUlt(enhaAugArray, selectAttr, htmlContainer){
@@ -1450,9 +1456,170 @@
         $(cell).append(btnRemove);
     }
 
-    function exportJsonData(){
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(exportDataJson);
+    // function exportJsonData(){
+    //     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(exportDataJson);
   
+    //     const downloadAnchorNode = document.createElement('a');
+        
+    //     downloadAnchorNode.setAttribute("href", dataStr);
+    //     var eosUnitName = $("#eosUnitName").val().replaceAll(" ", "_");
+    //     downloadAnchorNode.setAttribute("download", "EOS_Unit-" + eosUnitName + ".json");
+        
+    //     document.body.appendChild(downloadAnchorNode);
+    //     downloadAnchorNode.click();
+    //     downloadAnchorNode.remove();
+    // }
+
+    // Export
+    class EosUnit {
+        eosUnitName = "";
+        classLevel = 0;
+        bonusCC = 0;
+        bonusUC = 0;
+        handlingTypes = [];
+        propertyTypes = [];
+        weaponSpec = null;
+        enhancements = [];
+        flaw = null;
+        meleeAugs = [];
+        rangedAugs = [];
+        defensiveAugs = [];
+        espAugs = [];
+        utilityAugs = [];
+        extraCosts = [];
+        ult = "";
+        damageType = "";
+    }
+
+    function exportJsonData(){
+        let eosUnit = new EosUnit();
+        eosUnit.eosUnitName = $("#eosUnitName").val();
+        eosUnit.classLevel = parseInt($("#classLevel").val());
+        eosUnit.bonusCC = parseInt($("#bonusCC").val());
+        eosUnit.bonusUC = parseInt($("#bonusUC").val());
+        
+        // Handling Types
+        const handlingTypeCheckboxes = document.querySelectorAll('input[name="handlingType"]:checked');
+        handlingTypeCheckboxes.forEach((checkbox, index) => {
+            let handlingType = {
+                id: checkbox.id,
+                name: checkbox.dataset.name
+            };
+            eosUnit.handlingTypes.push(handlingType);
+        });
+
+        // Property Types
+        const propertyTypeCheckboxes = document.querySelectorAll('input[name="propertyType"]:checked');
+        propertyTypeCheckboxes.forEach((checkbox, index) => {
+            let propertyType = {
+                id: checkbox.id,
+                name: checkbox.dataset.name
+            };
+            eosUnit.propertyTypes.push(propertyType);
+        });
+
+        // Weapon Spec
+        const weaponSpecRadio = document.querySelector('input[name="wsf"]:checked');
+        if (weaponSpecRadio){
+            let weaponSpec = {
+                id: weaponSpecRadio.id,
+                name: weaponSpecRadio.dataset.name
+            }
+            eosUnit.weaponSpec = weaponSpec;
+        }
+
+        // Enhancements
+        const enhancementSelects = document.querySelectorAll('select[name="classenhancement"]');
+        enhancementSelects.forEach((select, index) => {
+            let enhancement = {
+                index: select.selectedIndex,
+                name: select.options[select.selectedIndex].innerHTML
+            };
+            eosUnit.enhancements.push(enhancement);
+        });
+
+        // Flaw
+        const flawChoiceSelects = document.querySelector('select[id="flawChoice"]');
+        const flawCostSelect = document.querySelector('select[id="flawselect"]');
+        let flaw = {
+            index: flawChoiceSelects.selectedIndex,
+            name: flawChoiceSelects.options[flawChoiceSelects.selectedIndex].innerHTML,
+            costType: flawCostSelect.selectedIndex
+        };
+        eosUnit.flaw = flaw;
+
+        // Melee Augments
+        const meleeAugSelects = document.querySelectorAll('select[name="meleeAugs"]');
+        meleeAugSelects.forEach((select, index) => {
+            let meleeAug = {
+                index: select.selectedIndex,
+                namePlain: select.options[select.selectedIndex].dataset.name
+            };
+            eosUnit.meleeAugs.push(meleeAug);
+        });
+
+        // Ranged Augments
+        const rangedAugSelects = document.querySelectorAll('select[name="rangeAugs"]');
+        rangedAugSelects.forEach((select, index) => {
+            let rangedAug = {
+                index: select.selectedIndex,
+                namePlain: select.options[select.selectedIndex].dataset.name
+            };
+            eosUnit.rangedAugs.push(rangedAug);
+        });
+
+        // Defensive Augments
+        const defensiveAugSelects = document.querySelectorAll('select[name="defAugs"]');
+        defensiveAugSelects.forEach((select, index) => {
+            let defensiveAug = {
+                index: select.selectedIndex,
+                namePlain: select.options[select.selectedIndex].dataset.name
+            };
+            eosUnit.defensiveAugs.push(defensiveAug);
+        });
+
+        // ESP Augments
+        const espAugSelects = document.querySelectorAll('select[name="espAugs"]');
+        espAugSelects.forEach((select, index) => {
+            let espAug = {
+                index: select.selectedIndex,
+                namePlain: select.options[select.selectedIndex].dataset.name
+            };
+            eosUnit.espAugs.push(espAug);
+        });
+
+        // Utility Augments
+        const utilityAugSelects = document.querySelectorAll('select[name="utilAugs"]');
+        utilityAugSelects.forEach((select, index) => {
+            let utilityAug = {
+                index: select.selectedIndex,
+                namePlain: select.options[select.selectedIndex].dataset.name
+            };
+            eosUnit.utilityAugs.push(utilityAug);
+        });
+
+        // ULT
+        const ultAugSelects = document.querySelectorAll('select[name="ultAugs"]');
+        ultAugSelects.forEach((select, index) => {
+            eosUnit.ult = "active";
+        });
+
+        // Extra costs for augments
+        const extraCostSelects = document.querySelectorAll('select[name="cCostSelect"]');
+        extraCostSelects.forEach((select) => {
+            eosUnit.extraCosts.push(select.selectedIndex);
+        });
+
+        // Damage type
+        eosUnit.damageType = $("#dmgType").val();
+
+        // Convert JS object to JSON
+        const jsonString = JSON.stringify(eosUnit, null, 2);
+        // console.log(eosUnit);
+        // console.log(jsonString); 
+
+        // Download file
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonString);
         const downloadAnchorNode = document.createElement('a');
         
         downloadAnchorNode.setAttribute("href", dataStr);
@@ -1462,6 +1629,121 @@
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
+    }
+
+    // Import
+    const importButton = document.getElementById("importButton");
+    const inputFile = document.getElementById("inputFile");
+    importButton.addEventListener('click', () => {
+        inputFile.click();
+    });
+    inputFile.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const eosUnit = JSON.parse(e.target.result);
+                // var jsonDataText = JSON.stringify(jsonData, null, 2);
+                importJsonData(eosUnit);
+            } catch (err) {
+                alert('Import failed');
+                console.log(err);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    function importJsonData(eosUnit){
+        $("#eosUnitName").val(eosUnit.eosUnitName);
+        $("#classLevel").val(eosUnit.classLevel);
+        $("#bonusCC").val(eosUnit.bonusCC);
+        $("#bonusUC").val(eosUnit.bonusUC);
+
+        // Handling Types
+        const handlingTypeCheckboxes = document.querySelectorAll('input[name="handlingType"]:checked');
+        handlingTypeCheckboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+        eosUnit.handlingTypes.forEach((handlingType) => {
+            document.querySelector('#' + handlingType.id).checked = true;
+        });
+
+        // Property Types
+        const propertyTypeCheckboxes = document.querySelectorAll('input[name="propertyType"]:checked');
+        propertyTypeCheckboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+        eosUnit.propertyTypes.forEach((propertyType) => {
+            document.querySelector('#' + propertyType.id).checked = true;
+        });
+        handlingPropertyCheck();
+
+        // Weapon Spec
+        document.querySelector('#' + eosUnit.weaponSpec.id).checked = true;
+
+        // Enhancements
+        document.querySelector('#tblContainer').innerHTML = "";
+        eosUnit.enhancements.forEach((enhancement) => {
+            let select = enhancementsAddDropDownList();
+            select.prop('selectedIndex', enhancement.index);
+        });
+
+        // Flaw
+        document.querySelector('#flawChoice').selectedIndex = eosUnit.flaw.index;
+        document.querySelector('#flawselect').selectedIndex = eosUnit.flaw.costType;
+
+        // Melee Augments
+        document.querySelector('#meleeAugtblContainer').innerHTML = "";
+        eosUnit.meleeAugs.forEach((augment) => {
+            let select = meleeAddDropDownList();
+            select.prop('selectedIndex', augment.index);
+        });
+
+        // Ranged Augments
+        document.querySelector('#rangeAugtblContainer').innerHTML = "";
+        eosUnit.rangedAugs.forEach((augment) => {
+            let select = rangeAddDropDownList();
+            select.prop('selectedIndex', augment.index);
+        });
+
+        // Defensive Augments
+        document.querySelector('#defAugtblContainer').innerHTML = "";
+        eosUnit.defensiveAugs.forEach((augment) => {
+            let select = defAddDropDownList();
+            select.prop('selectedIndex', augment.index);
+        });
+
+        // ESP Augments
+        document.querySelector('#espAugtblContainer').innerHTML = "";
+        eosUnit.espAugs.forEach((augment) => {
+            let select = espAddDropDownList();
+            select.prop('selectedIndex', augment.index);
+        });
+
+        // Utility Augments
+        document.querySelector('#utilAugtblContainer').innerHTML = "";
+        eosUnit.utilityAugs.forEach((augment) => {
+            let select = utilAddDropDownList();
+            select.prop('selectedIndex', augment.index);
+        });
+
+        // ULT 
+        document.querySelector('#ultAugtblContainer').innerHTML = "";
+        if (eosUnit.ult === "active"){
+            ultAddDropDownList();
+        }
+
+        // Extra costs
+        const extraCostSelects = document.querySelectorAll('select[name="cCostSelect"]');
+        extraCostSelects.forEach((select, index) => {
+            select.selectedIndex = eosUnit.extraCosts[index];
+        });
+        update();
+
+        // Damage type
+        $("#dmgType").val(eosUnit.damageType);
     }
 </script>
 </html>
